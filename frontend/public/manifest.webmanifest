@@ -1,0 +1,51 @@
+{
+  "name": "CDI - Sistema Integral de Salud",
+  "short_name": "CDI Salud",
+  "description": "Sistema Clínico Hospitalario Integral para Centros de Diagnóstico Integral (CDI)",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Triaje Urgencias",
+      "url": "/#triaje",
+      "description": "Acceso directo a Triaje y Signos Vitales NEWS2"
+    },
+    {
+      "name": "Pacientes",
+      "url": "/#pacientes",
+      "description": "Directorio de historias médicas de pacientes"
+    },
+    {
+      "name": "Farmacia",
+      "url": "/#farmacia",
+      "description": "Control de inventario y despachos de medicamentos"
+    },
+    {
+      "name": "Citas",
+      "url": "/#citas",
+      "description": "Agenda y programación de consultas médicas"
+    }
+  ]
+}

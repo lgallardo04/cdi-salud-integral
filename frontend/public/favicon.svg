@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="cdiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0f172a" />
+  <circle cx="256" cy="256" r="180" fill="url(#cdiGrad)" opacity="0.15" />
+  <!-- Medical Cross with Pulse -->
+  <path d="M216 112h80v104h104v80H296v104h-80V296H112v-80h104V112z" fill="url(#cdiGrad)" />
+  <!-- Heartbeat ECG line inside -->
+  <path d="M140 256h60l20-40 28 80 24-56 16 24 20-8h64" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
