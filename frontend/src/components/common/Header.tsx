@@ -47,7 +47,9 @@ const moduleTitles: Record<ModuloNombre, { title: string; subtitle: string; icon
   facturacion: { title: 'Baremos y Facturación', subtitle: 'Tarifario de servicios, conversión USD/Bs y exoneraciones' },
   epidemiologia: { title: 'Epidemiología (EPI-12)', subtitle: 'Vigilancia epidemiológica, canales endémicos y brotes' },
   auditoria: { title: 'Auditoría HIPAA y Trazabilidad', subtitle: 'Registro inmutable de seguridad y accesos a historias' },
-  portal_paciente: { title: 'Portal del Paciente / Kiosko', subtitle: 'Autogestión de citas, recetas, exámenes y QR' }
+  portal_paciente: { title: 'Portal del Paciente / Kiosko', subtitle: 'Autogestión de citas, recetas, exámenes y QR' },
+  nutricion: { title: 'Nutrición y Dietética INN', subtitle: 'Evaluación antropométrica IMC, planes alimentarios y suplementos' },
+  oftalmologia: { title: 'Oftalmología y Misión Milagro', subtitle: 'Consulta agudeza visual Snellen, PIO, censo quirúrgico y colirios' }
 };
 
 export const Header: React.FC<HeaderProps> = ({

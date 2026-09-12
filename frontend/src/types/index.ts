@@ -23,7 +23,9 @@ export type ModuloNombre =
   | 'usuarios'
   | 'roles'
   | 'auditoria'
-  | 'portal_paciente';
+  | 'portal_paciente'
+  | 'nutricion'
+  | 'oftalmologia';
 
 export type RolTipo =
   | 'Administrador'
@@ -33,6 +35,8 @@ export type RolTipo =
   | 'Bioanalista'
   | 'Radiólogo/a'
   | 'Odontólogo/a'
+  | 'Nutricionista'
+  | 'Oftalmólogo/a'
   | 'Recepcionista'
   | 'Auditor'
   | 'Paciente';
@@ -611,6 +615,54 @@ export interface CasoEpidemiologico {
   medidasTomadas?: string;
 }
 
+// 10. Nutrición & Dietética INN
+export interface EvaluacionNutricional {
+  id: string;
+  pacienteId: string;
+  pacienteNombre?: string;
+  pacienteCedula?: string;
+  fecha: string;
+  pesoKg: number;
+  tallaCm: number;
+  imc: number;
+  circunferenciaBrazoCm?: number;
+  circunferenciaCinturaCm?: number;
+  clasificacion: string;
+  recomendacion?: string;
+  evaluador?: string;
+}
+
+// 11. Oftalmología & Misión Milagro
+export interface ConsultaOftalmica {
+  id: string;
+  pacienteId: string;
+  pacienteNombre?: string;
+  pacienteCedula?: string;
+  fecha: string;
+  medicoTratante?: string;
+  avOD?: string;
+  avOS?: string;
+  pioOD: number;
+  pioOS: number;
+  biomicroscopia?: string;
+  fondoOjo?: string;
+  diagnostico: string;
+  planTratamiento?: string;
+}
+
+export interface CandidatoMisionMilagro {
+  id: string;
+  pacienteId: string;
+  pacienteNombre?: string;
+  pacienteCedula?: string;
+  ojo: string;
+  patologia: string;
+  poderLIO?: string;
+  checklistLaboratorio: string;
+  checklistCardio: string;
+  estado: string;
+  fechaJornada?: string;
+}
 
 // -------------------------------------------------------------
 // ESTADO GLOBAL DE DATOS CDI
@@ -642,6 +694,9 @@ export interface CDIDataState {
   facturas: FacturaHospitalaria[];
   registrosAuditoria: RegistroAuditoria[];
   casosEpidemiologicos: CasoEpidemiologico[];
+  evaluacionesNutricionales: EvaluacionNutricional[];
+  consultasOftalmicas: ConsultaOftalmica[];
+  candidatosMisionMilagro: CandidatoMisionMilagro[];
 }
 
 export interface KPIStats {

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Módulo de Oftalmología y Salud Ocular para Centros de Diagnóstico Integral (CDI) en Venezuela. Gestión de pacientes, consulta clínica OD/OS, captación Misión Milagro, recetario y estadísticas MPPS.">
+  <meta name="author" content="Sistema Público Nacional de Salud - CDI Oftalmología">
+  <title>Módulo de Oftalmología | Centro de Diagnóstico Integral (CDI) - MPPS / Misión Milagro</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Estilos del Sistema -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Franja Institucional Superior Venezolana (MPPS / Misión Barrio Adentro)
+       ========================================================================= -->
+  <header class="institutional-banner" role="banner">
+    <div class="banner-content">
+      <div class="gov-logos">
+        <div class="gov-badge">
+          <span class="flag-pill" title="Bandera de Venezuela"></span>
+          <span>REPÚBLICA BOLIVARIANA DE VENEZUELA</span>
+        </div>
+        <span style="opacity: 0.4;">|</span>
+        <div class="gov-badge" style="color: #93c5fd;">
+          <span>MPPS • SISTEMA PÚBLICO NACIONAL DE SALUD</span>
+        </div>
+        <span class="mision-tag">☀️ MISIÓN MILAGRO</span>
+      </div>
+      <div class="cdi-current-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <span id="banner-cdi-name">Cargando CDI...</span>
+        <span style="opacity: 0.5;">-</span>
+        <span id="banner-asic-name" style="color: var(--text-secondary); font-size: 0.75rem;">ASIC</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       Cabecera Principal y Navegación
+       ========================================================================= -->
+  <div class="main-header">
+    <div class="header-container">
+      <div class="app-branding">
+        <div class="logo-eye-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+            <line x1="12" y1="2" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22"></line>
+            <line x1="2" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22" y2="12"></line>
+          </svg>
+        </div>
+        <div class="branding-text">
+          <h1>Módulo de Oftalmología CDI</h1>
+          <p id="consult-doctor-name">Consulta Especializada & Cirugía Ocular Comunitaria</p>
+        </div>
+      </div>
+
+      <!-- Pestañas de Navegación -->
+      <nav class="nav-tabs" aria-label="Navegación del Módulo">
+        <button type="button" class="nav-tab-btn active" data-tab="nueva-consulta" id="tab-btn-nueva-consulta">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+          Nueva Consulta
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="pacientes" id="tab-btn-pacientes">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          Pacientes <span class="badge-count" id="badge-total-patients">0</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="mision-milagro" id="tab-btn-mision-milagro">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+          Misión Milagro <span class="badge-count badge-milagro-count" id="badge-milagro-candidates">0</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="estadisticas" id="tab-btn-estadisticas">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          Morbilidad MPPS
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="configuracion" id="tab-btn-configuracion">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Ajustes CDI
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Alternador de Tema -->
+        <button type="button" class="theme-toggle-btn" id="btn-toggle-theme" title="Alternar Modo Oscuro / Claro" aria-label="Alternar Modo Oscuro / Claro">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="12" x2="12" y2="12"></line></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       Contenedor Principal de la Aplicación
+       ========================================================================= -->
+  <main class="main-wrapper" id="main-content">
+
+    <!-- =====================================================================
+         PESTAÑA 1: NUEVA CONSULTA OFTALMOLÓGICA
+         ===================================================================== -->
+    <section class="tab-view active" id="tab-nueva-consulta" aria-labelledby="tab-btn-nueva-consulta">
+      
+      <!-- 1. Identificación del Paciente -->
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            1. Identificación y Antecedentes del Paciente
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-patient" title="Limpiar formulario">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path></svg>
+              Limpiar
+            </button>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- Cédula con Buscador -->
+          <div class="col-4 form-group">
+            <label class="form-label" for="patient-cedula">
+              <span>Cédula de Identidad *</span>
+              <span style="font-size:0.75rem; color:var(--accent-cyan);">Presione Buscar o Enter</span>
+            </label>
+            <div class="cedula-input-group">
+              <select class="form-control" id="patient-tipo-doc" style="max-width: 65px;" aria-label="Tipo de documento">
+                <option value="V">V-</option>
+                <option value="E">E-</option>
+              </select>
+              <input type="text" class="form-control" id="patient-cedula" placeholder="Ej. 12345678" autocomplete="off" required>
+              <button type="button" class="btn-search-cedula" id="btn-search-patient" title="Buscar en historial del CDI">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Buscar
+              </button>
+            </div>
+            <div id="patient-search-feedback"></div>
+          </div>
+
+          <!-- Nombres y Apellidos -->
+          <div class="col-4 form-group">
+            <label class="form-label" for="patient-nombres">Nombres *</label>
+            <input type="text" class="form-control" id="patient-nombres" placeholder="Nombres del paciente" required>
+          </div>
+          <div class="col-4 form-group">
+            <label class="form-label" for="patient-apellidos">Apellidos *</label>
+            <input type="text" class="form-control" id="patient-apellidos" placeholder="Apellidos del paciente" required>
+          </div>
+
+          <!-- Edad, Sexo, Teléfono -->
+          <div class="col-2 form-group">
+            <label class="form-label" for="patient-edad">Edad *</label>
+            <input type="number" class="form-control" id="patient-edad" placeholder="Años" min="0" max="120">
+          </div>
+          <div class="col-2 form-group">
+            <label class="form-label" for="patient-sexo">Sexo</label>
+            <select class="form-control" id="patient-sexo">
+              <option value="F">Femenino (F)</option>
+              <option value="M">Masculino (M)</option>
+            </select>
+          </div>
+          <div class="col-4 form-group">
+            <label class="form-label" for="patient-telefono">Teléfono de Contacto</label>
+            <input type="tel" class="form-control" id="patient-telefono" placeholder="Ej. 0412-1234567">
+          </div>
+          <div class="col-4 form-group">
+            <label class="form-label" for="patient-ocupacion">Ocupación / Oficio</label>
+            <input type="text" class="form-control" id="patient-ocupacion" placeholder="Ej. Costurera, Albañil, Estudiante">
+          </div>
+
+          <!-- Comunidad / Consejo Comunal -->
+          <div class="col-6 form-group">
+            <label class="form-label" for="patient-comunidad">Comunidad / Sector / Consejo Comunal</label>
+            <input type="text" class="form-control" id="patient-comunidad" placeholder="Ej. Sector Santa Cruz, Consejo Comunal El Progreso">
+          </div>
+
+          <!-- Antecedentes Sistémicos y Alergias -->
+          <div class="col-3 form-group">
+            <label class="form-label" for="patient-antecedentes">Antecedentes Médicos</label>
+            <input type="text" class="form-control" id="patient-antecedentes" placeholder="Ej. DM2, HTA, Glaucoma fam.">
+          </div>
+          <div class="col-3 form-group">
+            <label class="form-label" for="patient-alergias">Alergias Conocidas</label>
+            <input type="text" class="form-control" id="patient-alergias" placeholder="Ej. Penicilina, Sulfa, Ninguna">
+          </div>
+        </div>
+
+        <div id="patient-previous-consults"></div>
+      </div>
+
+      <!-- 2. Motivo de Consulta y Enfermedad Actual -->
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            2. Anamnesis: Motivo de Consulta y Enfermedad Actual
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="col-6 form-group">
+            <label class="form-label" for="consult-motivo">Motivo de Consulta *</label>
+            <input type="text" class="form-control" id="consult-motivo" placeholder="Ej. Disminución de agudeza visual en ojo derecho, carnosidad, ardor, etc." required>
+          </div>
+          <div class="col-6 form-group">
+            <label class="form-label" for="consult-enfermedad-actual">Enfermedad Actual</label>
+            <textarea class="form-control" id="consult-enfermedad-actual" placeholder="Detalles de evolución cronológica, síntomas acompañantes y tratamientos previos..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Examen Físico Oftalmológico (OD / OS) -->
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            3. Examen Clínico Especializado (Ojo Derecho [OD] vs Ojo Izquierdo [OS])
+          </div>
+          <div>
+            <button type="button" class="btn btn-outline-print btn-sm" id="btn-open-snellen" title="Mostrar Cartilla Snellen digital en pantalla">
+              👁️ Abrir Cartilla Snellen
+            </button>
+          </div>
+        </div>
+
+        <div class="eyes-comparison-grid">
+          
+          <!-- COLUMNA OJO DERECHO (OD) -->
+          <div class="eye-card od-theme">
+            <div class="eye-card-header">
+              <div class="eye-tag">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m10 15 5-3-5-3v6Z"></path></svg>
+                OJO DERECHO (OD)
+              </div>
+              <span style="font-size:0.75rem; color:var(--od-color); font-weight:700;">Oculus Dexter</span>
+            </div>
+
+            <!-- Agudeza Visual OD -->
+            <label class="form-label" style="margin-bottom:6px;">Agudeza Visual (Snellen / Cerca)</label>
+            <table class="mini-exam-table">
+              <thead>
+                <tr>
+                  <th>SC (Sin Corr.)</th>
+                  <th>CC (Con Corr.)</th>
+                  <th>PH (Estenop.)</th>
+                  <th>Cerca (Jaeger)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <select class="form-control" id="av-od-sc">
+                      <option value="20/20">20/20</option>
+                      <option value="20/25">20/25</option>
+                      <option value="20/30">20/30</option>
+                      <option value="20/40">20/40</option>
+                      <option value="20/50">20/50</option>
+                      <option value="20/70">20/70</option>
+                      <option value="20/100">20/100</option>
+                      <option value="20/200" selected>20/200</option>
+                      <option value="20/400">20/400</option>
+                      <option value="CD">Cuenta Dedos</option>
+                      <option value="MM">Mov. Manos</option>
+                      <option value="PL">Percep. Luz</option>
+                      <option value="NPL">No Percep. Luz</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" id="av-od-cc">
+                      <option value="20/20">20/20</option>
+                      <option value="20/25">20/25</option>
+                      <option value="20/30">20/30</option>
+                      <option value="20/40">20/40</option>
+                      <option value="20/50">20/50</option>
+                      <option value="20/70">20/70</option>
+                      <option value="20/100" selected>20/100</option>
+                      <option value="20/200">20/200</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" id="av-od-ph">
+                      <option value="20/20">20/20</option>
+                      <option value="20/25">20/25</option>
+                      <option value="20/30">20/30</option>
+                      <option value="20/40">20/40</option>
+                      <option value="20/50">20/50</option>
+                      <option value="20/70">20/70</option>
+                      <option value="20/80" selected>20/80</option>
+                      <option value="No mejora">No mejora</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" id="av-od-cerca">
+                      <option value="J1">J1</option>
+                      <option value="J2">J2</option>
+                      <option value="J3">J3</option>
+                      <option value="J4">J4</option>
+                      <option value="J5" selected>J5</option>
+                      <option value="J6">J6</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Refracción OD -->
+            <label class="form-label" style="margin-bottom:6px;">Refracción / Fórmula de Lentes (OD)</label>
+            <table class="mini-exam-table">
+              <thead>
+                <tr>
+                  <th>Esfera</th>
+                  <th>Cilindro</th>
+                  <th>Eje (°)</th>
+                  <th>Adición</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" class="form-control" id="rx-od-esf" value="+1.50"></td>
+                  <td><input type="text" class="form-control" id="rx-od-cil" value="-0.75"></td>
+                  <td><input type="number" class="form-control" id="rx-od-eje" value="85" min="0" max="180"></td>
+                  <td><input type="text" class="form-control" id="rx-od-adic" value="+2.75"></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Tonometría OD -->
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label" for="exam-pio-od">Tonometría / PIO (OD) (mmHg)</label>
+              <div class="tonometry-container">
+                <div class="pio-input-wrapper">
+                  <input type="number" class="form-control" id="exam-pio-od" placeholder="Ej. 16" min="0" max="60" value="16">
+                  <span class="pio-unit">mmHg</span>
+                </div>
+                <span id="pio-status-od" class="pio-status-indicator pio-normal">Normal (10-21 mmHg)</span>
+              </div>
+            </div>
+
+            <!-- Biomicroscopía OD -->
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label" for="exam-bio-od">Biomicroscopía / Lámpara de Hendidura (OD)</label>
+              <textarea class="form-control" id="exam-bio-od" rows="3" placeholder="Párpados, Conjuntiva, Córnea, Cámara anterior, Cristalino (Catarata)...">Párpados libres. Córnea transparente. Cámara anterior amplia, Van Herick IV. Cristalino: Opacidad nuclear densa Grado III.</textarea>
+            </div>
+
+            <!-- Fondo de Ojo OD -->
+            <div class="form-group">
+              <label class="form-label" for="exam-fo-od">Fondo de Ojo / Oftalmoscopía (OD)</label>
+              <textarea class="form-control" id="exam-fo-od" rows="2" placeholder="Papila, relación copa/disco E/P, mácula, retina periférica...">Papila rosada de bordes nítidos, E/P 0.3. Mácula normal. Sin hemorragias evidentes.</textarea>
+            </div>
+          </div>
+
+          <!-- COLUMNA OJO IZQUIERDO (OS) -->
+          <div class="eye-card os-theme">
+            <div class="eye-card-header">
+              <div class="eye-tag">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m14 15-5-3 5-3v6Z"></path></svg>
+                OJO IZQUIERDO (OS)
+              </div>
+              <span style="font-size:0.75rem; color:var(--os-color); font-weight:700;">Oculus Sinister</span>
+            </div>
+
+            <!-- Agudeza Visual OS -->
+            <label class="form-label" style="margin-bottom:6px;">Agudeza Visual (Snellen / Cerca)</label>
+            <table class="mini-exam-table">
+              <thead>
+                <tr>
+                  <th>SC (Sin Corr.)</th>
+                  <th>CC (Con Corr.)</th>
+                  <th>PH (Estenop.)</th>
+                  <th>Cerca (Jaeger)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <select class="form-control" id="av-os-sc">
+                      <option value="20/20">20/20</option>
+                      <option value="20/25">20/25</option>
+                      <option value="20/30">20/30</option>
+                      <option value="20/40" selected>20/40</option>
+                      <option value="20/50">20/50</option>
+                      <option value="20/70">20/70</option>
+                      <option value="20/100">20/100</option>
+                      <option value="20/200">20/200</option>
+                      <option value="20/400">20/400</option>
+                      <option value="CD">Cuenta Dedos</option>
+                      <option value="MM">Mov. Manos</option>
+                      <option value="PL">Percep. Luz</option>
+                      <option value="NPL">No Percep. Luz</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" id="av-os-cc">
+                      <option value="20/20">20/20</option>
+                      <option value="20/25" selected>20/25</option>
+                      <option value="20/30">20/30</option>
+                      <option value="20/40">20/40</option>
+                      <option value="20/50">20/50</option>
+                      <option value="20/70">20/70</option>
+                      <option value="20/100">20/100</option>
+                      <option value="20/200">20/200</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" id="av-os-ph">
+                      <option value="20/20" selected>20/20</option>
+                      <option value="20/25">20/25</option>
+                      <option value="20/30">20/30</option>
+                      <option value="20/40">20/40</option>
+                      <option value="20/50">20/50</option>
+                      <option value="20/70">20/70</option>
+                      <option value="No mejora">No mejora</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" id="av-os-cerca">
+                      <option value="J1" selected>J1</option>
+                      <option value="J2">J2</option>
+                      <option value="J3">J3</option>
+                      <option value="J4">J4</option>
+                      <option value="J5">J5</option>
+                      <option value="J6">J6</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Refracción OS -->
+            <label class="form-label" style="margin-bottom:6px;">Refracción / Fórmula de Lentes (OS)</label>
+            <table class="mini-exam-table">
+              <thead>
+                <tr>
+                  <th>Esfera</th>
+                  <th>Cilindro</th>
+                  <th>Eje (°)</th>
+                  <th>Adición</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" class="form-control" id="rx-os-esf" value="+0.75"></td>
+                  <td><input type="text" class="form-control" id="rx-os-cil" value="-0.50"></td>
+                  <td><input type="number" class="form-control" id="rx-os-eje" value="90" min="0" max="180"></td>
+                  <td><input type="text" class="form-control" id="rx-os-adic" value="+2.75"></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Tonometría OS -->
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label" for="exam-pio-os">Tonometría / PIO (OS) (mmHg)</label>
+              <div class="tonometry-container">
+                <div class="pio-input-wrapper">
+                  <input type="number" class="form-control" id="exam-pio-os" placeholder="Ej. 15" min="0" max="60" value="15">
+                  <span class="pio-unit">mmHg</span>
+                </div>
+                <span id="pio-status-os" class="pio-status-indicator pio-normal">Normal (10-21 mmHg)</span>
+              </div>
+            </div>
+
+            <!-- Biomicroscopía OS -->
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label" for="exam-bio-os">Biomicroscopía / Lámpara de Hendidura (OS)</label>
+              <textarea class="form-control" id="exam-bio-os" rows="3" placeholder="Párpados, Conjuntiva, Córnea, Cámara anterior, Cristalino...">Párpados normales. Córnea transparente. Cámara anterior normal. Cristalino: Esclerosis nuclear leve Grado I.</textarea>
+            </div>
+
+            <!-- Fondo de Ojo OS -->
+            <div class="form-group">
+              <label class="form-label" for="exam-fo-os">Fondo de Ojo / Oftalmoscopía (OS)</label>
+              <textarea class="form-control" id="exam-fo-os" rows="2" placeholder="Papila, relación copa/disco E/P, mácula, retina periférica...">Papila rosada de bordes nítidos, E/P 0.3. Mácula normal. Vasos sin alteraciones patológicas.</textarea>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Parámetro Común: Distancia Pupilar -->
+        <div style="margin-top:14px; max-width: 250px;">
+          <label class="form-label" for="rx-dp">Distancia Pupilar (DP)</label>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <input type="number" class="form-control" id="rx-dp" value="62" min="50" max="75">
+            <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">mm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Diagnósticos Oftalmológicos (CIE-10) -->
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+            4. Impresión Diagnóstica (CIE-10 Oftalmología)
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="col-8 form-group">
+            <label class="form-label" for="select-quick-diag">Selector Rápido de Patologías Oculares Frecuentes</label>
+            <select class="form-control" id="select-quick-diag"></select>
+          </div>
+          <div class="col-12">
+            <div id="active-diagnosticos-container" style="min-height: 40px; display:flex; flex-wrap:wrap; align-items:center; gap:6px;">
+              <span class="badge-tag" style="background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.4); padding: 5px 10px; font-size: 0.82rem;">
+                <strong>H25.1</strong> Catarata Senil Nuclear (Grado III)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Captación Misión Milagro (Quirófano) -->
+      <div class="milagro-banner-card">
+        <div class="milagro-header">
+          <div class="milagro-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            Módulo de Captación Prequirúrgica - Misión Milagro
+          </div>
+          <div class="switch-wrapper">
+            <span>¿Candidato a Intervención Quirúrgica?</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="milagro-candidate-switch" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div id="milagro-details-panel">
+          <div class="form-grid" style="margin-top:10px;">
+            <div class="col-3 form-group">
+              <label class="form-label" for="milagro-eye">Ojo a Operar</label>
+              <select class="form-control" id="milagro-eye">
+                <option value="OD">Ojo Derecho (OD)</option>
+                <option value="OS">Ojo Izquierdo (OS)</option>
+                <option value="OU">Ambos Ojos (OU)</option>
+              </select>
+            </div>
+            <div class="col-4 form-group">
+              <label class="form-label" for="milagro-cirugia">Procedimiento Quirúrgico Propuesto</label>
+              <select class="form-control" id="milagro-cirugia">
+                <option value="Facoemulsificación + Implante de LIO (Catarata)">Facoemulsificación + Implante de LIO (Catarata)</option>
+                <option value="Extracción Extracapsular de Catarata (EECC) + LIO">Extracción Extracapsular (EECC) + LIO</option>
+                <option value="Resección de Pterigión + Autoinjerto Conjuntival">Resección de Pterigión + Autoinjerto Conjuntival</option>
+                <option value="Drenaje de Chalazión">Drenaje de Chalazión</option>
+                <option value="Iridotomía Láser YAG">Iridotomía Láser YAG</option>
+                <option value="Trabeculectomía">Trabeculectomía (Glaucoma)</option>
+              </select>
+            </div>
+            <div class="col-2 form-group">
+              <label class="form-label" for="milagro-prioridad">Prioridad</label>
+              <select class="form-control" id="milagro-prioridad">
+                <option value="Alta">Alta</option>
+                <option value="Media" selected>Media</option>
+                <option value="Baja">Baja</option>
+              </select>
+            </div>
+            <div class="col-3 form-group">
+              <label class="form-label" for="milagro-lio">Biometría / Poder de LIO Sugerido</label>
+              <input type="text" class="form-control" id="milagro-lio" placeholder="Ej. +21.5 D" value="+21.5 D">
+            </div>
+
+            <div class="col-6 form-group">
+              <label class="form-label" for="milagro-estado-protocolo">Estado del Protocolo Quirúrgico</label>
+              <select class="form-control" id="milagro-estado-protocolo">
+                <option value="Pendiente por Laboratorio">Pendiente por Laboratorio / EKG</option>
+                <option value="Apto para Quirófano" selected>Apto para Quirófano</option>
+                <option value="Programado para Jornada">Programado para Jornada CDI</option>
+                <option value="Operado / En Control">Operado / En Control Postoperatorio</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Checklist Preoperatorio Comunitario -->
+          <div style="margin-top:14px;">
+            <label class="form-label" style="font-weight:700; color:var(--milagro-gold);">Checklist de Protocolo Preoperatorio Obligatorio CDI:</label>
+            <div class="checklist-grid">
+              <label class="check-item">
+                <input type="checkbox" id="check-lab-hem" checked>
+                <span>Hematología Completa</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="check-lab-gli" checked>
+                <span>Glicemia en Ayunas</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="check-lab-tp" checked>
+                <span>Tiempos Coagulación (TP/TPT)</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="check-lab-ekg" checked>
+                <span>Electrocardiograma (EKG)</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="check-lab-cv" checked>
+                <span>Evaluación Cardiovascular</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Farmacia y Prescripción de Medicamentos Oftalmológicos -->
+      <div class="glass-card" style="margin-top:24px;">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>
+            6. Prescripción Farmacológica (Red Pública SUMED / CDI)
+          </div>
+        </div>
+        
+        <div class="prescription-builder">
+          <div class="form-grid">
+            <div class="col-6 form-group">
+              <label class="form-label" for="select-quick-med">Medicamento Oftálmico</label>
+              <select class="form-control" id="select-quick-med"></select>
+            </div>
+            <div class="col-4 form-group">
+              <label class="form-label" for="rx-custom-dose">Posología Personalizada (opcional)</label>
+              <input type="text" class="form-control" id="rx-custom-dose" placeholder="Ej. 1 gota cada 8 horas por 7 días">
+            </div>
+            <div class="col-2 form-group" style="justify-content: flex-end;">
+              <button type="button" class="btn btn-primary" id="btn-add-rx-item" style="width:100%; justify-content:center;">
+                + Añadir al Récipe
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <label class="form-label" style="font-weight:700; color:var(--text-secondary);">Medicamentos a imprimir en el récipe:</label>
+            <div id="rx-items-list" style="margin-top:8px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Asignación y Prescripción de Lentes -->
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="4"></circle><circle cx="18" cy="12" r="4"></circle><path d="M10 12h4"></path></svg>
+            7. Prescripción de Lentes / Cristales Correctivos
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="col-4 form-group">
+            <label class="form-label" for="lentes-tipo">Tipo de Cristal Prescrito</label>
+            <select class="form-control" id="lentes-tipo">
+              <option value="Monofocal (Visión Lejana)">Monofocal (Visión Lejana)</option>
+              <option value="Monofocal (Lectura / Cerca)">Monofocal (Lectura / Cerca)</option>
+              <option value="Bifocal Flat-Top">Bifocal Flat-Top</option>
+              <option value="Progresivo Multifocal">Progresivo Multifocal</option>
+              <option value="Gafas de Sol / Filtro UV400">Gafas de Sol con Protección UV400</option>
+              <option value="Filtro Antirreflejo y Luz Azul">Filtro Antirreflejo y Luz Azul</option>
+            </select>
+          </div>
+          <div class="col-8 form-group">
+            <label class="form-label" for="lentes-obs">Observaciones para el Taller de Optometría Comunitaria</label>
+            <input type="text" class="form-control" id="lentes-obs" placeholder="Ej. Paciente requiere montura resistente para labores agrícolas / costura">
+          </div>
+          <div class="col-12 form-group">
+            <label class="form-label" for="consult-plan-general">Conducta Médica General y Próxima Cita</label>
+            <textarea class="form-control" id="consult-plan-general" rows="2" placeholder="Indicaciones para el paciente, recomendaciones sobre higiene visual y fecha sugerida de control en CDI..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Acciones Finales -->
+      <div class="actions-bar">
+        <button type="button" class="btn btn-secondary" id="btn-new-consult-clear">
+          Limpiar Formulario
+        </button>
+        <button type="button" class="btn btn-primary" id="btn-save-consult" style="font-size:1rem; padding:12px 28px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          Guardar Consulta y Generar Documentos
+        </button>
+      </div>
+
+    </section>
+
+    <!-- =====================================================================
+         PESTAÑA 2: DIRECTORIO Y EXPEDIENTES DE PACIENTES
+         ===================================================================== -->
+    <section class="tab-view" id="tab-pacientes" aria-labelledby="tab-btn-pacientes">
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            Directorio General de Pacientes Oftalmológicos del CDI
+          </div>
+          <div style="width: 320px;">
+            <input type="text" class="form-control" id="search-patients-input" placeholder="🔍 Buscar por Cédula, Nombre o Comunidad..." autocomplete="off">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" aria-label="Tabla de pacientes">
+            <thead>
+              <tr>
+                <th>Cédula</th>
+                <th>Paciente</th>
+                <th>Edad / Sexo</th>
+                <th>Teléfono</th>
+                <th>Último Diagnóstico</th>
+                <th>Condición</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="patients-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         PESTAÑA 3: CENSO QUIRÚRGICO MISIÓN MILAGRO
+         ===================================================================== -->
+    <section class="tab-view" id="tab-mision-milagro" aria-labelledby="tab-btn-mision-milagro">
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title" style="color:var(--milagro-gold);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path></svg>
+            Censo Quirúrgico Comunitario - Misión Milagro (Catarata / Pterigión)
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <select class="form-control" id="milagro-filter-status" style="width:200px;">
+              <option value="all">Todos los Estados</option>
+              <option value="Pendiente por Laboratorio">Pendiente por Laboratorio</option>
+              <option value="Apto para Quirófano">Apto para Quirófano</option>
+              <option value="Programado para Jornada">Programado para Jornada</option>
+              <option value="Operado / En Control">Operados / En Control</option>
+            </select>
+            <button type="button" class="btn btn-warning btn-sm" id="btn-export-milagro-csv">
+              📥 Exportar Censo (CSV)
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" aria-label="Tabla de censo quirúrgico Misión Milagro">
+            <thead>
+              <tr>
+                <th>Cédula</th>
+                <th>Paciente</th>
+                <th>Cirugía y Ojo</th>
+                <th>Prioridad</th>
+                <th>Estado Protocolo</th>
+                <th>Actualizar Estado</th>
+                <th>Impresión</th>
+              </tr>
+            </thead>
+            <tbody id="milagro-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         PESTAÑA 4: MORBILIDAD Y ESTADÍSTICAS MPPS (EPI CDI)
+         ===================================================================== -->
+    <section class="tab-view" id="tab-estadisticas" aria-labelledby="tab-btn-estadisticas">
+      <!-- Indicadores Numéricos -->
+      <div class="stats-cards-grid">
+        <div class="stat-card">
+          <div class="stat-icon-wrapper" style="background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan);">
+            🩺
+          </div>
+          <div>
+            <div class="stat-value" id="stat-total-consultas">0</div>
+            <div class="stat-label">Total Atenciones Oftalmológicas</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon-wrapper" style="background: rgba(251, 191, 36, 0.15); color: var(--milagro-gold);">
+            ☀️
+          </div>
+          <div>
+            <div class="stat-value" id="stat-total-milagro">0</div>
+            <div class="stat-label">Captados Misión Milagro</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon-wrapper" style="background: rgba(239, 68, 68, 0.15); color: var(--accent-rose);">
+            ⚠️
+          </div>
+          <div>
+            <div class="stat-value" id="stat-total-glaucoma">0</div>
+            <div class="stat-label">Sospechas de Glaucoma (PIO > 21)</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon-wrapper" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-teal);">
+            👓
+          </div>
+          <div>
+            <div class="stat-value" id="stat-total-lentes">0</div>
+            <div class="stat-label">Lentes Prescritos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico de Morbilidad y Descarga -->
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+            Morbilidad Oftalmológica Prevalente (Registro Estadístico MPPS)
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-export-morbidity-csv">
+            📥 Descargar Reporte (CSV)
+          </button>
+        </div>
+
+        <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:14px;">
+          Distribución de frecuencias diagnósticas registradas en el servicio de oftalmología para el control epidemiológico del Área de Salud Integral Comunitaria (ASIC).
+        </p>
+
+        <div id="morbidity-chart-container" class="chart-bar-container"></div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         PESTAÑA 5: AJUSTES INSTITUCIONALES DEL CDI Y RESPALDOS
+         ===================================================================== -->
+    <section class="tab-view" id="tab-configuracion" aria-labelledby="tab-btn-configuracion">
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            Configuración Institucional del CDI (Datos de Membrete y Firmas)
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="col-6 form-group">
+            <label class="form-label" for="cfg-cdi-name">Nombre Oficial del CDI *</label>
+            <input type="text" class="form-control" id="cfg-cdi-name" placeholder="Ej. CDI Dr. Salvador Allende">
+          </div>
+          <div class="col-6 form-group">
+            <label class="form-label" for="cfg-asic-name">Área de Salud Integral Comunitaria (ASIC) *</label>
+            <input type="text" class="form-control" id="cfg-asic-name" placeholder="Ej. ASIC Chuao - El Cafetal">
+          </div>
+          <div class="col-4 form-group">
+            <label class="form-label" for="cfg-estado">Estado</label>
+            <input type="text" class="form-control" id="cfg-estado" placeholder="Ej. Miranda / Dtto. Capital / Zulia">
+          </div>
+          <div class="col-4 form-group">
+            <label class="form-label" for="cfg-municipio">Municipio</label>
+            <input type="text" class="form-control" id="cfg-municipio" placeholder="Ej. Baruta / Libertador">
+          </div>
+          <div class="col-4 form-group">
+            <label class="form-label" for="cfg-parroquia">Parroquia</label>
+            <input type="text" class="form-control" id="cfg-parroquia" placeholder="Ej. El Cafetal / El Valle">
+          </div>
+          <div class="col-6 form-group">
+            <label class="form-label" for="cfg-oftalmologo">Especialista Oftalmólogo Responsable</label>
+            <input type="text" class="form-control" id="cfg-oftalmologo" placeholder="Ej. Dra. Yuliet González">
+          </div>
+          <div class="col-6 form-group">
+            <label class="form-label" for="cfg-mpps-reg">Registro Médico MPPS</label>
+            <input type="text" class="form-control" id="cfg-mpps-reg" placeholder="Ej. MPPS-108.452">
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button type="button" class="btn btn-primary" id="btn-save-config">
+            💾 Guardar Configuración Institucional
+          </button>
+        </div>
+
+        <hr style="border:none; border-top:1px solid var(--border-glass); margin:24px 0;">
+
+        <!-- Respaldos de Datos -->
+        <h4 style="color:var(--accent-cyan); margin-bottom:12px;">Gestión de Base de Datos y Respaldos Locales</h4>
+        <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:16px;">
+          La información de pacientes, consultas y censo quirúrgico se almacena en el navegador de manera autónoma. Puede exportar un respaldo completo en archivo JSON o restaurar la información en cualquier momento.
+        </p>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-secondary" id="btn-export-backup">
+            📤 Exportar Respaldo Completo (JSON)
+          </button>
+          
+          <label class="btn btn-secondary" style="cursor:pointer; margin:0;">
+            📥 Importar Respaldo (JSON)
+            <input type="file" id="file-import-backup" accept=".json" style="display:none;">
+          </label>
+
+          <button type="button" class="btn btn-secondary" id="btn-reset-demo" style="color:var(--accent-rose);">
+            🔄 Restaurar Casos de Prueba (Demo)
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       Modal Genérico de la Aplicación (Snellen, Detalles, Impresión)
+       ========================================================================= -->
+  <div class="modal-backdrop" id="app-modal" role="dialog" aria-modal="true">
+    <div class="modal-container" id="app-modal-content">
+      <!-- El contenido se inyecta dinámicamente con JS -->
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       Área Oculta para Renderizado de Impresión (@media print)
+       ========================================================================= -->
+  <div id="print-document-area" aria-hidden="true"></div>
+
+  <!-- Scripts -->
+  <script src="js/data-seed.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

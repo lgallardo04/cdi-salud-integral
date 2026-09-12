@@ -35,6 +35,8 @@ import { FacturacionView } from './views/FacturacionView';
 import { EpidemiologiaView } from './views/EpidemiologiaView';
 import { AuditoriaView } from './views/AuditoriaView';
 import { PortalPacienteView } from './views/PortalPacienteView';
+import { NutricionView } from './views/NutricionView';
+import { OftalmologiaView } from './views/OftalmologiaView';
 
 import { ShieldAlert } from 'lucide-react';
 
@@ -127,6 +129,10 @@ const MainContent: React.FC = () => {
         return <AuditoriaView />;
       case 'portal_paciente':
         return <PortalPacienteView />;
+      case 'nutricion':
+        return <NutricionView />;
+      case 'oftalmologia':
+        return <OftalmologiaView />;
       default:
         return <DashboardView setActiveModule={setActiveModule} />;
     }

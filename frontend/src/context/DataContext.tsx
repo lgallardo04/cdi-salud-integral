@@ -69,7 +69,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     serviciosTarifas: LocalDataService.getAll('serviciosTarifas'),
     facturas: LocalDataService.getAll('facturas'),
     registrosAuditoria: LocalDataService.getAll('registrosAuditoria'),
-    casosEpidemiologicos: LocalDataService.getAll('casosEpidemiologicos')
+    casosEpidemiologicos: LocalDataService.getAll('casosEpidemiologicos'),
+    evaluacionesNutricionales: LocalDataService.getAll('evaluacionesNutricionales'),
+    consultasOftalmicas: LocalDataService.getAll('consultasOftalmicas'),
+    candidatosMisionMilagro: LocalDataService.getAll('candidatosMisionMilagro')
   }));
 
   const [kpis, setKpis] = useState<KPIStats>(() => LocalDataService.getKPIs());
@@ -101,7 +104,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
       serviciosTarifas: LocalDataService.getAll('serviciosTarifas'),
       facturas: LocalDataService.getAll('facturas'),
       registrosAuditoria: LocalDataService.getAll('registrosAuditoria'),
-      casosEpidemiologicos: LocalDataService.getAll('casosEpidemiologicos')
+      casosEpidemiologicos: LocalDataService.getAll('casosEpidemiologicos'),
+      evaluacionesNutricionales: LocalDataService.getAll('evaluacionesNutricionales'),
+      consultasOftalmicas: LocalDataService.getAll('consultasOftalmicas'),
+      candidatosMisionMilagro: LocalDataService.getAll('candidatosMisionMilagro')
     });
     setKpis(LocalDataService.getKPIs());
   }, []);

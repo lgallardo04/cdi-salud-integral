@@ -4,10 +4,14 @@ import { useData } from '../context/DataContext';
 import { DataTable, Column } from '../components/common/DataTable';
 import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
-import { HeartPulse, Plus, ArrowDownLeft, ArrowUpRight, AlertOctagon, Trash2 } from 'lucide-react';
+import { HeartPulse, Plus, ArrowDownLeft, ArrowUpRight, AlertOctagon, Trash2, PackageSearch, FileInput, CheckSquare, Layers } from 'lucide-react';
+import { InventarioDashboard } from '../components/farmacia/InventarioDashboard';
+import { RecepcionRecipe } from '../components/farmacia/RecepcionRecipe';
+import { DispensacionEstacion } from '../components/farmacia/DispensacionEstacion';
 
 export const FarmaciaView: React.FC = () => {
-  const { data, createItem, deleteItem } = useData();
+  const { data, createItem, deleteItem, addToast } = useData();
+  const [activeTab, setActiveTab] = useState<'kardex' | 'fefo' | 'recetas' | 'dispensacion'>('kardex');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,7 +57,7 @@ export const FarmaciaView: React.FC = () => {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.medicamentoId || !formData.cantidad || !formData.lote) {
-      alert('Por favor complete todos los campos obligatorios');
+      addToast('Por favor complete todos los campos obligatorios', 'warning');
       return;
     }
 
@@ -76,6 +80,7 @@ export const FarmaciaView: React.FC = () => {
       id: `mov-${Date.now()}`
     });
 
+    addToast('Movimiento de Kardex registrado exitosamente', 'success');
     setIsModalOpen(false);
   };
 
@@ -164,24 +169,84 @@ export const FarmaciaView: React.FC = () => {
 
   return (
     <div className="view-container">
-      <DataTable
-        data={data.movimientosFarmacia}
-        columns={columns}
-        searchPlaceholder="Buscar por número de transacción, medicamento, lote, paciente..."
-        addNewLabel="Registrar Movimiento de Farmacia"
-        onAddNew={handleOpenCreate}
-        exportTitle="Movimientos_Farmacia"
-        actions={(m) => (
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm btn-icon"
-            onClick={() => handleDelete(m.id, m.numeroTransaccion)}
-            title="Eliminar Registro"
-          >
-            <Trash2 size={15} color="#dc2626" />
-          </button>
-        )}
-      />
+      {/* Sub-pestañas de Farmacia Comunitaria CDI */}
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5rem', overflowX: 'auto' }}>
+        <button
+          type="button"
+          className={`btn btn-sm ${activeTab === 'kardex' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('kardex')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+        >
+          <Layers size={14} />
+          Kardex & Movimientos
+        </button>
+        <button
+          type="button"
+          className={`btn btn-sm ${activeTab === 'fefo' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('fefo')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+        >
+          <PackageSearch size={14} />
+          Monitor FEFO & Lotes
+        </button>
+        <button
+          type="button"
+          className={`btn btn-sm ${activeTab === 'recetas' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('recetas')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+        >
+          <FileInput size={14} />
+          Recepción de Récipes
+        </button>
+        <button
+          type="button"
+          className={`btn btn-sm ${activeTab === 'dispensacion' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('dispensacion')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+        >
+          <CheckSquare size={14} />
+          Estación de Dispensación
+        </button>
+      </div>
+
+      {activeTab === 'kardex' && (
+        <DataTable
+          data={data.movimientosFarmacia}
+          columns={columns}
+          searchPlaceholder="Buscar por número de transacción, medicamento, lote, paciente..."
+          addNewLabel="Registrar Movimiento de Farmacia"
+          onAddNew={handleOpenCreate}
+          exportTitle="Movimientos_Farmacia"
+          actions={(m) => (
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm btn-icon"
+              onClick={() => handleDelete(m.id, m.numeroTransaccion)}
+              title="Eliminar Registro"
+            >
+              <Trash2 size={15} color="#dc2626" />
+            </button>
+          )}
+        />
+      )}
+
+      {activeTab === 'fefo' && (
+        <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '1rem', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(15,23,42,0.05)' }}>
+          <InventarioDashboard />
+        </div>
+      )}
+
+      {activeTab === 'recetas' && (
+        <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '1rem', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(15,23,42,0.05)' }}>
+          <RecepcionRecipe />
+        </div>
+      )}
+
+      {activeTab === 'dispensacion' && (
+        <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '1rem', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(15,23,42,0.05)' }}>
+          <DispensacionEstacion />
+        </div>
+      )}
 
       {/* Modal Registrar Movimiento */}
       <Modal

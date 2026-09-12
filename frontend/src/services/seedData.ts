@@ -11,7 +11,10 @@ import {
   Medicamento,
   MovimientoFarmacia,
   Cita,
-  Tratamiento
+  Tratamiento,
+  EvaluacionNutricional,
+  ConsultaOftalmica,
+  CandidatoMisionMilagro
 } from '../types';
 
 import {
@@ -59,7 +62,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: true, crear: true, editar: true, eliminar: true, exportar: true },
       roles: { ver: true, crear: true, editar: true, eliminar: true, exportar: true },
       auditoria: { ver: true, crear: true, editar: true, eliminar: true, exportar: true },
-      portal_paciente: { ver: true, crear: true, editar: true, eliminar: true, exportar: true }
+      portal_paciente: { ver: true, crear: true, editar: true, eliminar: true, exportar: true },
+      nutricion: { ver: true, crear: true, editar: true, eliminar: true, exportar: true },
+      oftalmologia: { ver: true, crear: true, editar: true, eliminar: true, exportar: true }
     }
   },
   {
@@ -91,7 +96,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       roles: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
+      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      nutricion: { ver: true, crear: true, editar: true, eliminar: false, exportar: true },
+      oftalmologia: { ver: true, crear: true, editar: true, eliminar: false, exportar: true }
     }
   },
   {
@@ -123,7 +130,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       roles: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
+      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      nutricion: { ver: true, crear: true, editar: false, eliminar: false, exportar: false },
+      oftalmologia: { ver: true, crear: false, editar: false, eliminar: false, exportar: false }
     }
   },
   {
@@ -155,7 +164,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       roles: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
+      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      nutricion: { ver: true, crear: false, editar: false, eliminar: false, exportar: false },
+      oftalmologia: { ver: true, crear: false, editar: false, eliminar: false, exportar: false }
     }
   },
   {
@@ -187,7 +198,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       roles: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
+      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      nutricion: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      oftalmologia: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
     }
   },
   {
@@ -219,7 +232,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       roles: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
+      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      nutricion: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      oftalmologia: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
     }
   },
   {
@@ -251,7 +266,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       roles: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
+      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      nutricion: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      oftalmologia: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
     }
   },
   {
@@ -283,7 +300,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       roles: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false }
+      portal_paciente: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
+      nutricion: { ver: true, crear: true, editar: false, eliminar: false, exportar: false },
+      oftalmologia: { ver: true, crear: true, editar: false, eliminar: false, exportar: false }
     }
   },
   {
@@ -315,7 +334,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: true, crear: false, editar: false, eliminar: false, exportar: true },
       roles: { ver: true, crear: false, editar: false, eliminar: false, exportar: true },
       auditoria: { ver: true, crear: false, editar: false, eliminar: false, exportar: true },
-      portal_paciente: { ver: true, crear: false, editar: false, eliminar: false, exportar: true }
+      portal_paciente: { ver: true, crear: false, editar: false, eliminar: false, exportar: true },
+      nutricion: { ver: true, crear: false, editar: false, eliminar: false, exportar: true },
+      oftalmologia: { ver: true, crear: false, editar: false, eliminar: false, exportar: true }
     }
   },
   {
@@ -347,7 +368,9 @@ export const initialRoles: Rol[] = [
       usuarios: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       roles: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
       auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-      portal_paciente: { ver: true, crear: true, editar: true, eliminar: false, exportar: true }
+      portal_paciente: { ver: true, crear: true, editar: true, eliminar: false, exportar: true },
+      nutricion: { ver: true, crear: false, editar: false, eliminar: false, exportar: false },
+      oftalmologia: { ver: true, crear: false, editar: false, eliminar: false, exportar: false }
     }
   }
 ];
@@ -1548,6 +1571,59 @@ export const initialTratamientos: Tratamiento[] = [
   }
 ];
 
+export const initialEvaluacionesNutricionales: EvaluacionNutricional[] = [
+  {
+    id: 'nut-1',
+    pacienteId: 'pac-1',
+    pacienteNombre: 'Yelitza Rodríguez',
+    pacienteCedula: 'V-15842931',
+    fecha: '2026-09-10',
+    pesoKg: 68.5,
+    tallaCm: 162,
+    imc: 26.1,
+    circunferenciaBrazoCm: 28.5,
+    circunferenciaCinturaCm: 84,
+    clasificacion: 'Sobrepeso (Pre-obesidad)',
+    recomendacion: 'Control de porciones de carbohidratos simples y reestructuración de horarios alimentarios.',
+    evaluador: 'Lic. Carmen Briceño (Nutricionista CDI)'
+  }
+];
+
+export const initialConsultasOftalmicas: ConsultaOftalmica[] = [
+  {
+    id: 'oft-1',
+    pacienteId: 'pac-1',
+    pacienteNombre: 'Yelitza Rodríguez',
+    pacienteCedula: 'V-15842931',
+    fecha: '2026-09-10',
+    medicoTratante: 'Dra. María Elena Ramos',
+    avOD: '20/40',
+    avOS: '20/60',
+    pioOD: 16,
+    pioOS: 18,
+    biomicroscopia: 'Córnea transparente, cámara anterior amplia sin células. Cristalino con esclerosis nuclear incipiente OD.',
+    fondoOjo: 'Papila de bordes netos, relación E/P 0.3 bilateral. Mácula normal.',
+    diagnostico: 'Presbicia y Catarata Senil Grado II OD',
+    planTratamiento: 'Timolol colirio 1 gota c/12h si PIO > 21 y evaluación para Misión Milagro.'
+  }
+];
+
+export const initialCandidatosMisionMilagro: CandidatoMisionMilagro[] = [
+  {
+    id: 'mm-1',
+    pacienteId: 'pac-1',
+    pacienteNombre: 'Yelitza Rodríguez',
+    pacienteCedula: 'V-15842931',
+    ojo: 'OD',
+    patologia: 'Catarata Senil Grado III',
+    poderLIO: '+21.5 D',
+    checklistLaboratorio: 'Completo (Glicemia, TP/TPT)',
+    checklistCardio: 'Apto Clase II',
+    estado: 'Apto para Quirófano',
+    fechaJornada: '2026-09-25'
+  }
+];
+
 export const getInitialDataState = (): CDIDataState => ({
   roles: initialRoles,
   usuarios: initialUsuarios,
@@ -1573,6 +1649,8 @@ export const getInitialDataState = (): CDIDataState => ({
   serviciosTarifas: initialServiciosTarifas,
   facturas: initialFacturas,
   registrosAuditoria: initialRegistrosAuditoria,
-  casosEpidemiologicos: initialCasosEpidemiologicos
+  casosEpidemiologicos: initialCasosEpidemiologicos,
+  evaluacionesNutricionales: initialEvaluacionesNutricionales,
+  consultasOftalmicas: initialConsultasOftalmicas,
+  candidatosMisionMilagro: initialCandidatosMisionMilagro
 });
-

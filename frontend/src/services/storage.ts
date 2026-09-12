@@ -28,7 +28,10 @@ export class LocalDataService {
         serviciosTarifas: parsed.serviciosTarifas || initial.serviciosTarifas,
         facturas: parsed.facturas || initial.facturas,
         registrosAuditoria: parsed.registrosAuditoria || initial.registrosAuditoria,
-        casosEpidemiologicos: parsed.casosEpidemiologicos || initial.casosEpidemiologicos
+        casosEpidemiologicos: parsed.casosEpidemiologicos || initial.casosEpidemiologicos,
+        evaluacionesNutricionales: parsed.evaluacionesNutricionales || initial.evaluacionesNutricionales,
+        consultasOftalmicas: parsed.consultasOftalmicas || initial.consultasOftalmicas,
+        candidatosMisionMilagro: parsed.candidatosMisionMilagro || initial.candidatosMisionMilagro
       };
       return merged;
     } catch (e) {

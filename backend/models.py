@@ -466,3 +466,56 @@ class CasoEpidemiologicoModel(Base):
     notificadoMPPS = Column(Boolean, default=True)
     medidasTomadas = Column(Text, nullable=True)
 
+
+class EvaluacionNutricionalModel(Base):
+    __tablename__ = "evaluaciones_nutricionales"
+
+    id = Column(String, primary_key=True, index=True)
+    pacienteId = Column(String, ForeignKey("pacientes.id"), nullable=False)
+    pacienteNombre = Column(String, nullable=True)
+    pacienteCedula = Column(String, nullable=True)
+    fecha = Column(String, nullable=False)
+    pesoKg = Column(Float, nullable=False)
+    tallaCm = Column(Float, nullable=False)
+    imc = Column(Float, nullable=False)
+    circunferenciaBrazoCm = Column(Float, nullable=True)
+    circunferenciaCinturaCm = Column(Float, nullable=True)
+    clasificacion = Column(String, nullable=False)
+    recomendacion = Column(Text, nullable=True)
+    evaluador = Column(String, nullable=True)
+
+
+class ConsultaOftalmicaModel(Base):
+    __tablename__ = "consultas_oftalmicas"
+
+    id = Column(String, primary_key=True, index=True)
+    pacienteId = Column(String, ForeignKey("pacientes.id"), nullable=False)
+    pacienteNombre = Column(String, nullable=True)
+    pacienteCedula = Column(String, nullable=True)
+    fecha = Column(String, nullable=False)
+    medicoTratante = Column(String, nullable=True)
+    avOD = Column(String, nullable=True)
+    avOS = Column(String, nullable=True)
+    pioOD = Column(Integer, default=15)
+    pioOS = Column(Integer, default=15)
+    biomicroscopia = Column(Text, nullable=True)
+    fondoOjo = Column(Text, nullable=True)
+    diagnostico = Column(String, nullable=False)
+    planTratamiento = Column(Text, nullable=True)
+
+
+class CandidatoMisionMilagroModel(Base):
+    __tablename__ = "candidatos_mision_milagro"
+
+    id = Column(String, primary_key=True, index=True)
+    pacienteId = Column(String, ForeignKey("pacientes.id"), nullable=False)
+    pacienteNombre = Column(String, nullable=True)
+    pacienteCedula = Column(String, nullable=True)
+    ojo = Column(String, default="OD")
+    patologia = Column(String, nullable=False)
+    poderLIO = Column(String, nullable=True)
+    checklistLaboratorio = Column(String, default="Pendiente")
+    checklistCardio = Column(String, default="Pendiente")
+    estado = Column(String, default="Pendiente Laboratorio")
+    fechaJornada = Column(String, nullable=True)
+

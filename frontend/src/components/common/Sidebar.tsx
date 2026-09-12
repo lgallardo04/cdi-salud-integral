@@ -16,7 +16,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Activity,
-  HeartPulse
+  HeartPulse,
+  Eye,
+  Apple
 } from 'lucide-react';
 import { ModuloNombre } from '../../types';
 import { useAuth } from '../../context/AuthContext';
@@ -71,6 +73,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'laboratorio' as ModuloNombre, label: 'Laboratorio Clínico (LIS)', icon: FlaskConical, badge: kpis.laboratoriosPendientes },
         { id: 'imagenologia' as ModuloNombre, label: 'Imagenología (PACS)', icon: HeartPulse, badge: kpis.imagenesPendientes },
         { id: 'odontologia' as ModuloNombre, label: 'Odontología (FDI)', icon: Shield },
+        { id: 'oftalmologia' as ModuloNombre, label: 'Oftalmología (Misión Milagro)', icon: Eye },
+        { id: 'nutricion' as ModuloNombre, label: 'Nutrición y Dietética (INN)', icon: Apple },
         { id: 'telemedicina' as ModuloNombre, label: 'Telemedicina Virtual', icon: Activity }
       ]
     },

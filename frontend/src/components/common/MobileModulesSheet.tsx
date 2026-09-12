@@ -21,7 +21,9 @@ import {
   DollarSign,
   QrCode,
   CheckCircle2,
-  ChevronRight
+  ChevronRight,
+  Eye,
+  Apple
 } from 'lucide-react';
 import { ModuloNombre } from '../../types';
 import { useAuth } from '../../context/AuthContext';
@@ -140,6 +142,20 @@ export const MobileModulesSheet: React.FC<MobileModulesSheetProps> = ({
       category: 'diagnostico',
       icon: Shield,
       description: 'Odontograma interactivo por caras'
+    },
+    {
+      id: 'oftalmologia',
+      label: 'Oftalmología & Misión Milagro',
+      category: 'diagnostico',
+      icon: Eye,
+      description: 'Consulta OD/OS, Agudeza Snellen, PIO y LIO'
+    },
+    {
+      id: 'nutricion',
+      label: 'Nutrición y Dietética (INN)',
+      category: 'diagnostico',
+      icon: Apple,
+      description: 'Evaluación antropométrica, IMC y suplementos'
     },
     {
       id: 'telemedicina',

@@ -85,14 +85,19 @@ build_crud_routes(router, "facturas", models.FacturaModel, schemas.FacturaSchema
 build_crud_routes(router, "registrosAuditoria", models.RegistroAuditoriaModel, schemas.RegistroAuditoriaSchema, "aud")
 build_crud_routes(router, "casosEpidemiologicos", models.CasoEpidemiologicoModel, schemas.CasoEpidemiologicoSchema, "epi")
 
+# Registrar módulos de Nutrición y Oftalmología
+build_crud_routes(router, "evaluacionesNutricionales", models.EvaluacionNutricionalModel, schemas.EvaluacionNutricionalSchema, "nut")
+build_crud_routes(router, "consultasOftalmicas", models.ConsultaOftalmicaModel, schemas.ConsultaOftalmicaSchema, "oft")
+build_crud_routes(router, "candidatosMisionMilagro", models.CandidatoMisionMilagroModel, schemas.CandidatoMisionMilagroSchema, "mil")
+
 # Endpoint Healthcheck
 @router.get("/health")
 def healthcheck():
     return {
         "status": "online",
         "system": "CDI Salud Integral REST API",
-        "version": "2.5.0",
-        "modules_active": 24,
+        "version": "2.6.0",
+        "modules_active": 26,
         "timestamp": datetime.utcnow().isoformat()
     }
 

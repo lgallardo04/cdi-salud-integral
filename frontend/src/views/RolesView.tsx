@@ -61,7 +61,9 @@ export const RolesView: React.FC = () => {
     facturacion: { ver: true, crear: false, editar: false, eliminar: false, exportar: true },
     epidemiologia: { ver: true, crear: true, editar: false, eliminar: false, exportar: true },
     auditoria: { ver: false, crear: false, editar: false, eliminar: false, exportar: false },
-    portal_paciente: { ver: true, crear: false, editar: false, eliminar: false, exportar: false }
+    portal_paciente: { ver: true, crear: false, editar: false, eliminar: false, exportar: false },
+    nutricion: { ver: true, crear: true, editar: true, eliminar: false, exportar: true },
+    oftalmologia: { ver: true, crear: true, editar: true, eliminar: false, exportar: true }
   };
 
 

@@ -10,7 +10,7 @@ def test_healthcheck():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "online"
-    assert data["modules_active"] == 24
+    assert data["modules_active"] == 26
 
 def test_get_roles():
     response = client.get("/api/roles")
@@ -37,7 +37,10 @@ def test_clinical_enterprise_endpoints():
         "/api/serviciosTarifas",
         "/api/facturas",
         "/api/registrosAuditoria",
-        "/api/casosEpidemiologicos"
+        "/api/casosEpidemiologicos",
+        "/api/evaluacionesNutricionales",
+        "/api/consultasOftalmicas",
+        "/api/candidatosMisionMilagro"
     ]
     for ep in endpoints:
         res = client.get(ep)

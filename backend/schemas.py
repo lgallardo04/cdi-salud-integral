@@ -482,3 +482,59 @@ class CasoEpidemiologicoSchema(BaseModel):
     class Config:
         from_attributes = True
 
+
+class EvaluacionNutricionalSchema(BaseModel):
+    id: Optional[str] = None
+    pacienteId: str
+    pacienteNombre: Optional[str] = None
+    pacienteCedula: Optional[str] = None
+    fecha: str
+    pesoKg: float
+    tallaCm: float
+    imc: float
+    circunferenciaBrazoCm: Optional[float] = None
+    circunferenciaCinturaCm: Optional[float] = None
+    clasificacion: str
+    recomendacion: Optional[str] = None
+    evaluador: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class ConsultaOftalmicaSchema(BaseModel):
+    id: Optional[str] = None
+    pacienteId: str
+    pacienteNombre: Optional[str] = None
+    pacienteCedula: Optional[str] = None
+    fecha: str
+    medicoTratante: Optional[str] = None
+    avOD: Optional[str] = None
+    avOS: Optional[str] = None
+    pioOD: int = 15
+    pioOS: int = 15
+    biomicroscopia: Optional[str] = None
+    fondoOjo: Optional[str] = None
+    diagnostico: str
+    planTratamiento: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class CandidatoMisionMilagroSchema(BaseModel):
+    id: Optional[str] = None
+    pacienteId: str
+    pacienteNombre: Optional[str] = None
+    pacienteCedula: Optional[str] = None
+    ojo: str = "OD"
+    patologia: str
+    poderLIO: Optional[str] = None
+    checklistLaboratorio: str = "Pendiente"
+    checklistCardio: str = "Pendiente"
+    estado: str = "Pendiente Laboratorio"
+    fechaJornada: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
