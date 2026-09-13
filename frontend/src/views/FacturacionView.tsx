@@ -451,7 +451,7 @@ export const FacturacionView: React.FC = () => {
                 <label className="form-label">Número de Comprobante</label>
                 <input
                   type="text"
-                  className="input font-mono"
+                  className="form-input font-mono"
                   value={facturaForm.codigoFactura}
                   onChange={(e) => setFacturaForm({ ...facturaForm, codigoFactura: e.target.value })}
                   required
@@ -461,7 +461,7 @@ export const FacturacionView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Paciente</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={facturaForm.pacienteId}
                   onChange={(e) => setFacturaForm({ ...facturaForm, pacienteId: e.target.value })}
                   required
@@ -478,7 +478,7 @@ export const FacturacionView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Modalidad de Cobertura</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={facturaForm.modalidadPago}
                   onChange={(e) => handleModalidadPagoChange(e.target.value)}
                 >
@@ -514,7 +514,7 @@ export const FacturacionView: React.FC = () => {
                     <tr key={idx}>
                       <td>
                         <select
-                          className="input input-sm"
+                          className="form-input input-sm"
                           value={item.servicioId}
                           onChange={(e) => handleItemTarifaChange(idx, e.target.value)}
                         >
@@ -529,7 +529,7 @@ export const FacturacionView: React.FC = () => {
                         <input
                           type="number"
                           min="1"
-                          className="input input-sm font-mono"
+                          className="form-input input-sm font-mono"
                           value={item.cantidad}
                           onChange={(e) => handleItemCantidadChange(idx, Number(e.target.value))}
                         />
@@ -572,7 +572,7 @@ export const FacturacionView: React.FC = () => {
             <div className="form-group" style={{ marginTop: '0.5rem' }}>
               <label className="form-label">Observaciones y Justificación de Cobertura</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={2}
                 value={facturaForm.notas}
                 onChange={(e) => setFacturaForm({ ...facturaForm, notas: e.target.value })}

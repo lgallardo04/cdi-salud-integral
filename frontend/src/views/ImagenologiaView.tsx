@@ -266,7 +266,7 @@ export const ImagenologiaView: React.FC = () => {
             <Search size={16} className="search-icon" />
             <input
               type="text"
-              className="input search-input"
+              className="form-input search-input"
               placeholder="Buscar por código, paciente, región anatómica..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -276,7 +276,7 @@ export const ImagenologiaView: React.FC = () => {
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <Filter size={16} style={{ color: '#64748b' }} />
             <select
-              className="input select-input"
+              className="form-input select-input"
               value={filterModalidad}
               onChange={(e) => setFilterModalidad(e.target.value)}
             >
@@ -291,7 +291,7 @@ export const ImagenologiaView: React.FC = () => {
 
           <div>
             <select
-              className="input select-input"
+              className="form-input select-input"
               value={filterEstado}
               onChange={(e) => setFilterEstado(e.target.value)}
             >
@@ -660,7 +660,7 @@ export const ImagenologiaView: React.FC = () => {
                 <label className="form-label">Código del Estudio</label>
                 <input
                   type="text"
-                  className="input font-mono"
+                  className="form-input font-mono"
                   value={formData.codigoEstudio || ''}
                   onChange={(e) => setFormData({ ...formData, codigoEstudio: e.target.value })}
                   required
@@ -670,7 +670,7 @@ export const ImagenologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Paciente</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.pacienteId || ''}
                   onChange={(e) => setFormData({ ...formData, pacienteId: e.target.value })}
                   required
@@ -687,7 +687,7 @@ export const ImagenologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Médico Solicitante</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.medicoSolicitanteId || ''}
                   onChange={(e) => setFormData({ ...formData, medicoSolicitanteId: e.target.value })}
                   required
@@ -706,7 +706,7 @@ export const ImagenologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Modalidad Radiológica</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.modalidad || 'Rayos X'}
                   onChange={(e) => setFormData({ ...formData, modalidad: e.target.value as any })}
                   required
@@ -723,7 +723,7 @@ export const ImagenologiaView: React.FC = () => {
                 <label className="form-label">Región Anatómica</label>
                 <input
                   type="text"
-                  className="input"
+                  className="form-input"
                   placeholder="Ej. Tórax PA y Lateral, Abdomen Superior..."
                   value={formData.regionAnatomica || ''}
                   onChange={(e) => setFormData({ ...formData, regionAnatomica: e.target.value })}
@@ -734,7 +734,7 @@ export const ImagenologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Prioridad</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.prioridad || 'Programada'}
                   onChange={(e) => setFormData({ ...formData, prioridad: e.target.value as any })}
                 >
@@ -747,7 +747,7 @@ export const ImagenologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Estado</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.estado || 'Pendiente'}
                   onChange={(e) => setFormData({ ...formData, estado: e.target.value as any })}
                 >
@@ -763,7 +763,7 @@ export const ImagenologiaView: React.FC = () => {
               <label className="form-label">Motivo del Estudio / Datos Clínicos</label>
               <input
                 type="text"
-                className="input"
+                className="form-input"
                 placeholder="Sospecha diagnóstica o síntomas que justifican el estudio..."
                 value={formData.motivoEstudio || ''}
                 onChange={(e) => setFormData({ ...formData, motivoEstudio: e.target.value })}
@@ -773,7 +773,7 @@ export const ImagenologiaView: React.FC = () => {
             <div className="form-group" style={{ marginTop: '0.5rem' }}>
               <label className="form-label">Hallazgos Radiológicos (Informe)</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={3}
                 placeholder="Descripción detallada de estructuras y hallazgos imagenológicos..."
                 value={formData.hallazgos || ''}
@@ -784,7 +784,7 @@ export const ImagenologiaView: React.FC = () => {
             <div className="form-group" style={{ marginTop: '0.5rem' }}>
               <label className="form-label">Impresión Diagnóstica / Conclusión</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={2}
                 placeholder="Conclusión diagnóstica..."
                 value={formData.impresionDiagnostica || ''}

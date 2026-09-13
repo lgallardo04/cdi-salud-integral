@@ -436,7 +436,7 @@ export const OdontologiaView: React.FC = () => {
               <div>
                 <label className="form-label" style={{ fontSize: '0.8rem' }}>Seleccionar Paciente para Odontograma:</label>
                 <select
-                  className="input select-input"
+                  className="form-input select-input"
                   value={selectedPacienteId}
                   onChange={(e) => setSelectedPacienteId(e.target.value)}
                 >
@@ -718,7 +718,7 @@ export const OdontologiaView: React.FC = () => {
               <label className="form-label">Pieza Dental (Opcional)</label>
               <input
                 type="number"
-                className="input font-mono"
+                className="form-input font-mono"
                 placeholder="Ej. 14, 21, 36 (o dejar vacío para boca completa)..."
                 value={newPlanItem.dienteNumero || ''}
                 onChange={(e) => setNewPlanItem({ ...newPlanItem, dienteNumero: Number(e.target.value) })}
@@ -729,7 +729,7 @@ export const OdontologiaView: React.FC = () => {
               <label className="form-label">Procedimiento Odontológico</label>
               <input
                 type="text"
-                className="input"
+                className="form-input"
                 placeholder="Ej. Restauración con Resina Fotocurada, Profilaxis..."
                 value={newPlanItem.procedimiento}
                 onChange={(e) => setNewPlanItem({ ...newPlanItem, procedimiento: e.target.value })}
@@ -741,7 +741,7 @@ export const OdontologiaView: React.FC = () => {
               <label className="form-label">Costo Estimado (USD)</label>
               <input
                 type="number"
-                className="input font-mono"
+                className="form-input font-mono"
                 value={newPlanItem.costoEstimadoUSD}
                 onChange={(e) => setNewPlanItem({ ...newPlanItem, costoEstimadoUSD: Number(e.target.value) })}
                 required

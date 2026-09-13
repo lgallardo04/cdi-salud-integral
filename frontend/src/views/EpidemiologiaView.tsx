@@ -342,7 +342,7 @@ export const EpidemiologiaView: React.FC = () => {
                 <label className="form-label">Código EPI</label>
                 <input
                   type="text"
-                  className="input font-mono"
+                  className="form-input font-mono"
                   value={formData.codigoCaso}
                   onChange={(e) => setFormData({ ...formData, codigoCaso: e.target.value })}
                   required
@@ -352,7 +352,7 @@ export const EpidemiologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Paciente Afectado</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.pacienteId}
                   onChange={(e) => setFormData({ ...formData, pacienteId: e.target.value })}
                   required
@@ -369,7 +369,7 @@ export const EpidemiologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Enfermedad / Evento Bajo Vigilancia</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.enfermedad}
                   onChange={(e) => setFormData({ ...formData, enfermedad: e.target.value })}
                   required
@@ -389,7 +389,7 @@ export const EpidemiologiaView: React.FC = () => {
                 <label className="form-label">Sector / Comunidad de Residencia</label>
                 <input
                   type="text"
-                  className="input"
+                  className="form-input"
                   placeholder="Ej. Sector 23 de Enero, Bloque 12..."
                   value={formData.sectorComunidad}
                   onChange={(e) => setFormData({ ...formData, sectorComunidad: e.target.value })}
@@ -400,7 +400,7 @@ export const EpidemiologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Zona del Canal Endémico</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.canalEndemicoZona}
                   onChange={(e) => setFormData({ ...formData, canalEndemicoZona: e.target.value as any })}
                 >
@@ -414,7 +414,7 @@ export const EpidemiologiaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Estado del Caso</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.estadoCaso}
                   onChange={(e) => setFormData({ ...formData, estadoCaso: e.target.value as any })}
                 >
@@ -428,7 +428,7 @@ export const EpidemiologiaView: React.FC = () => {
             <div className="form-group" style={{ marginTop: '0.5rem' }}>
               <label className="form-label">Medidas de Salud Pública / Cerco Epidemiológico</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={3}
                 placeholder="Acciones realizadas: abatización, búsqueda activa de febriles, aislamiento..."
                 value={formData.medidasTomadas}

@@ -322,7 +322,7 @@ export const LaboratorioView: React.FC = () => {
             <Search size={16} className="search-icon" />
             <input
               type="text"
-              className="input search-input"
+              className="form-input search-input"
               placeholder="Buscar por código, paciente, cédula o perfil..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -332,7 +332,7 @@ export const LaboratorioView: React.FC = () => {
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <Filter size={16} style={{ color: '#64748b' }} />
             <select
-              className="input select-input"
+              className="form-input select-input"
               value={filterPerfil}
               onChange={(e) => setFilterPerfil(e.target.value)}
             >
@@ -347,7 +347,7 @@ export const LaboratorioView: React.FC = () => {
 
           <div>
             <select
-              className="input select-input"
+              className="form-input select-input"
               value={filterPrioridad}
               onChange={(e) => setFilterPrioridad(e.target.value)}
             >
@@ -360,7 +360,7 @@ export const LaboratorioView: React.FC = () => {
 
           <div>
             <select
-              className="input select-input"
+              className="form-input select-input"
               value={filterEstado}
               onChange={(e) => setFilterEstado(e.target.value)}
             >
@@ -483,7 +483,7 @@ export const LaboratorioView: React.FC = () => {
                 <label className="form-label">Código de Orden</label>
                 <input
                   type="text"
-                  className="input font-mono"
+                  className="form-input font-mono"
                   value={formData.codigoOrden || ''}
                   onChange={(e) => setFormData({ ...formData, codigoOrden: e.target.value })}
                   required
@@ -493,7 +493,7 @@ export const LaboratorioView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Paciente</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.pacienteId || ''}
                   onChange={(e) => setFormData({ ...formData, pacienteId: e.target.value })}
                   required
@@ -510,7 +510,7 @@ export const LaboratorioView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Médico Solicitante</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.medicoId || ''}
                   onChange={(e) => setFormData({ ...formData, medicoId: e.target.value })}
                   required
@@ -529,7 +529,7 @@ export const LaboratorioView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Perfil de Exámenes</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.perfil || 'Hematología Completa'}
                   onChange={(e) => handlePerfilChange(e.target.value)}
                   required
@@ -548,7 +548,7 @@ export const LaboratorioView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Tipo de Muestra</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.muestra || 'Sangre Total'}
                   onChange={(e) => setFormData({ ...formData, muestra: e.target.value as any })}
                   required
@@ -566,7 +566,7 @@ export const LaboratorioView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Prioridad</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.prioridad || 'Rutina'}
                   onChange={(e) => setFormData({ ...formData, prioridad: e.target.value as any })}
                 >
@@ -579,7 +579,7 @@ export const LaboratorioView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Estado de la Orden</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.estado || 'Solicitado'}
                   onChange={(e) => setFormData({ ...formData, estado: e.target.value as any })}
                 >
@@ -620,7 +620,7 @@ export const LaboratorioView: React.FC = () => {
                         <td>
                           <input
                             type="text"
-                            className="input input-sm font-mono"
+                            className="form-input input-sm font-mono"
                             value={res.valor}
                             onChange={(e) => handleResultParamChange(idx, 'valor', e.target.value)}
                             style={{
@@ -633,7 +633,7 @@ export const LaboratorioView: React.FC = () => {
                         <td className="text-muted font-mono">{res.rangoReferencia}</td>
                         <td>
                           <select
-                            className="input input-sm"
+                            className="form-input input-sm"
                             value={res.estado}
                             onChange={(e) => handleResultParamChange(idx, 'estado', e.target.value as any)}
                             style={{ fontSize: '0.75rem', padding: '0.2rem 0.4rem' }}
@@ -654,7 +654,7 @@ export const LaboratorioView: React.FC = () => {
             <div className="form-group" style={{ marginTop: '1rem' }}>
               <label className="form-label">Observaciones Clínicas / Diagnósticas</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={2}
                 placeholder="Observaciones adicionales del bioanalista o médico..."
                 value={formData.observacionesClinicas || ''}

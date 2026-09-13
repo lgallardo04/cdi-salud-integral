@@ -542,7 +542,7 @@ export const TelemedicinaView: React.FC = () => {
               </div>
 
               <textarea
-                className="input"
+                className="form-input"
                 style={{ flex: 1, fontSize: '0.8rem', resize: 'none' }}
                 placeholder="Escriba aquí los síntomas, impresiones diagnósticas e indicaciones mientras conversa con el paciente..."
                 value={liveDoctorNotes}
@@ -589,7 +589,7 @@ export const TelemedicinaView: React.FC = () => {
               <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: '0.4rem' }}>
                 <input
                   type="text"
-                  className="input input-sm"
+                  className="form-input input-sm"
                   placeholder="Escriba un mensaje al paciente..."
                   value={chatMessageText}
                   onChange={(e) => setChatMessageText(e.target.value)}
@@ -614,7 +614,7 @@ export const TelemedicinaView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Paciente</label>
               <select
-                className="input"
+                className="form-input"
                 value={consultaForm.pacienteId}
                 onChange={(e) => setConsultaForm({ ...consultaForm, pacienteId: e.target.value })}
                 required
@@ -631,7 +631,7 @@ export const TelemedicinaView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Médico Especialista</label>
               <select
-                className="input"
+                className="form-input"
                 value={consultaForm.medicoId}
                 onChange={(e) => setConsultaForm({ ...consultaForm, medicoId: e.target.value })}
                 required
@@ -650,7 +650,7 @@ export const TelemedicinaView: React.FC = () => {
                 <label className="form-label">Fecha</label>
                 <input
                   type="date"
-                  className="input"
+                  className="form-input"
                   value={consultaForm.fechaProgramada}
                   onChange={(e) => setConsultaForm({ ...consultaForm, fechaProgramada: e.target.value })}
                   required
@@ -660,7 +660,7 @@ export const TelemedicinaView: React.FC = () => {
                 <label className="form-label">Hora</label>
                 <input
                   type="time"
-                  className="input"
+                  className="form-input"
                   value={consultaForm.horaProgramada}
                   onChange={(e) => setConsultaForm({ ...consultaForm, horaProgramada: e.target.value })}
                   required
@@ -671,7 +671,7 @@ export const TelemedicinaView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Motivo de la Teleconsulta</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={2}
                 placeholder="Motivo de la consulta virtual..."
                 value={consultaForm.motivo}
@@ -703,7 +703,7 @@ export const TelemedicinaView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Paciente</label>
               <select
-                className="input"
+                className="form-input"
                 value={interconsultaForm.pacienteId}
                 onChange={(e) => setInterconsultaForm({ ...interconsultaForm, pacienteId: e.target.value })}
                 required
@@ -721,7 +721,7 @@ export const TelemedicinaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Especialidad Requerida</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={interconsultaForm.especialidadDestino}
                   onChange={(e) => setInterconsultaForm({ ...interconsultaForm, especialidadDestino: e.target.value })}
                 >
@@ -737,7 +737,7 @@ export const TelemedicinaView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Prioridad</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={interconsultaForm.prioridad}
                   onChange={(e) => setInterconsultaForm({ ...interconsultaForm, prioridad: e.target.value as any })}
                 >
@@ -751,7 +751,7 @@ export const TelemedicinaView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Motivo y Pregunta Clínica Específica</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={3}
                 placeholder="Indique claramente la duda clínica o solicitud de concepto..."
                 value={interconsultaForm.motivoConsulta}

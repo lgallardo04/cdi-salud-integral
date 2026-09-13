@@ -300,7 +300,7 @@ export const TriajeView: React.FC = () => {
             <Search size={16} className="search-icon" />
             <input
               type="text"
-              className="input search-input"
+              className="form-input search-input"
               placeholder="Buscar por paciente, cédula o motivo de consulta..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -310,7 +310,7 @@ export const TriajeView: React.FC = () => {
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <Filter size={16} style={{ color: '#64748b' }} />
             <select
-              className="input select-input"
+              className="form-input select-input"
               value={filterNivel}
               onChange={(e) => setFilterNivel(e.target.value)}
             >
@@ -467,7 +467,7 @@ export const TriajeView: React.FC = () => {
                 <label className="form-label">Código de Triaje</label>
                 <input
                   type="text"
-                  className="input font-mono"
+                  className="form-input font-mono"
                   value={formData.codigoTriaje}
                   onChange={(e) => setFormData({ ...formData, codigoTriaje: e.target.value })}
                   required
@@ -477,7 +477,7 @@ export const TriajeView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Paciente</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.pacienteId}
                   onChange={(e) => setFormData({ ...formData, pacienteId: e.target.value })}
                   required
@@ -495,7 +495,7 @@ export const TriajeView: React.FC = () => {
                 <label className="form-label">Enfermero/a de Triaje</label>
                 <input
                   type="text"
-                  className="input"
+                  className="form-input"
                   value={formData.enfermeroTriaje}
                   onChange={(e) => setFormData({ ...formData, enfermeroTriaje: e.target.value })}
                   required
@@ -538,7 +538,7 @@ export const TriajeView: React.FC = () => {
                   <label className="form-label" style={{ fontSize: '0.75rem' }}>PAS Sistólica (mmHg)</label>
                   <input
                     type="number"
-                    className="input font-mono"
+                    className="form-input font-mono"
                     value={formData.pas}
                     onChange={(e) => setFormData({ ...formData, pas: Number(e.target.value) })}
                     required
@@ -549,7 +549,7 @@ export const TriajeView: React.FC = () => {
                   <label className="form-label" style={{ fontSize: '0.75rem' }}>PAD Diastólica (mmHg)</label>
                   <input
                     type="number"
-                    className="input font-mono"
+                    className="form-input font-mono"
                     value={formData.pad}
                     onChange={(e) => setFormData({ ...formData, pad: Number(e.target.value) })}
                     required
@@ -560,7 +560,7 @@ export const TriajeView: React.FC = () => {
                   <label className="form-label" style={{ fontSize: '0.75rem' }}>Frecuencia Cardíaca (lpm)</label>
                   <input
                     type="number"
-                    className="input font-mono"
+                    className="form-input font-mono"
                     value={formData.fc}
                     onChange={(e) => setFormData({ ...formData, fc: Number(e.target.value) })}
                     required
@@ -571,7 +571,7 @@ export const TriajeView: React.FC = () => {
                   <label className="form-label" style={{ fontSize: '0.75rem' }}>Frec. Respiratoria (rpm)</label>
                   <input
                     type="number"
-                    className="input font-mono"
+                    className="form-input font-mono"
                     value={formData.fr}
                     onChange={(e) => setFormData({ ...formData, fr: Number(e.target.value) })}
                     required
@@ -582,7 +582,7 @@ export const TriajeView: React.FC = () => {
                   <label className="form-label" style={{ fontSize: '0.75rem' }}>SpO2 (%)</label>
                   <input
                     type="number"
-                    className="input font-mono"
+                    className="form-input font-mono"
                     value={formData.spo2}
                     onChange={(e) => setFormData({ ...formData, spo2: Number(e.target.value) })}
                     required
@@ -594,7 +594,7 @@ export const TriajeView: React.FC = () => {
                   <input
                     type="number"
                     step="0.1"
-                    className="input font-mono"
+                    className="form-input font-mono"
                     value={formData.temperatura}
                     onChange={(e) => setFormData({ ...formData, temperatura: Number(e.target.value) })}
                     required
@@ -604,7 +604,7 @@ export const TriajeView: React.FC = () => {
                 <div className="form-group">
                   <label className="form-label" style={{ fontSize: '0.75rem' }}>Conciencia (AVPU)</label>
                   <select
-                    className="input"
+                    className="form-input"
                     value={formData.escalaAVPU}
                     onChange={(e) => setFormData({ ...formData, escalaAVPU: e.target.value as any })}
                   >
@@ -621,7 +621,7 @@ export const TriajeView: React.FC = () => {
                     type="number"
                     min="0"
                     max="10"
-                    className="input font-mono"
+                    className="form-input font-mono"
                     value={formData.escalaDolorEva}
                     onChange={(e) => setFormData({ ...formData, escalaDolorEva: Number(e.target.value) })}
                   />
@@ -645,7 +645,7 @@ export const TriajeView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Nivel de Triaje Asignado (Manchester / ESI)</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.nivelTriaje}
                   onChange={(e) => setFormData({ ...formData, nivelTriaje: e.target.value as any })}
                 >
@@ -660,7 +660,7 @@ export const TriajeView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">Destino Clínico Recomendado</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={formData.destinoRecomendado}
                   onChange={(e) => setFormData({ ...formData, destinoRecomendado: e.target.value as any })}
                 >
@@ -675,7 +675,7 @@ export const TriajeView: React.FC = () => {
             <div className="form-group" style={{ marginTop: '0.5rem' }}>
               <label className="form-label">Motivo de Urgencia y Síntomas Principales</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={3}
                 placeholder="Describa el motivo por el cual acude el paciente, tiempo de evolución y antecedentes..."
                 value={formData.motivoUrgencia}

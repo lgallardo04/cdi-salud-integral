@@ -146,7 +146,7 @@ export const AuditoriaView: React.FC = () => {
             <Search size={16} className="search-icon" />
             <input
               type="text"
-              className="input search-input"
+              className="form-input search-input"
               placeholder="Buscar por usuario, módulo, detalles o IP..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -156,7 +156,7 @@ export const AuditoriaView: React.FC = () => {
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <Filter size={16} style={{ color: '#64748b' }} />
             <select
-              className="input select-input"
+              className="form-input select-input"
               value={filterSeveridad}
               onChange={(e) => setFilterSeveridad(e.target.value)}
             >
@@ -169,7 +169,7 @@ export const AuditoriaView: React.FC = () => {
 
           <div>
             <select
-              className="input select-input"
+              className="form-input select-input"
               value={filterAccion}
               onChange={(e) => setFilterAccion(e.target.value)}
             >

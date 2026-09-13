@@ -428,7 +428,7 @@ export const PortalPacienteView: React.FC = () => {
               <div className="form-group">
                 <label className="form-label">¿Cuál es su síntoma principal hoy?</label>
                 <select
-                  className="input"
+                  className="form-input"
                   value={sintomaSeleccionado}
                   onChange={(e) => setSintomaSeleccionado(e.target.value)}
                   required
@@ -461,7 +461,7 @@ export const PortalPacienteView: React.FC = () => {
                 <input
                   type="number"
                   min="1"
-                  className="input font-mono"
+                  className="form-input font-mono"
                   value={diasEvolucion}
                   onChange={(e) => setDiasEvolucion(Number(e.target.value))}
                 />

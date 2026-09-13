@@ -350,7 +350,7 @@ export const HospitalizacionView: React.FC = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748b' }}>Sala / Pabellón:</span>
                 <select
-                  className="input select-input"
+                  className="form-input select-input"
                   style={{ width: 'auto' }}
                   value={filterSala}
                   onChange={(e) => setFilterSala(e.target.value)}
@@ -367,7 +367,7 @@ export const HospitalizacionView: React.FC = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748b' }}>Estado:</span>
                 <select
-                  className="input select-input"
+                  className="form-input select-input"
                   style={{ width: 'auto' }}
                   value={filterEstadoCama}
                   onChange={(e) => setFilterEstadoCama(e.target.value)}
@@ -634,7 +634,7 @@ export const HospitalizacionView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Paciente a Hospitalizar</label>
               <select
-                className="input"
+                className="form-input"
                 value={admisionForm.pacienteId}
                 onChange={(e) => setAdmisionForm({ ...admisionForm, pacienteId: e.target.value })}
                 required
@@ -651,7 +651,7 @@ export const HospitalizacionView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Cama Hospitalaria Disponible</label>
               <select
-                className="input"
+                className="form-input"
                 value={admisionForm.camaId}
                 onChange={(e) => setAdmisionForm({ ...admisionForm, camaId: e.target.value })}
                 required
@@ -668,7 +668,7 @@ export const HospitalizacionView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Médico Tratante Responsable</label>
               <select
-                className="input"
+                className="form-input"
                 value={admisionForm.medicoTratanteId}
                 onChange={(e) => setAdmisionForm({ ...admisionForm, medicoTratanteId: e.target.value })}
                 required
@@ -685,7 +685,7 @@ export const HospitalizacionView: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Diagnóstico de Ingreso / Criterio de Hospitalización</label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={3}
                 placeholder="Indique el motivo y diagnóstico de admisión..."
                 value={admisionForm.diagnosticoIngreso}
@@ -734,7 +734,7 @@ export const HospitalizacionView: React.FC = () => {
                   <span style={{ fontSize: '0.7rem', color: '#64748b' }}>P.A (mmHg)</span>
                   <input
                     type="text"
-                    className="input input-sm font-mono"
+                    className="form-input input-sm font-mono"
                     value={soapForm.pa}
                     onChange={(e) => setSoapForm({ ...soapForm, pa: e.target.value })}
                   />
@@ -743,7 +743,7 @@ export const HospitalizacionView: React.FC = () => {
                   <span style={{ fontSize: '0.7rem', color: '#64748b' }}>F.C (lpm)</span>
                   <input
                     type="number"
-                    className="input input-sm font-mono"
+                    className="form-input input-sm font-mono"
                     value={soapForm.fc}
                     onChange={(e) => setSoapForm({ ...soapForm, fc: Number(e.target.value) })}
                   />
@@ -752,7 +752,7 @@ export const HospitalizacionView: React.FC = () => {
                   <span style={{ fontSize: '0.7rem', color: '#64748b' }}>F.R (rpm)</span>
                   <input
                     type="number"
-                    className="input input-sm font-mono"
+                    className="form-input input-sm font-mono"
                     value={soapForm.fr}
                     onChange={(e) => setSoapForm({ ...soapForm, fr: Number(e.target.value) })}
                   />
@@ -762,7 +762,7 @@ export const HospitalizacionView: React.FC = () => {
                   <input
                     type="number"
                     step="0.1"
-                    className="input input-sm font-mono"
+                    className="form-input input-sm font-mono"
                     value={soapForm.temp}
                     onChange={(e) => setSoapForm({ ...soapForm, temp: Number(e.target.value) })}
                   />
@@ -771,7 +771,7 @@ export const HospitalizacionView: React.FC = () => {
                   <span style={{ fontSize: '0.7rem', color: '#64748b' }}>SpO2 (%)</span>
                   <input
                     type="number"
-                    className="input input-sm font-mono"
+                    className="form-input input-sm font-mono"
                     value={soapForm.spo2}
                     onChange={(e) => setSoapForm({ ...soapForm, spo2: Number(e.target.value) })}
                   />
@@ -785,7 +785,7 @@ export const HospitalizacionView: React.FC = () => {
                 <span style={{ color: '#2563eb', fontWeight: 800 }}>S</span> - Subjetivo (Síntomas referidos por el paciente)
               </label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={2}
                 placeholder="Paciente refiere sentirse mejor, sin dolor torácico, buena tolerancia oral..."
                 value={soapForm.subjetivo}
@@ -799,7 +799,7 @@ export const HospitalizacionView: React.FC = () => {
                 <span style={{ color: '#2563eb', fontWeight: 800 }}>O</span> - Objetivo (Hallazgos al examen físico y paraclínicos)
               </label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={2}
                 placeholder="Abdomen blando depresible, ruidos hidroaéreos presentes, sin edemas..."
                 value={soapForm.objetivo}
@@ -813,7 +813,7 @@ export const HospitalizacionView: React.FC = () => {
                 <span style={{ color: '#2563eb', fontWeight: 800 }}>A</span> - Análisis / Evaluación Clínica
               </label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={2}
                 placeholder="Evolución clínica satisfactoria en su 2do día de hospitalización..."
                 value={soapForm.analisis}
@@ -827,7 +827,7 @@ export const HospitalizacionView: React.FC = () => {
                 <span style={{ color: '#2563eb', fontWeight: 800 }}>P</span> - Plan Terapéutico y Órdenes Médicas
               </label>
               <textarea
-                className="input"
+                className="form-input"
                 rows={2}
                 placeholder="1. Continuar antibiótico. 2. Repetir hematología en 24h. 3. Deambulación asistida..."
                 value={soapForm.plan}
