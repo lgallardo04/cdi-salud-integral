@@ -180,22 +180,22 @@ export const OftalmologiaView: React.FC = () => {
           background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%)',
           color: '#ffffff',
           padding: '1.25rem 1.5rem',
-          borderRadius: '16px',
+          borderRadius: '8px',
           marginBottom: '1.25rem',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: '1rem',
-          boxShadow: '0 4px 12px rgba(15, 23, 42, 0.2)'
+          boxShadow: '0 4px 12px rgba(15, 23, 42, 0.15)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           <div
             style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
+              width: '44px',
+              height: '44px',
+              borderRadius: '8px',
               backgroundColor: 'rgba(37, 99, 235, 0.35)',
               border: '1px solid rgba(255, 255, 255, 0.2)',
               display: 'flex',
@@ -203,22 +203,22 @@ export const OftalmologiaView: React.FC = () => {
               justifyContent: 'center'
             }}
           >
-            <Eye size={26} color="#93c5fd" />
+            <Eye size={24} color="#93c5fd" />
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0 }}>
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 700, margin: 0 }}>
                 Módulo de Oftalmología CDI
               </h2>
               <span
                 style={{
-                  fontSize: '0.7rem',
+                  fontSize: '0.68rem',
                   fontWeight: 700,
                   backgroundColor: '#f59e0b',
                   color: '#0f172a',
                   padding: '0.15rem 0.5rem',
-                  borderRadius: '999px',
-                  letterSpacing: '0.03em'
+                  borderRadius: '9999px',
+                  letterSpacing: '0.04em'
                 }}
               >
                 ☀️ MISIÓN MILAGRO
@@ -236,14 +236,14 @@ export const OftalmologiaView: React.FC = () => {
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
               padding: '0.45rem 0.85rem',
-              borderRadius: '10px',
+              borderRadius: '6px',
               textAlign: 'center'
             }}
           >
-            <span style={{ fontSize: '0.68rem', textTransform: 'uppercase', color: '#94a3b8', display: 'block' }}>
+            <span style={{ fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#94a3b8', display: 'block', fontWeight: 700 }}>
               Censo Milagro
             </span>
-            <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#facc15' }}>
+            <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#facc15', fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}>
               {candidatosMilagro.length} Aptos
             </span>
           </div>
@@ -252,15 +252,15 @@ export const OftalmologiaView: React.FC = () => {
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
               padding: '0.45rem 0.85rem',
-              borderRadius: '10px',
+              borderRadius: '6px',
               textAlign: 'center'
             }}
           >
-            <span style={{ fontSize: '0.68rem', textTransform: 'uppercase', color: '#94a3b8', display: 'block' }}>
+            <span style={{ fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#94a3b8', display: 'block', fontWeight: 700 }}>
               Tonometría PIO
             </span>
-            <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#4ade80' }}>
-              Normal
+            <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#38bdf8', fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}>
+              OD {consultaForm.pioOD} / OS {consultaForm.pioOS}
             </span>
           </div>
 

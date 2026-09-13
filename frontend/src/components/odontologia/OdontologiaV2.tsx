@@ -265,94 +265,339 @@ export const OdontologiaV2: React.FC = () => {
   return (
     <div id="modulo-dental-v2">
       <style>{`
-        /* Uso de Variables CSS para fácil tematización */
+        /* ==========================================================================
+           CDI CLINICAL PRECISION - MÓDULO ODONTOLOGÍA V2 (STITCH THEME)
+           ========================================================================== */
         #modulo-dental-v2 {
-          --primary: #0284c7;
-          --primary-hover: #0369a1;
+          --primary: #2563eb;
+          --primary-hover: #1d4ed8;
+          --navy: #0f172a;
           --surface: #ffffff;
           --background: #f8fafc;
-          --border: #cbd5e1;
+          --surface-container-low: #f1f5f9;
+          --border: #e2e8f0;
+          --border-strong: #cbd5e1;
           --text-main: #0f172a;
           --text-muted: #64748b;
-          --danger: #ef4444;
+          --danger: #dc2626;
+          --danger-bg: #fef2f2;
+          --warning: #d97706;
+          --warning-bg: #fffbeb;
+          --success: #16a34a;
+          --success-bg: #f0fdf4;
+          --teal: #0d9488;
           --radius: 8px;
+          --radius-sm: 6px;
+          --radius-full: 9999px;
+          --shadow-subtle: 0 4px 12px rgba(15, 23, 42, 0.06);
           
-          font-family: system-ui, -apple-system, sans-serif;
-          max-width: 1000px;
-          margin: 20px auto;
+          font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+          max-width: 100%;
+          margin: 0 auto;
           padding: 24px;
           background: var(--surface);
           border: 1px solid var(--border);
-          border-radius: 12px;
-          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+          border-radius: var(--radius);
+          box-shadow: var(--shadow-subtle);
           color: var(--text-main);
         }
         #modulo-dental-v2 * { box-sizing: border-box; }
         
         /* Layout y Formularios */
-        #modulo-dental-v2 h2 { margin: 0 0 20px; font-size: 1.5rem; border-bottom: 2px solid var(--background); padding-bottom: 10px; }
-        #modulo-dental-v2 .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
-        #modulo-dental-v2 .form-group { display: flex; flex-direction: column; gap: 6px; }
-        #modulo-dental-v2 label { font-size: 13px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        #modulo-dental-v2 input, #modulo-dental-v2 select, #modulo-dental-v2 textarea {
-          width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; transition: border 0.2s;
+        #modulo-dental-v2 h2 {
+          margin: 0 0 6px;
+          font-size: 1.35rem;
+          font-weight: 700;
+          color: var(--navy);
+          letter-spacing: -0.01em;
         }
-        #modulo-dental-v2 input:focus, #modulo-dental-v2 select:focus, #modulo-dental-v2 textarea:focus {
-          border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        #modulo-dental-v2 .grid-form {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 16px;
+          margin-bottom: 24px;
         }
-        #modulo-dental-v2 textarea { resize: vertical; min-height: 80px; }
+        #modulo-dental-v2 .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        #modulo-dental-v2 label {
+          font-size: 11px;
+          font-weight: 700;
+          color: #475569;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+        #modulo-dental-v2 input,
+        #modulo-dental-v2 select,
+        #modulo-dental-v2 textarea {
+          width: 100%;
+          padding: 9px 12px;
+          border: 1px solid var(--border-strong);
+          border-radius: var(--radius-sm);
+          font-size: 14px;
+          background: #ffffff;
+          color: var(--text-main);
+          transition: all 0.2s ease;
+        }
+        #modulo-dental-v2 input:focus,
+        #modulo-dental-v2 select:focus,
+        #modulo-dental-v2 textarea:focus {
+          border-color: var(--primary);
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+        #modulo-dental-v2 textarea {
+          resize: vertical;
+          min-height: 85px;
+          line-height: 1.5;
+        }
 
         /* Odontograma Flex Layout */
-        #modulo-dental-v2 .odontograma-container { background: var(--background); padding: 20px; border-radius: var(--radius); margin-bottom: 24px; border: 1px solid var(--border); }
-        #modulo-dental-v2 .arcada-title { text-align: center; font-size: 14px; font-weight: bold; color: var(--text-muted); margin: 15px 0 10px; }
-        #modulo-dental-v2 .arcada-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+        #modulo-dental-v2 .odontograma-container {
+          background: var(--background);
+          padding: 20px 16px;
+          border-radius: var(--radius);
+          margin-bottom: 24px;
+          border: 1px solid var(--border);
+        }
+        #modulo-dental-v2 .arcada-title {
+          text-align: center;
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: #64748b;
+          margin: 14px 0 10px;
+        }
+        #modulo-dental-v2 .arcada-grid {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
         
         /* Botones Diente */
         #modulo-dental-v2 .tooth-card {
-          width: 44px; height: 56px; background: var(--surface); border: 2px solid var(--border);
-          border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;
-          font-size: 12px; font-weight: bold; color: var(--text-main); transition: all 0.2s ease;
+          width: 44px;
+          height: 58px;
+          background: var(--surface);
+          border: 1.5px solid var(--border-strong);
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-evenly;
+          font-family: var(--font-mono, 'JetBrains Mono', monospace);
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--text-main);
+          transition: all 0.18s ease;
+          user-select: none;
         }
-        #modulo-dental-v2 .tooth-card:hover { transform: translateY(-2px); border-color: var(--primary); }
-        #modulo-dental-v2 .tooth-card.active { border-color: var(--primary); background: #e0f2fe; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2); }
-        #modulo-dental-v2 .tooth-icon { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #94a3b8; }
+        #modulo-dental-v2 .tooth-card:hover {
+          transform: translateY(-2px);
+          border-color: var(--primary);
+          box-shadow: 0 4px 10px rgba(37, 99, 235, 0.12);
+        }
+        #modulo-dental-v2 .tooth-card.active {
+          border-color: var(--primary);
+          background: #eff6ff;
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.22);
+          transform: translateY(-2px);
+        }
+        #modulo-dental-v2 .tooth-icon {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          border: 2px solid #94a3b8;
+          background: #f8fafc;
+          transition: all 0.2s ease;
+        }
 
-        /* Patologías */
-        #modulo-dental-v2 .path-caries { border-color: #ef4444; background: #fef2f2; }
-        #modulo-dental-v2 .path-caries .tooth-icon { background: #ef4444; border-color: #dc2626; }
-        #modulo-dental-v2 .path-restauracion { border-color: #3b82f6; background: #eff6ff; }
-        #modulo-dental-v2 .path-restauracion .tooth-icon { background: #3b82f6; border-color: #2563eb; }
-        #modulo-dental-v2 .path-endodoncia { border-color: #f59e0b; background: #fffbeb; }
-        #modulo-dental-v2 .path-endodoncia .tooth-icon { background: #f59e0b; border-color: #d97706; }
-        #modulo-dental-v2 .path-ausente { opacity: 0.5; border-style: dashed; }
-        #modulo-dental-v2 .path-ausente .tooth-icon { background: #cbd5e1; border-color: #94a3b8; }
+        /* Patologías Clínicas (Semántica Stitch) */
+        #modulo-dental-v2 .path-caries {
+          border-color: #dc2626;
+          background: #fef2f2;
+          color: #b91c1c;
+        }
+        #modulo-dental-v2 .path-caries .tooth-icon {
+          background: #dc2626;
+          border-color: #991b1b;
+        }
+        #modulo-dental-v2 .path-restauracion {
+          border-color: #2563eb;
+          background: #eff6ff;
+          color: #1d4ed8;
+        }
+        #modulo-dental-v2 .path-restauracion .tooth-icon {
+          background: #2563eb;
+          border-color: #1e40af;
+        }
+        #modulo-dental-v2 .path-endodoncia {
+          border-color: #d97706;
+          background: #fffbeb;
+          color: #b45309;
+        }
+        #modulo-dental-v2 .path-endodoncia .tooth-icon {
+          background: #d97706;
+          border-color: #92400e;
+        }
+        #modulo-dental-v2 .path-ausente {
+          opacity: 0.6;
+          border-style: dashed;
+          border-color: #94a3b8;
+          background: #f1f5f9;
+        }
+        #modulo-dental-v2 .path-ausente .tooth-icon {
+          background: #cbd5e1;
+          border-color: #94a3b8;
+        }
 
-        /* Controles y Tabla */
-        #modulo-dental-v2 .action-panel { display: grid; grid-template-columns: 1fr 2fr 1fr auto; gap: 12px; align-items: end; margin-bottom: 24px; }
-        #modulo-dental-v2 .btn-primary { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: var(--radius); font-weight: 600; cursor: pointer; transition: 0.2s; height: 42px;}
-        #modulo-dental-v2 .btn-primary:hover { background: var(--primary-hover); }
-        
-        #modulo-dental-v2 .table-responsive { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
-        #modulo-dental-v2 table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        #modulo-dental-v2 th, #modulo-dental-v2 td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
-        #modulo-dental-v2 th { background: var(--background); color: var(--text-muted); font-size: 13px; text-transform: uppercase; }
-        #modulo-dental-v2 tbody tr:hover { background: #f8fafc; }
-        
-        #modulo-dental-v2 .btn-delete { background: #fee2e2; color: var(--danger); border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        #modulo-dental-v2 .btn-delete:hover { background: #fca5a5; }
-        
-        #modulo-dental-v2 .summary-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 2px dashed var(--border); }
-        #modulo-dental-v2 .total-amount { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        /* Leyenda de Patologías */
+        #modulo-dental-v2 .pathology-legend {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          flex-wrap: wrap;
+          padding: 8px 12px;
+          background: #ffffff;
+          border: 1px solid var(--border);
+          border-radius: var(--radius-sm);
+          margin-top: 14px;
+        }
+        #modulo-dental-v2 .legend-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+          font-weight: 600;
+          color: #475569;
+          letter-spacing: 0.02em;
+        }
+        #modulo-dental-v2 .legend-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
 
-        /* Adaptación Responsiva para Pantallas Pequeñas */
+        /* Panel de Acción y Controles */
+        #modulo-dental-v2 .action-panel {
+          display: grid;
+          grid-template-columns: 100px 1fr 140px auto;
+          gap: 12px;
+          align-items: end;
+          margin-bottom: 24px;
+          background: #f8fafc;
+          padding: 16px;
+          border-radius: var(--radius);
+          border: 1px solid var(--border);
+        }
+        #modulo-dental-v2 .btn-primary {
+          background: var(--primary);
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: var(--radius-sm);
+          font-weight: 600;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          height: 42px;
+          box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          white-space: nowrap;
+        }
+        #modulo-dental-v2 .btn-primary:hover {
+          background: var(--primary-hover);
+          box-shadow: 0 4px 10px rgba(37, 99, 235, 0.28);
+        }
+        
+        /* Tabla Clínica */
+        #modulo-dental-v2 .table-responsive {
+          overflow-x: auto;
+          border: 1px solid var(--border);
+          border-radius: var(--radius);
+          background: #ffffff;
+        }
+        #modulo-dental-v2 table {
+          width: 100%;
+          border-collapse: collapse;
+          min-width: 580px;
+        }
+        #modulo-dental-v2 th, #modulo-dental-v2 td {
+          text-align: left;
+          padding: 11px 16px;
+          border-bottom: 1px solid var(--border);
+        }
+        #modulo-dental-v2 th {
+          background: var(--background);
+          color: #475569;
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+        #modulo-dental-v2 tbody tr:hover {
+          background: #f8fafc;
+        }
+        #modulo-dental-v2 .price-cell {
+          font-family: var(--font-mono, 'JetBrains Mono', monospace);
+          font-weight: 600;
+          color: var(--navy);
+        }
+        #modulo-dental-v2 .btn-delete {
+          background: #fef2f2;
+          color: var(--danger);
+          border: 1px solid #fecaca;
+          padding: 5px 10px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 12px;
+          font-weight: 600;
+          transition: all 0.15s ease;
+        }
+        #modulo-dental-v2 .btn-delete:hover {
+          background: #fee2e2;
+          border-color: #f87171;
+        }
+        
+        /* Footer de Resumen */
+        #modulo-dental-v2 .summary-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 20px;
+          padding-top: 20px;
+          border-top: 2px dashed var(--border);
+        }
+        #modulo-dental-v2 .total-amount {
+          font-family: var(--font-mono, 'JetBrains Mono', monospace);
+          font-size: 1.55rem;
+          font-weight: 800;
+          color: var(--navy);
+          letter-spacing: -0.02em;
+        }
+
+        /* Adaptación Responsiva Mobile/Tablet */
         @media (max-width: 768px) {
-          #modulo-dental-v2 { padding: 16px; margin: 10px auto; }
+          #modulo-dental-v2 { padding: 16px; margin: 0 auto; }
           #modulo-dental-v2 .action-panel { grid-template-columns: 1fr 1fr; }
           #modulo-dental-v2 .action-panel button { grid-column: 1 / -1; }
+          #modulo-dental-v2 .arcada-grid { gap: 4px; }
+          #modulo-dental-v2 .tooth-card { width: 38px; height: 52px; font-size: 12px; }
         }
         @media (max-width: 520px) {
           #modulo-dental-v2 .action-panel { grid-template-columns: 1fr; }
           #modulo-dental-v2 .summary-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+          #modulo-dental-v2 .tooth-card { width: 34px; height: 48px; font-size: 11px; }
+          #modulo-dental-v2 .tooth-icon { width: 14px; height: 14px; }
         }
       `}</style>
 
@@ -370,31 +615,57 @@ export const OdontologiaV2: React.FC = () => {
             type="button"
             className="btn-primary"
             onClick={handleGuardarHistoria}
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#059669' }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#16a34a',
+              boxShadow: '0 2px 6px rgba(22, 163, 74, 0.25)'
+            }}
           >
-            <Save size={16} />
+            <Save size={15} />
             <span>Guardar en Historia Digital</span>
           </button>
           <button
             type="button"
             className="btn-primary"
             onClick={() => window.print()}
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#475569' }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#ffffff',
+              color: '#0f172a',
+              border: '1px solid #cbd5e1',
+              boxShadow: '0 1px 3px rgba(15, 23, 42, 0.05)'
+            }}
           >
-            <Printer size={16} />
+            <Printer size={15} />
             <span>Imprimir</span>
           </button>
         </div>
       </div>
 
       {/* Selector rápido de paciente registrado */}
-      <div style={{ backgroundColor: '#f1f5f9', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-        <span style={{ fontSize: '13px', fontWeight: 600, color: '#334155' }}>
+      <div
+        style={{
+          backgroundColor: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          padding: '12px 16px',
+          borderRadius: '8px',
+          marginBottom: '20px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          flexWrap: 'wrap'
+        }}
+      >
+        <span style={{ fontSize: '11px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           Vincular Paciente del CDI:
         </span>
         <select
           onChange={handleSelectPaciente}
-          style={{ maxWidth: '380px', background: '#ffffff' }}
+          style={{ maxWidth: '380px', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '6px', padding: '8px 12px', fontSize: '13px' }}
           defaultValue=""
         >
           <option value="" disabled>Seleccione un paciente de la base de datos...</option>
@@ -482,6 +753,30 @@ export const OdontologiaV2: React.FC = () => {
             );
           })}
         </div>
+
+        {/* Leyenda de Patologías Clínicas Stitch */}
+        <div className="pathology-legend">
+          <span className="legend-pill">
+            <span className="legend-dot" style={{ background: '#16a34a' }}></span>
+            Sano
+          </span>
+          <span className="legend-pill">
+            <span className="legend-dot" style={{ background: '#dc2626' }}></span>
+            Caries
+          </span>
+          <span className="legend-pill">
+            <span className="legend-dot" style={{ background: '#2563eb' }}></span>
+            Restauración
+          </span>
+          <span className="legend-pill">
+            <span className="legend-dot" style={{ background: '#d97706' }}></span>
+            Endodoncia
+          </span>
+          <span className="legend-pill">
+            <span className="legend-dot" style={{ background: '#94a3b8', border: '1px dashed #64748b' }}></span>
+            Ausente
+          </span>
+        </div>
       </div>
 
       <div className="action-panel">
@@ -493,7 +788,7 @@ export const OdontologiaV2: React.FC = () => {
             placeholder="Ej: 18"
             value={piezaSeleccionada !== null ? piezaSeleccionada : ''}
             readOnly
-            style={{ background: '#f1f5f9', textAlign: 'center', fontWeight: 'bold' }}
+            style={{ background: '#f1f5f9', textAlign: 'center', fontWeight: 'bold', fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
           />
         </div>
         <div className="form-group">
@@ -521,6 +816,7 @@ export const OdontologiaV2: React.FC = () => {
             step="1"
             value={costoInput}
             onChange={(e) => setCostoInput(e.target.value)}
+            style={{ fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
           />
         </div>
         <button
@@ -553,9 +849,9 @@ export const OdontologiaV2: React.FC = () => {
             ) : (
               tratamientos.map((item) => (
                 <tr key={item.id}>
-                  <td style={{ fontWeight: 'bold' }}>Pieza {item.pieza}</td>
+                  <td className="price-cell">Pieza {item.pieza}</td>
                   <td>{item.diagnostico}</td>
-                  <td>${item.costo.toFixed(2)}</td>
+                  <td className="price-cell">${item.costo.toFixed(2)}</td>
                   <td style={{ textAlign: 'right' }}>
                     <button
                       type="button"

@@ -358,14 +358,14 @@ export const OdontologiaView: React.FC = () => {
         </div>
       </div>
 
-      {/* Selector de Pestañas */}
+      {/* Selector de Pestañas Stitch Clinical Precision */}
       <div
         style={{
           display: 'flex',
           gap: '0.5rem',
           marginBottom: '1.25rem',
           borderBottom: '1px solid #e2e8f0',
-          paddingBottom: '0.5rem',
+          paddingBottom: '0.65rem',
           overflowX: 'auto'
         }}
       >
@@ -376,7 +376,19 @@ export const OdontologiaView: React.FC = () => {
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap' }}
         >
           <Sparkles size={15} />
-          Módulo Odontología V2 (Producción)
+          <span>Módulo Odontología V2</span>
+          <span
+            style={{
+              fontSize: '10px',
+              padding: '2px 6px',
+              borderRadius: '9999px',
+              backgroundColor: activeTab === 'v2' ? 'rgba(255, 255, 255, 0.25)' : '#e0f2fe',
+              color: activeTab === 'v2' ? '#ffffff' : '#0284c7',
+              fontWeight: 700
+            }}
+          >
+            PROD
+          </span>
         </button>
 
         <button
@@ -386,7 +398,7 @@ export const OdontologiaView: React.FC = () => {
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap' }}
         >
           <Smile size={15} />
-          Odontograma Anatómico FDI (5 Caras)
+          <span>Odontograma Anatómico FDI (5 Caras)</span>
         </button>
 
         <button
@@ -396,7 +408,19 @@ export const OdontologiaView: React.FC = () => {
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap' }}
         >
           <DollarSign size={15} />
-          Plan y Presupuesto Odontológico ({activeOdontograma.planTratamiento?.length || 0})
+          <span>Plan y Presupuesto Odontológico</span>
+          <span
+            style={{
+              fontSize: '10px',
+              padding: '2px 6px',
+              borderRadius: '9999px',
+              backgroundColor: activeTab === 'presupuesto' ? 'rgba(255, 255, 255, 0.25)' : '#f1f5f9',
+              color: activeTab === 'presupuesto' ? '#ffffff' : '#475569',
+              fontWeight: 700
+            }}
+          >
+            {activeOdontograma.planTratamiento?.length || 0}
+          </span>
         </button>
       </div>
 
