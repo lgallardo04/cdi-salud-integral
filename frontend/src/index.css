@@ -500,6 +500,10 @@ input, textarea, select, .clinical-table, .mobile-record-card, .selectable-text 
   gap: 1.5rem;
 }
 
+.view-container > * {
+  flex-shrink: 0;
+}
+
 /* ==========================================================================
    COMPONENTES UI: GRID, CARDS, STATS
    ========================================================================== */
@@ -1758,3 +1762,7 @@ input, textarea, select, .clinical-table, .mobile-record-card, .selectable-text 
 .search-input {
   padding-left: 2.5rem !important;
 }
+
+/* Tailwind Utilities for Modular Sub-components */
+@tailwind components;
+@tailwind utilities;
