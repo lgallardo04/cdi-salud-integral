@@ -288,7 +288,7 @@ export const FacturacionView: React.FC = () => {
       </div>
 
       {/* Selector de Pestañas */}
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5rem', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
         <button
           type="button"
           className={`btn ${activeTab === 'facturas' ? 'btn-primary' : 'btn-secondary'} btn-sm`}

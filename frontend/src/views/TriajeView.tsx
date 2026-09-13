@@ -270,7 +270,7 @@ export const TriajeView: React.FC = () => {
       </div>
 
       {/* Escala Visual de Triaje Manchester / ESI */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem', marginBottom: '1.25rem' }}>
+      <div className="manchester-scale-grid">
         <div style={{ backgroundColor: '#fee2e2', border: '1px solid #fca5a5', padding: '0.75rem', borderRadius: '8px', textAlign: 'center' }}>
           <div style={{ fontWeight: 800, color: '#dc2626', fontSize: '0.85rem' }}>Nivel 1 - Resucitación</div>
           <span style={{ fontSize: '0.7rem', color: '#991b1b' }}>Atención Inmediata (0 min)</span>

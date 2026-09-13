@@ -1766,3 +1766,52 @@ input, textarea, select, .clinical-table, .mobile-record-card, .selectable-text 
 /* Tailwind Utilities for Modular Sub-components */
 @tailwind components;
 @tailwind utilities;
+
+/* ==========================================================================
+   RESPONSIVE GRIDS (MANCHESTER & EPIDEMIOLOGÍA)
+   ========================================================================== */
+.manchester-scale-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.epidemiologia-corredor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .manchester-scale-grid {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+  }
+  .manchester-scale-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .manchester-scale-grid > div {
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .epidemiologia-corredor-grid {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+  }
+  .epidemiologia-corredor-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .epidemiologia-corredor-grid > div {
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+}

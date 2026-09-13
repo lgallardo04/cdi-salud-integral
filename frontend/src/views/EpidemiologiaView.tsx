@@ -212,7 +212,7 @@ export const EpidemiologiaView: React.FC = () => {
           Estratificación epidemiológica semanal basada en la mediana histórica de los últimos 5 años.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem', marginBottom: '0.5rem' }}>
+        <div className="epidemiologia-corredor-grid">
           <div style={{ backgroundColor: '#fee2e2', border: '1px solid #fca5a5', padding: '0.75rem', borderRadius: '6px', textAlign: 'center' }}>
             <strong style={{ color: '#dc2626', fontSize: '0.85rem' }}>Zona de Epidemia</strong>
             <span style={{ display: 'block', fontSize: '0.7rem', color: '#7f1d1d' }}>&gt; 25 casos/sem</span>

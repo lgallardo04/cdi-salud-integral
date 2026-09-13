@@ -383,7 +383,7 @@ export const HospitalizacionView: React.FC = () => {
           </div>
 
           {/* Grid Interactivo del Mapa de Camas */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))', gap: '1rem' }}>
             {filteredCamas.map((cama) => {
               const isOcupada = cama.estado === 'Ocupada';
               const isDisponible = cama.estado === 'Disponible';
@@ -729,7 +729,7 @@ export const HospitalizacionView: React.FC = () => {
             {/* Signos Vitales de la Evolución */}
             <div style={{ marginBottom: '1rem' }}>
               <label className="form-label">Constantes Vitales Actuales</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(65px, 1fr))', gap: '0.5rem' }}>
                 <div>
                   <span style={{ fontSize: '0.7rem', color: '#64748b' }}>P.A (mmHg)</span>
                   <input

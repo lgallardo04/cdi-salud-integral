@@ -58,8 +58,8 @@ export const FichaAntropometrica: React.FC = () => {
   }, [peso, talla]);
 
   return (
-    <div className="p-6 bg-slate-50 max-w-4xl mx-auto rounded-2xl border border-slate-200 shadow-sm mt-4">
-      <div className="border-b border-slate-200 pb-4 mb-6 flex flex-wrap justify-between items-center gap-4">
+    <div className="p-4 sm:p-6 bg-slate-50 max-w-4xl mx-auto rounded-2xl border border-slate-200 shadow-sm mt-4">
+      <div className="border-b border-slate-200 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-xl font-bold text-slate-900">
             Historia Clínica Nutricional y Antropometría
@@ -68,12 +68,12 @@ export const FichaAntropometrica: React.FC = () => {
             Protocolo de Evaluación Nutricional INN / CDI
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
           <label className="text-xs font-semibold text-slate-600">Paciente:</label>
           <select
             value={selectedPacienteId}
             onChange={(e) => setSelectedPacienteId(e.target.value)}
-            className="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-medium bg-white"
+            className="w-full sm:w-auto px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-medium bg-white"
           >
             {data.pacientes.map((p) => (
               <option key={p.id} value={p.id}>
