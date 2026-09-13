@@ -20,11 +20,13 @@ import {
 } from 'lucide-react';
 import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
+import { OdontologiaV2 } from '../components/odontologia/OdontologiaV2';
 
 export const OdontologiaView: React.FC = () => {
   const { data, createItem, updateItem, deleteItem, addToast } = useData();
   const { hasPermission, currentUser } = useAuth();
 
+  const [activeTab, setActiveTab] = useState<'v2' | 'anatomico' | 'presupuesto'>('v2');
   const [selectedPacienteId, setSelectedPacienteId] = useState<string>(
     data.pacientes[1]?.id || data.pacientes[0]?.id || ''
   );
@@ -356,111 +358,162 @@ export const OdontologiaView: React.FC = () => {
         </div>
       </div>
 
-      {/* Selector de Paciente y Resumen Clínico */}
-      <div className="card" style={{ padding: '1rem', marginBottom: '1.25rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', alignItems: 'center' }}>
-          <div>
-            <label className="form-label" style={{ fontSize: '0.8rem' }}>Seleccionar Paciente para Odontograma:</label>
-            <select
-              className="input select-input"
-              value={selectedPacienteId}
-              onChange={(e) => setSelectedPacienteId(e.target.value)}
-            >
-              {data.pacientes.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.nombres} {p.apellidos} ({p.cedula}) - {p.edad} años
-                </option>
-              ))}
-            </select>
-          </div>
+      {/* Selector de Pestañas */}
+      <div
+        style={{
+          display: 'flex',
+          gap: '0.5rem',
+          marginBottom: '1.25rem',
+          borderBottom: '1px solid #e2e8f0',
+          paddingBottom: '0.5rem',
+          overflowX: 'auto'
+        }}
+      >
+        <button
+          type="button"
+          className={`btn btn-sm ${activeTab === 'v2' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('v2')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap' }}
+        >
+          <Sparkles size={15} />
+          Módulo Odontología V2 (Producción)
+        </button>
 
-          <div style={{ backgroundColor: '#f8fafc', padding: '0.75rem 1rem', borderRadius: '8px', fontSize: '0.85rem' }}>
-            <div><strong>Odontólogo Tratante:</strong> {activeOdontograma.odontologoNombre}</div>
-            <div><strong>Índice Higiene Oral:</strong> <Badge type="success">{activeOdontograma.indiceHigieneOral || 'Bueno'}</Badge></div>
-          </div>
+        <button
+          type="button"
+          className={`btn btn-sm ${activeTab === 'anatomico' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('anatomico')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap' }}
+        >
+          <Smile size={15} />
+          Odontograma Anatómico FDI (5 Caras)
+        </button>
 
-          <div style={{ backgroundColor: '#f0fdf4', padding: '0.75rem 1rem', borderRadius: '8px', fontSize: '0.85rem' }}>
-            <div style={{ color: '#166534' }}><strong>Plan de Tratamiento Total:</strong></div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#15803d' }} className="font-mono">
-              ${totalPresupuestoUSD} USD <span style={{ fontSize: '0.8rem', fontWeight: 400 }}>({activeOdontograma.planTratamiento?.length || 0} procedimientos)</span>
+        <button
+          type="button"
+          className={`btn btn-sm ${activeTab === 'presupuesto' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('presupuesto')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap' }}
+        >
+          <DollarSign size={15} />
+          Plan y Presupuesto Odontológico ({activeOdontograma.planTratamiento?.length || 0})
+        </button>
+      </div>
+
+      {/* PESTAÑA 1: MÓDULO ODONTOLOGÍA V2 */}
+      {activeTab === 'v2' && <OdontologiaV2 />}
+
+      {/* PESTAÑA 2: ODONTOGRAMA ANATÓMICO FDI */}
+      {activeTab === 'anatomico' && (
+        <>
+          {/* Selector de Paciente y Resumen Clínico */}
+          <div className="card" style={{ padding: '1rem', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', alignItems: 'center' }}>
+              <div>
+                <label className="form-label" style={{ fontSize: '0.8rem' }}>Seleccionar Paciente para Odontograma:</label>
+                <select
+                  className="input select-input"
+                  value={selectedPacienteId}
+                  onChange={(e) => setSelectedPacienteId(e.target.value)}
+                >
+                  {data.pacientes.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.nombres} {p.apellidos} ({p.cedula}) - {p.edad} años
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div style={{ backgroundColor: '#f8fafc', padding: '0.75rem 1rem', borderRadius: '8px', fontSize: '0.85rem' }}>
+                <div><strong>Odontólogo Tratante:</strong> {activeOdontograma.odontologoNombre}</div>
+                <div><strong>Índice Higiene Oral:</strong> <Badge type="success">{activeOdontograma.indiceHigieneOral || 'Bueno'}</Badge></div>
+              </div>
+
+              <div style={{ backgroundColor: '#f0fdf4', padding: '0.75rem 1rem', borderRadius: '8px', fontSize: '0.85rem' }}>
+                <div style={{ color: '#166534' }}><strong>Plan de Tratamiento Total:</strong></div>
+                <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#15803d' }} className="font-mono">
+                  ${totalPresupuestoUSD} USD <span style={{ fontSize: '0.8rem', fontWeight: 400 }}>({activeOdontograma.planTratamiento?.length || 0} procedimientos)</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Convenciones / Leyenda Clínica Dental */}
-      <div className="card" style={{ padding: '0.75rem 1rem', marginBottom: '1.25rem', backgroundColor: '#f8fafc' }}>
-        <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', alignItems: 'center', fontSize: '0.75rem' }}>
-          <span style={{ fontWeight: 700, color: '#0f172a' }}>Leyenda Dental:</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <div style={{ width: '12px', height: '12px', background: '#ffffff', border: '1px solid #0f172a' }}></div>
-            <span>Sano</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <div style={{ width: '12px', height: '12px', background: '#ef4444' }}></div>
-            <span style={{ color: '#dc2626', fontWeight: 600 }}>Caries</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <div style={{ width: '12px', height: '12px', background: '#3b82f6' }}></div>
-            <span style={{ color: '#2563eb' }}>Resina</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <div style={{ width: '12px', height: '12px', background: '#1e3a8a' }}></div>
-            <span>Amalgama</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <div style={{ width: '12px', height: '12px', background: '#9333ea' }}></div>
-            <span>Endodoncia</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <div style={{ width: '12px', height: '12px', border: '2px solid #d97706' }}></div>
-            <span>Corona</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <span style={{ color: '#dc2626', fontWeight: 900 }}>✕</span>
-            <span>Ausente / Extracción</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Odontograma Anatómico Gráfico Completo */}
-      <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem', overflowX: 'auto' }}>
-        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0f172a', textAlign: 'center', marginBottom: '1rem' }}>
-          Arcada Superior (Maxilar)
-        </h3>
-
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem', minWidth: '680px' }}>
-          {/* Cuadrante 1 (Superior Derecho) */}
-          <div style={{ display: 'flex', gap: '0.4rem', borderRight: '2px solid #0f172a', paddingRight: '1rem' }}>
-            {upperRight.map((num) => renderToothSVG(num))}
+          {/* Convenciones / Leyenda Clínica Dental */}
+          <div className="card" style={{ padding: '0.75rem 1rem', marginBottom: '1.25rem', backgroundColor: '#f8fafc' }}>
+            <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', alignItems: 'center', fontSize: '0.75rem' }}>
+              <span style={{ fontWeight: 700, color: '#0f172a' }}>Leyenda Dental:</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ width: '12px', height: '12px', background: '#ffffff', border: '1px solid #0f172a' }}></div>
+                <span>Sano</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ width: '12px', height: '12px', background: '#ef4444' }}></div>
+                <span style={{ color: '#dc2626', fontWeight: 600 }}>Caries</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ width: '12px', height: '12px', background: '#3b82f6' }}></div>
+                <span style={{ color: '#2563eb' }}>Resina</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ width: '12px', height: '12px', background: '#1e3a8a' }}></div>
+                <span>Amalgama</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ width: '12px', height: '12px', background: '#9333ea' }}></div>
+                <span>Endodoncia</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ width: '12px', height: '12px', border: '2px solid #d97706' }}></div>
+                <span>Corona</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ color: '#dc2626', fontWeight: 900 }}>✕</span>
+                <span>Ausente / Extracción</span>
+              </div>
+            </div>
           </div>
 
-          {/* Cuadrante 2 (Superior Izquierdo) */}
-          <div style={{ display: 'flex', gap: '0.4rem' }}>
-            {upperLeft.map((num) => renderToothSVG(num))}
+          {/* Odontograma Anatómico Gráfico Completo */}
+          <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem', overflowX: 'auto' }}>
+            <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0f172a', textAlign: 'center', marginBottom: '1rem' }}>
+              Arcada Superior (Maxilar)
+            </h3>
+
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem', minWidth: '680px' }}>
+              {/* Cuadrante 1 (Superior Derecho) */}
+              <div style={{ display: 'flex', gap: '0.4rem', borderRight: '2px solid #0f172a', paddingRight: '1rem' }}>
+                {upperRight.map((num) => renderToothSVG(num))}
+              </div>
+
+              {/* Cuadrante 2 (Superior Izquierdo) */}
+              <div style={{ display: 'flex', gap: '0.4rem' }}>
+                {upperLeft.map((num) => renderToothSVG(num))}
+              </div>
+            </div>
+
+            <div style={{ height: '2px', backgroundColor: '#e2e8f0', margin: '1rem auto', maxWidth: '720px' }}></div>
+
+            <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0f172a', textAlign: 'center', margin: '1rem 0' }}>
+              Arcada Inferior (Mandíbula)
+            </h3>
+
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', minWidth: '680px' }}>
+              {/* Cuadrante 4 (Inferior Derecho) */}
+              <div style={{ display: 'flex', gap: '0.4rem', borderRight: '2px solid #0f172a', paddingRight: '1rem' }}>
+                {lowerRight.map((num) => renderToothSVG(num))}
+              </div>
+
+              {/* Cuadrante 3 (Inferior Izquierdo) */}
+              <div style={{ display: 'flex', gap: '0.4rem' }}>
+                {lowerLeft.map((num) => renderToothSVG(num))}
+              </div>
+            </div>
           </div>
-        </div>
+        </>
+      )}
 
-        <div style={{ height: '2px', backgroundColor: '#e2e8f0', margin: '1rem auto', maxWidth: '720px' }}></div>
-
-        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0f172a', textAlign: 'center', margin: '1rem 0' }}>
-          Arcada Inferior (Mandíbula)
-        </h3>
-
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', minWidth: '680px' }}>
-          {/* Cuadrante 4 (Inferior Derecho) */}
-          <div style={{ display: 'flex', gap: '0.4rem', borderRight: '2px solid #0f172a', paddingRight: '1rem' }}>
-            {lowerRight.map((num) => renderToothSVG(num))}
-          </div>
-
-          {/* Cuadrante 3 (Inferior Izquierdo) */}
-          <div style={{ display: 'flex', gap: '0.4rem' }}>
-            {lowerLeft.map((num) => renderToothSVG(num))}
-          </div>
-        </div>
-      </div>
-
-      {/* Plan de Tratamiento y Presupuesto Odontológico */}
+      {/* PESTAÑA 3: PLAN Y PRESUPUESTO */}
+      {activeTab === 'presupuesto' && (
       <div className="card" style={{ padding: '1.25rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
           <div>
@@ -530,6 +583,7 @@ export const OdontologiaView: React.FC = () => {
           </table>
         </div>
       </div>
+      )}
 
       {/* Modal Inspector y Modificador de Diente */}
       {isToothModalOpen && selectedToothNumber && (

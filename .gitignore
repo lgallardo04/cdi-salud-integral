@@ -34,3 +34,4 @@ frontend/android/build/
 frontend/android/local.properties
 frontend/android/captures/
 frontend/android/.externalNativeBuild/
+.env*
