@@ -241,7 +241,7 @@ export const InventarioDashboard: React.FC = () => {
                         {item.stockActual}
                       </span>
                     </td>
-                    <td className="px-3 text-center text-slate-500">{item.stockMinimo}</td>
+                    <td className="table-mono px-3 text-center text-slate-500">{item.stockMinimo}</td>
                     <td className="px-3 font-mono text-slate-600">{item.loteActivo}</td>
                     <td className="px-3 font-mono">
                       {item.vencimiento}

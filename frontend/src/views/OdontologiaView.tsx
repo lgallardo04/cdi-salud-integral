@@ -555,8 +555,8 @@ export const OdontologiaView: React.FC = () => {
           </button>
         </div>
 
-        <div className="table-responsive">
-          <table className="data-table">
+        <div className="table-container auto-table">
+          <table className="clinical-table">
             <thead>
               <tr>
                 <th>Diente / Sector</th>

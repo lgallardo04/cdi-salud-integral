@@ -185,8 +185,8 @@ export const AuditoriaView: React.FC = () => {
 
       {/* Tabla de Logs de Auditoría */}
       <div className="card table-card">
-        <div className="table-responsive">
-          <table className="data-table" style={{ fontSize: '0.85rem' }}>
+        <div className="table-container auto-table">
+          <table className="clinical-table" style={{ fontSize: '0.85rem' }}>
             <thead>
               <tr>
                 <th>Fecha y Hora</th>
@@ -202,9 +202,7 @@ export const AuditoriaView: React.FC = () => {
             <tbody>
               {filteredLogs.map((log) => (
                 <tr key={log.id}>
-                  <td className="font-mono text-muted" style={{ fontSize: '0.8rem', whiteSpace: 'nowrap' }}>
-                    {log.fechaHora}
-                  </td>
+                  <td className="table-mono font-mono text-muted" style={{ fontSize: '0.8rem', whiteSpace: 'nowrap' }}>{log.fechaHora}</td>
                   <td>
                     <strong>{log.usuarioNombre}</strong>
                   </td>

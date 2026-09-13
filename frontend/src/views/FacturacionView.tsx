@@ -310,8 +310,8 @@ export const FacturacionView: React.FC = () => {
       {/* Pestaña 1: Facturas */}
       {activeTab === 'facturas' && (
         <div className="card table-card">
-          <div className="table-responsive">
-            <table className="data-table">
+          <div className="table-container auto-table">
+            <table className="clinical-table">
               <thead>
                 <tr>
                   <th>N° Factura</th>
@@ -338,9 +338,7 @@ export const FacturacionView: React.FC = () => {
                         <div style={{ fontSize: '0.75rem', color: '#64748b' }}>C.I: {fac.pacienteCedula}</div>
                       </div>
                     </td>
-                    <td className="font-mono" style={{ fontSize: '0.8rem' }}>
-                      {fac.fechaEmision}
-                    </td>
+                    <td className="table-mono font-mono" style={{ fontSize: '0.8rem' }}>{fac.fechaEmision}</td>
                     <td>
                       <span
                         className="badge"
@@ -395,8 +393,8 @@ export const FacturacionView: React.FC = () => {
       {/* Pestaña 2: Catálogo de Baremos y Tarifas */}
       {activeTab === 'baremos' && (
         <div className="card table-card">
-          <div className="table-responsive">
-            <table className="data-table">
+          <div className="table-container auto-table">
+            <table className="clinical-table">
               <thead>
                 <tr>
                   <th>Código</th>
@@ -501,7 +499,7 @@ export const FacturacionView: React.FC = () => {
                 </button>
               </div>
 
-              <table className="data-table" style={{ fontSize: '0.85rem' }}>
+              <table className="clinical-table" style={{ fontSize: '0.85rem' }}>
                 <thead style={{ background: '#f8fafc' }}>
                   <tr>
                     <th style={{ width: '45%' }}>Servicio Hospitalario</th>
@@ -632,7 +630,7 @@ export const FacturacionView: React.FC = () => {
               </div>
             </div>
 
-            <table className="data-table" style={{ width: '100%', marginBottom: '1.5rem' }}>
+            <table className="clinical-table" style={{ width: '100%', marginBottom: '1.5rem' }}>
               <thead style={{ background: '#f1f5f9' }}>
                 <tr>
                   <th>Concepto / Procedimiento</th>
@@ -645,7 +643,7 @@ export const FacturacionView: React.FC = () => {
                 {selectedFactura.items.map((it, idx) => (
                   <tr key={idx}>
                     <td>{it.servicioNombre || it.concepto}</td>
-                    <td style={{ textAlign: 'center' }}>{it.cantidad}</td>
+                    <td style={{ textAlign: 'center' }} className="table-mono">{it.cantidad}</td>
                     <td style={{ textAlign: 'right' }} className="font-mono">${it.precioUnitarioUSD.toFixed(2)}</td>
                     <td style={{ textAlign: 'right' }} className="font-mono font-bold">${(it.subtotalUSD ?? it.totalUSD ?? 0).toFixed(2)}</td>
                   </tr>

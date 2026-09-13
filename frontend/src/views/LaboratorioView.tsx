@@ -376,8 +376,8 @@ export const LaboratorioView: React.FC = () => {
 
       {/* Tabla de Órdenes */}
       <div className="card table-card">
-        <div className="table-responsive">
-          <table className="data-table">
+        <div className="table-container auto-table">
+          <table className="clinical-table">
             <thead>
               <tr>
                 <th>Código</th>
@@ -423,9 +423,7 @@ export const LaboratorioView: React.FC = () => {
                         {orden.muestra}
                       </span>
                     </td>
-                    <td className="font-mono" style={{ fontSize: '0.8rem' }}>
-                      {orden.fechaOrden}
-                    </td>
+                    <td className="table-mono font-mono" style={{ fontSize: '0.8rem' }}>{orden.fechaOrden}</td>
                     <td>
                       <Badge type={getBadgeTypePrioridad(orden.prioridad)}>{orden.prioridad}</Badge>
                     </td>
@@ -605,7 +603,7 @@ export const LaboratorioView: React.FC = () => {
               </div>
 
               <div style={{ border: '1px solid #e2e8f0', borderRadius: '8px', overflow: 'hidden' }}>
-                <table className="data-table" style={{ margin: 0, fontSize: '0.85rem' }}>
+                <table className="clinical-table" style={{ margin: 0, fontSize: '0.85rem' }}>
                   <thead style={{ background: '#f8fafc' }}>
                     <tr>
                       <th style={{ width: '35%' }}>Parámetro</th>
@@ -631,7 +629,7 @@ export const LaboratorioView: React.FC = () => {
                             }}
                           />
                         </td>
-                        <td className="text-muted font-mono">{res.unidad}</td>
+                        <td className="table-mono text-muted font-mono">{res.unidad}</td>
                         <td className="text-muted font-mono">{res.rangoReferencia}</td>
                         <td>
                           <select
@@ -743,7 +741,7 @@ export const LaboratorioView: React.FC = () => {
               Resultados Analíticos
             </h3>
 
-            <table className="data-table" style={{ width: '100%', marginBottom: '1.5rem', border: '1px solid #e2e8f0' }}>
+            <table className="clinical-table" style={{ width: '100%', marginBottom: '1.5rem', border: '1px solid #e2e8f0' }}>
               <thead style={{ background: '#f1f5f9' }}>
                 <tr>
                   <th style={{ textAlign: 'left' }}>Parámetro</th>
@@ -760,7 +758,7 @@ export const LaboratorioView: React.FC = () => {
                     <td style={{ textAlign: 'center', fontWeight: 700, color: res.estado === 'Crítico' ? '#dc2626' : res.estado !== 'Normal' ? '#d97706' : '#0f172a' }} className="font-mono">
                       {res.valor}
                     </td>
-                    <td style={{ textAlign: 'center' }} className="font-mono text-muted">{res.unidad}</td>
+                    <td style={{ textAlign: 'center' }} className="table-mono font-mono text-muted">{res.unidad}</td>
                     <td style={{ textAlign: 'center' }} className="font-mono text-muted">{res.rangoReferencia}</td>
                     <td style={{ textAlign: 'center' }}>
                       <Badge type={res.estado === 'Crítico' ? 'danger' : res.estado === 'Alto' || res.estado === 'Bajo' ? 'warning' : 'success'}>

@@ -533,8 +533,8 @@ export const HospitalizacionView: React.FC = () => {
 
       {activeTab === 'admisiones' && (
         <div className="card table-card">
-          <div className="table-responsive">
-            <table className="data-table">
+          <div className="table-container auto-table">
+            <table className="clinical-table">
               <thead>
                 <tr>
                   <th>Código</th>
@@ -572,9 +572,7 @@ export const HospitalizacionView: React.FC = () => {
                         <span className="badge badge-primary font-mono">{adm.camaCodigo}</span>
                         <div style={{ fontSize: '0.75rem', color: '#64748b' }}>{adm.salaNombre}</div>
                       </td>
-                      <td className="font-mono" style={{ fontSize: '0.8rem' }}>
-                        {adm.fechaIngreso}
-                      </td>
+                      <td className="table-mono font-mono" style={{ fontSize: '0.8rem' }}>{adm.fechaIngreso}</td>
                       <td style={{ maxWidth: '240px', fontSize: '0.8rem' }}>
                         {adm.diagnosticoIngreso}
                       </td>
@@ -907,7 +905,7 @@ export const HospitalizacionView: React.FC = () => {
             <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', marginBottom: '0.5rem' }}>
               Kardex de Enfermería / eMAR
             </h4>
-            <table className="data-table" style={{ fontSize: '0.8rem', marginBottom: '1.5rem' }}>
+            <table className="clinical-table" style={{ fontSize: '0.8rem', marginBottom: '1.5rem' }}>
               <thead>
                 <tr>
                   <th>Fecha/Hora</th>
@@ -921,7 +919,7 @@ export const HospitalizacionView: React.FC = () => {
               <tbody>
                 {(selectedAdmision.ordenesEnfermeria || []).map((ord, idx) => (
                   <tr key={idx}>
-                    <td className="font-mono">{ord.fechaHora}</td>
+                    <td className="table-mono font-mono">{ord.fechaHora}</td>
                     <td>{ord.enfermeroNombre}</td>
                     <td>{ord.indicacion}</td>
                     <td>{ord.via}</td>

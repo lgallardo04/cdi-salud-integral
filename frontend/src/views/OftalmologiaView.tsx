@@ -573,7 +573,7 @@ export const OftalmologiaView: React.FC = () => {
                         {c.estado}
                       </Badge>
                     </td>
-                    <td style={{ padding: '0.75rem', fontFamily: 'JetBrains Mono' }}>{c.fechaJornada || 'Por definir'}</td>
+                    <td style={{ padding: '0.75rem', fontFamily: 'JetBrains Mono' }} className="table-mono">{c.fechaJornada || 'Por definir'}</td>
                   </tr>
                 ))}
               </tbody>

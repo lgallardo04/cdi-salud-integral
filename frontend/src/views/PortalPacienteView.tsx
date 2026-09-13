@@ -258,8 +258,8 @@ export const PortalPacienteView: React.FC = () => {
       {/* Pestaña 2: Mis Citas */}
       {activeTab === 'citas' && (
         <div className="card table-card">
-          <div className="table-responsive">
-            <table className="data-table">
+          <div className="table-container auto-table">
+            <table className="clinical-table">
               <thead>
                 <tr>
                   <th>Código</th>
@@ -284,7 +284,7 @@ export const PortalPacienteView: React.FC = () => {
                       <td className="font-mono font-bold" style={{ color: '#2563eb' }}>{c.codigoCita}</td>
                       <td><strong>{c.departamentoNombre || 'Consulta'}</strong></td>
                       <td>Dr. {c.medicoNombre}</td>
-                      <td className="font-mono">{c.fecha}</td>
+                      <td className="table-mono font-mono">{c.fecha}</td>
                       <td className="font-mono">{c.hora}</td>
                       <td style={{ fontSize: '0.8rem' }}>{c.motivoConsulta}</td>
                       <td>
@@ -340,8 +340,8 @@ export const PortalPacienteView: React.FC = () => {
             Resultados de Laboratorio Clínico
           </h3>
           <div className="card table-card">
-            <div className="table-responsive">
-              <table className="data-table">
+            <div className="table-container auto-table">
+              <table className="clinical-table">
                 <thead>
                   <tr>
                     <th>Código</th>
@@ -357,7 +357,7 @@ export const PortalPacienteView: React.FC = () => {
                     <tr key={lab.id}>
                       <td className="font-mono font-bold" style={{ color: '#2563eb' }}>{lab.codigoOrden}</td>
                       <td><strong>{lab.perfil}</strong></td>
-                      <td className="font-mono">{lab.fechaResultado || lab.fechaOrden}</td>
+                      <td className="table-mono font-mono">{lab.fechaResultado || lab.fechaOrden}</td>
                       <td><Badge type={lab.estado === 'Validado' ? 'success' : 'warning'}>{lab.estado}</Badge></td>
                       <td style={{ fontSize: '0.85rem' }}>{lab.bioanalistaResponsable}</td>
                       <td className="text-right">
@@ -377,8 +377,8 @@ export const PortalPacienteView: React.FC = () => {
             Estudios de Imagenología y Radiología
           </h3>
           <div className="card table-card">
-            <div className="table-responsive">
-              <table className="data-table">
+            <div className="table-container auto-table">
+              <table className="clinical-table">
                 <thead>
                   <tr>
                     <th>Código</th>
@@ -395,7 +395,7 @@ export const PortalPacienteView: React.FC = () => {
                       <td className="font-mono font-bold" style={{ color: '#2563eb' }}>{img.codigoEstudio}</td>
                       <td><span className="badge badge-info">{img.modalidad}</span></td>
                       <td><strong>{img.regionAnatomica}</strong></td>
-                      <td className="font-mono">{img.fechaRealizacion || img.fechaSolicitud}</td>
+                      <td className="table-mono font-mono">{img.fechaRealizacion || img.fechaSolicitud}</td>
                       <td style={{ fontSize: '0.8rem', maxWidth: '250px' }}>{img.impresionDiagnostica || 'En proceso de informe'}</td>
                       <td className="text-right">
                         <button type="button" className="btn btn-secondary btn-sm" onClick={() => window.print()}>

@@ -306,11 +306,11 @@ export const PlanesYSuplementos: React.FC = () => {
                 <tbody className="divide-y divide-slate-100">
                   {historialEntregas.map((h) => (
                     <tr key={h.id} className="text-slate-700">
-                      <td className="py-2 font-mono">{h.id}</td>
+                      <td className="table-mono py-2 font-mono">{h.id}</td>
                       <td className="font-medium text-slate-900">{h.suplemento}</td>
-                      <td>{h.cantidad}</td>
+                      <td className="table-mono">{h.cantidad}</td>
                       <td className="font-mono text-slate-500">{h.lote}</td>
-                      <td>{h.fecha}</td>
+                      <td className="table-mono">{h.fecha}</td>
                       <td>
                         <span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold text-[10px]">
                           {h.estado}

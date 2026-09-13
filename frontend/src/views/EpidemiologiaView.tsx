@@ -234,8 +234,8 @@ export const EpidemiologiaView: React.FC = () => {
 
       {/* Tabla de Casos Notificados */}
       <div className="card table-card">
-        <div className="table-responsive">
-          <table className="data-table">
+        <div className="table-container auto-table">
+          <table className="clinical-table">
             <thead>
               <tr>
                 <th>Código EPI</th>

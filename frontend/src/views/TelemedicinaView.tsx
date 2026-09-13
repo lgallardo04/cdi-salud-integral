@@ -267,8 +267,8 @@ export const TelemedicinaView: React.FC = () => {
       {/* Pestaña 1: Agenda de Teleconsultas */}
       {activeTab === 'consultas' && (
         <div className="card table-card">
-          <div className="table-responsive">
-            <table className="data-table">
+          <div className="table-container auto-table">
+            <table className="clinical-table">
               <thead>
                 <tr>
                   <th>Código</th>

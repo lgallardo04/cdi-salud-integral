@@ -623,7 +623,7 @@ input, textarea, select, .clinical-table, .mobile-record-card, .selectable-text 
   gap: 0.5rem;
   padding: 0.55rem 1rem;
   min-height: 38px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xs);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -652,9 +652,9 @@ input, textarea, select, .clinical-table, .mobile-record-card, .selectable-text 
 }
 
 .btn-secondary {
-  background-color: var(--color-surface);
-  border-color: var(--color-border);
-  color: var(--color-text-main);
+  background-color: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 .btn-secondary:hover:not(:disabled) {
   background-color: var(--color-surface-hover);
@@ -961,7 +961,7 @@ input, textarea, select, .clinical-table, .mobile-record-card, .selectable-text 
   min-height: 42px;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xs);
   font-family: var(--font-sans);
   font-size: 0.875rem;
   color: var(--color-text-main);
@@ -1667,4 +1667,22 @@ input, textarea, select, .clinical-table, .mobile-record-card, .selectable-text 
   .print-only {
     display: block !important;
   }
+}
+
+
+/* ==========================================================================
+   STITCH TYPOGRAPHY OVERRIDES
+   ========================================================================== */
+.label-caps {
+  font-family: var(--font-sans);
+  font-size: 0.75rem; /* 12px */
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.table-container {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
 }
