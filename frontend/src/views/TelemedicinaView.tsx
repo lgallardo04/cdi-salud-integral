@@ -390,6 +390,17 @@ export const TelemedicinaView: React.FC = () => {
       )}
 
       {/* Pestaña 3: Sala de Videoconsulta Virtual Interactiva en Vivo */}
+      {activeTab === 'sala' && !activeTeleconsulta && (
+        <div className="card" style={{ padding: '3.5rem 1.5rem', textAlign: 'center', color: '#64748b' }}>
+          <Video size={42} style={{ margin: '0 auto 0.75rem', opacity: 0.4 }} />
+          <h3 style={{ fontSize: '1.1rem', color: '#0f172a', marginBottom: '0.35rem' }}>No hay teleconsulta seleccionada</h3>
+          <p style={{ fontSize: '0.85rem', margin: '0 0 1.25rem 0' }}>Seleccione una teleconsulta desde la pestaña de citas o programe una nueva interconsulta.</p>
+          <button type="button" className="btn btn-primary btn-sm" onClick={() => setActiveTab('consultas')}>
+            Ver Consultas Programadas
+          </button>
+        </div>
+      )}
+
       {activeTab === 'sala' && activeTeleconsulta && (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '1.25rem', height: '640px' }}>
           {/* Lado Izquierdo: Feeds de Video de Alta Definición Simulados */}

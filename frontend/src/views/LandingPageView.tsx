@@ -12,6 +12,8 @@ import {
   Video,
   Calendar,
   ArrowRight,
+  ArrowUp,
+  ChevronUp,
   CheckCircle2,
   Clock,
   Award,
@@ -76,6 +78,60 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
   
   // Manchester triage simulator state
   const [selectedTriageSymptom, setSelectedTriageSymptom] = useState<number>(0);
+
+  // Persistent navigation & scroll tracking
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeSection, setActiveSection] = useState<'hero' | 'especialidades' | 'triaje' | 'portal'>('hero');
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const scrollToTop = () => {
+    const wrapper = document.querySelector('.landing-fullscreen-wrapper');
+    if (wrapper) {
+      wrapper.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Scroll listener for sticky nav active section and floating back to top visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      const wrapper = document.querySelector('.landing-fullscreen-wrapper');
+      const scrollTop = wrapper ? wrapper.scrollTop : (window.scrollY || document.documentElement.scrollTop || 0);
+
+      setShowScrollTop(scrollTop > 220);
+
+      const sections: ('hero' | 'especialidades' | 'triaje' | 'portal')[] = ['portal', 'triaje', 'especialidades', 'hero'];
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 240) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    const wrapper = document.querySelector('.landing-fullscreen-wrapper');
+    if (wrapper) {
+      wrapper.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      if (wrapper) {
+        wrapper.removeEventListener('scroll', handleScroll);
+      }
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   // Canvas ref for ECG telemetry
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -486,45 +542,126 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
         }
       `}</style>
 
-      {/* Top Banner: Medical Emergency Telemetry & National Health Header */}
-      <div className="border-b border-[#00f1fd]/20 bg-[#080f18]/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#10b981]/15 border border-[#4edea3]/40 text-[#4edea3] font-mono font-semibold">
-              <span className="w-2 h-2 rounded-full bg-[#4edea3] animate-ping inline-block"></span>
-              SISTEMA HOSPITALARIO OPERATIVO
-            </span>
-            <span className="hidden sm:inline text-slate-400 font-mono text-[11px]">
-              ASIC RED BARRIO ADENTRO • MPPS VENEZUELA
-            </span>
-          </div>
+      {/* STICKY HEADER SYSTEM: Telemetry banner + Persistent Navigation Floating Bar */}
+      <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#080f18]/95 border-b border-[#00f1fd]/25 shadow-[0_10px_35px_rgba(0,0,0,0.6)]">
+        {/* Sub-bar 1: Medical Telemetry & Hospital Status */}
+        <div className="border-b border-[#00f1fd]/15 bg-[#050b14]/70">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#10b981]/15 border border-[#4edea3]/40 text-[#4edea3] font-mono text-[11px] font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#4edea3] animate-ping inline-block"></span>
+                SISTEMA HOSPITALARIO OPERATIVO
+              </span>
+              <span className="hidden sm:inline text-slate-400 font-mono text-[10px]">
+                ASIC RED BARRIO ADENTRO • MPPS VENEZUELA
+              </span>
+            </div>
 
-          <div className="flex items-center gap-4 font-mono text-slate-300">
-            <div className="flex items-center gap-1.5 text-[#00f1fd]">
-              <Activity className="w-3.5 h-3.5 animate-pulse" />
-              <span>BPM: {bpmMode} STABLE</span>
+            <div className="flex items-center gap-3 font-mono text-slate-300 text-[11px]">
+              <div className="flex items-center gap-1 text-[#00f1fd]">
+                <Activity className="w-3 h-3 animate-pulse" />
+                <span>BPM: {bpmMode} STABLE</span>
+              </div>
+              <div className="hidden md:flex items-center gap-1 text-[#4edea3]">
+                <ShieldCheck className="w-3 h-3" />
+                <span>SpO2: 99.4% NOMINAL</span>
+              </div>
+              <div className="flex items-center gap-1 text-slate-400">
+                <Clock className="w-3 h-3" />
+                <span>{currentTime || '12:00:00'} VET</span>
+              </div>
             </div>
-            <div className="hidden md:flex items-center gap-1 text-[#4edea3]">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>SpO2: 99.4% NOMINAL</span>
+          </div>
+        </div>
+
+        {/* Sub-bar 2: Navigation Bar with Quick Jump Links and System Access CTA */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-3">
+          {/* Logo Brand / Hero scroll */}
+          <button
+            type="button"
+            onClick={() => scrollToSection('hero')}
+            className="flex items-center gap-2 group cursor-pointer text-left shrink-0"
+            title="Ir al inicio"
+          >
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00f1fd]/20 to-[#10b981]/20 border border-[#00f1fd]/40 flex items-center justify-center text-[#00f1fd] group-hover:border-[#00f1fd] group-hover:scale-105 transition-all shadow-[0_0_12px_rgba(0,241,253,0.2)]">
+              <Stethoscope className="w-4 h-4 text-[#00f1fd]" />
             </div>
-            <div className="flex items-center gap-1.5 text-slate-400">
-              <Clock className="w-3.5 h-3.5" />
-              <span>{currentTime || '12:00:00'} VET</span>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-xs sm:text-sm tracking-wider uppercase text-white group-hover:text-[#00f1fd] transition-colors leading-tight">
+                CDI SALUD INTEGRAL
+              </span>
+              <span className="font-mono text-[8px] sm:text-[9px] text-[#4edea3] tracking-widest uppercase">
+                ALTA TECNOLOGÍA BIOMÉDICA
+              </span>
             </div>
+          </button>
+
+          {/* Persistent Quick Jump Links [#hero, #especialidades, #triaje, #portal] */}
+          <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-0.5">
             <button
-              onClick={() => navigateTo('dashboard')}
-              className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-lg bg-gradient-to-r from-[#00f1fd]/25 to-[#10b981]/25 hover:from-[#00f1fd]/40 hover:to-[#10b981]/40 border border-[#00f1fd]/50 text-[#00f1fd] hover:text-white text-xs font-bold transition-all shadow-[0_0_15px_rgba(0,241,253,0.25)] cursor-pointer"
+              type="button"
+              onClick={() => scrollToSection('hero')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                activeSection === 'hero'
+                  ? 'bg-[#00f1fd]/20 text-[#00f1fd] border border-[#00f1fd]/50 shadow-[0_0_12px_rgba(0,241,253,0.3)]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent'
+              }`}
             >
-              <span>Acceso Sistema</span>
-              <ArrowRight className="w-3 h-3" />
+              <span>Inicio</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('especialidades')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                activeSection === 'especialidades'
+                  ? 'bg-[#00f1fd]/20 text-[#00f1fd] border border-[#00f1fd]/50 shadow-[0_0_12px_rgba(0,241,253,0.3)]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent'
+              }`}
+            >
+              <span>Especialidades</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('triaje')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                activeSection === 'triaje'
+                  ? 'bg-[#ffb4ab]/20 text-[#ffb4ab] border border-[#ffb4ab]/50 shadow-[0_0_12px_rgba(255,180,171,0.3)]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent'
+              }`}
+            >
+              <span>Triaje Manchester</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('portal')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                activeSection === 'portal'
+                  ? 'bg-[#4edea3]/20 text-[#4edea3] border border-[#4edea3]/50 shadow-[0_0_12px_rgba(78,222,163,0.3)]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent'
+              }`}
+            >
+              <span>Portal Paciente</span>
+            </button>
+          </nav>
+
+          {/* Quick CTA: Ingresar al Sistema Clínico */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => navigateTo('dashboard')}
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00f1fd] via-[#4edea3] to-[#10b981] hover:brightness-110 active:scale-95 text-slate-950 font-extrabold text-xs transition-all shadow-[0_0_20px_rgba(0,241,253,0.4)] cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline">Ingresar al Sistema Clínico</span>
+              <span className="sm:hidden">Sistema Clínico</span>
+              <ArrowRight className="w-3 h-3 shrink-0" />
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* HERO SECTION: 12-COLUMN CONCERT-POSTER LAYOUT */}
-      <section className="relative pt-12 pb-20 lg:pt-16 lg:pb-28 cyber-grid overflow-hidden">
+      <section id="hero" className="relative pt-12 pb-20 lg:pt-16 lg:pb-28 cyber-grid overflow-hidden">
         {/* Ambient bioluminescent glows */}
         <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[#00f1fd]/10 rounded-full anim-glow pointer-events-none"></div>
         <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-[#10b981]/10 rounded-full anim-glow pointer-events-none"></div>
@@ -554,47 +691,67 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
                 bajo estándar FEFO con sincronización híbrida en la nube.
               </p>
 
-              {/* 4 Holographic Quick Badges */}
+              {/* 4 Holographic Quick Badges as Interactive CTAs */}
               <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                <div className="p-2.5 rounded-xl bg-[#0b1528]/90 border border-[#10b981]/40 backdrop-blur-md flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#10b981]/20 border border-[#4edea3]/40 flex items-center justify-center text-[#4edea3] shrink-0">
+                <button
+                  type="button"
+                  onClick={() => navigateTo('triaje')}
+                  className="p-2.5 rounded-xl bg-[#0b1528]/90 border border-[#10b981]/40 hover:border-[#10b981] hover:bg-[#10b981]/15 backdrop-blur-md flex items-center gap-2 text-left cursor-pointer transition-all group"
+                  title="Ir a Emergencias y Triaje"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-[#10b981]/20 border border-[#4edea3]/40 flex items-center justify-center text-[#4edea3] shrink-0 group-hover:scale-110 transition-transform">
                     <HeartPulse className="w-4 h-4 animate-pulse" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-bold text-white leading-tight">Atención 24/7</div>
+                    <div className="text-[11px] font-bold text-white leading-tight group-hover:text-[#4edea3] transition-colors">Atención 24/7</div>
                     <div className="text-[9px] text-[#4edea3] font-mono">Código Rojo Activo</div>
                   </div>
-                </div>
+                </button>
 
-                <div className="p-2.5 rounded-xl bg-[#0b1528]/90 border border-[#00f1fd]/40 backdrop-blur-md flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#00f1fd]/20 border border-[#00f1fd]/40 flex items-center justify-center text-[#00f1fd] shrink-0">
+                <button
+                  type="button"
+                  onClick={() => navigateTo('oftalmologia')}
+                  className="p-2.5 rounded-xl bg-[#0b1528]/90 border border-[#00f1fd]/40 hover:border-[#00f1fd] hover:bg-[#00f1fd]/15 backdrop-blur-md flex items-center gap-2 text-left cursor-pointer transition-all group"
+                  title="Ir a Misión Milagro Oftalmología"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-[#00f1fd]/20 border border-[#00f1fd]/40 flex items-center justify-center text-[#00f1fd] shrink-0 group-hover:scale-110 transition-transform">
                     <Zap className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-bold text-white leading-tight">Cirugía Láser HD</div>
+                    <div className="text-[11px] font-bold text-white leading-tight group-hover:text-[#00f1fd] transition-colors">Cirugía Láser HD</div>
                     <div className="text-[9px] text-[#00f1fd] font-mono">Excimer Precision</div>
                   </div>
-                </div>
+                </button>
 
-                <div className="p-2.5 rounded-xl bg-[#0b1528]/90 border border-teal-500/40 backdrop-blur-md flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-teal-500/20 border border-teal-400/40 flex items-center justify-center text-teal-300 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => navigateTo('telemedicina')}
+                  className="p-2.5 rounded-xl bg-[#0b1528]/90 border border-teal-500/40 hover:border-teal-400 hover:bg-teal-500/15 backdrop-blur-md flex items-center gap-2 text-left cursor-pointer transition-all group"
+                  title="Ir a Telemedicina HD"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-teal-500/20 border border-teal-400/40 flex items-center justify-center text-teal-300 shrink-0 group-hover:scale-110 transition-transform">
                     <Video className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-bold text-white leading-tight">Telemedicina HD</div>
+                    <div className="text-[11px] font-bold text-white leading-tight group-hover:text-teal-300 transition-colors">Telemedicina HD</div>
                     <div className="text-[9px] text-teal-300 font-mono">Cifrado SHA-512</div>
                   </div>
-                </div>
+                </button>
 
-                <div className="p-2.5 rounded-xl bg-[#0b1528]/90 border border-violet-500/40 backdrop-blur-md flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-violet-500/20 border border-violet-400/40 flex items-center justify-center text-violet-300 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('triaje')}
+                  className="p-2.5 rounded-xl bg-[#0b1528]/90 border border-violet-500/40 hover:border-violet-400 hover:bg-violet-500/15 backdrop-blur-md flex items-center gap-2 text-left cursor-pointer transition-all group"
+                  title="Ver Triaje Manchester IA"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-violet-500/20 border border-violet-400/40 flex items-center justify-center text-violet-300 shrink-0 group-hover:scale-110 transition-transform">
                     <Activity className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-bold text-white leading-tight">Triaje IA</div>
+                    <div className="text-[11px] font-bold text-white leading-tight group-hover:text-violet-300 transition-colors">Triaje IA</div>
                     <div className="text-[9px] text-violet-300 font-mono">NEWS2 Score</div>
                   </div>
-                </div>
+                </button>
               </div>
 
               {/* 4 Interactive CTAs */}
@@ -815,7 +972,7 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
       </section>
 
       {/* SECTION 2: CONCERT-POSTER STYLE SPECIALTY CARDS */}
-      <section className="py-20 relative bg-[#080f18] border-t border-slate-800">
+      <section id="especialidades" className="py-20 relative bg-[#080f18] border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00f1fd]/10 border border-[#00f1fd]/30 text-[#00f1fd] text-xs font-mono font-semibold uppercase tracking-wider mb-3">
@@ -912,7 +1069,7 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
       </section>
 
       {/* SECTION 3: INTERACTIVE MANCHESTER TRIAGE & NEWS2 SIMULATOR */}
-      <section className="py-20 bg-[#050b14] border-t border-slate-800 relative">
+      <section id="triaje" className="py-20 bg-[#050b14] border-t border-slate-800 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
@@ -1048,7 +1205,7 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
       </section>
 
       {/* SECTION 4: PATIENT PORTAL QUICK ACCESS KIOSK */}
-      <section className="py-20 relative bg-[#080f18] border-t border-slate-800">
+      <section id="portal" className="py-20 relative bg-[#080f18] border-t border-slate-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0b1528] via-[#080f18] to-[#0b1528] border border-[#00f1fd]/30 laser-glow relative overflow-hidden">
             <div className="absolute top-0 right-0 w-80 h-80 bg-[#00f1fd]/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -1175,6 +1332,33 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
           </div>
         </div>
       </footer>
+      {/* PERSISTENT FLOATING QUICK ACTIONS (Volver Arriba & Ingresar al Sistema Clínico) */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-none">
+        {/* Floating Quick Action: Ingresar al Sistema Clínico */}
+        <button
+          type="button"
+          onClick={() => navigateTo('dashboard')}
+          className="pointer-events-auto inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#00f1fd] via-[#4edea3] to-[#10b981] text-slate-950 font-extrabold text-xs shadow-[0_6px_25px_rgba(0,241,253,0.45)] hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20 group"
+          title="Ingresar directamente al Sistema Clínico"
+        >
+          <Sparkles className="w-3.5 h-3.5 animate-spin-slow text-slate-950" />
+          <span className="font-sans font-bold">Ingresar al Sistema Clínico</span>
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        </button>
+
+        {/* Floating Quick Action: Volver Arriba */}
+        {showScrollTop && (
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="pointer-events-auto inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#0b1528]/95 hover:bg-[#111f38] text-[#00f1fd] border border-[#00f1fd]/50 shadow-[0_6px_20px_rgba(0,0,0,0.7)] hover:border-[#00f1fd] hover:text-white active:scale-95 transition-all cursor-pointer backdrop-blur-md group animate-in fade-in"
+            title="Volver Arriba"
+          >
+            <ChevronUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+            <span className="text-xs font-mono font-bold">Volver Arriba</span>
+          </button>
+        )}
+      </div>
     </div>
   );
 };

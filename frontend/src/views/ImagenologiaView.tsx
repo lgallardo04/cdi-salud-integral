@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { EstudioImagen } from '../types';
 import {
   Activity,
+  HeartPulse,
   Plus,
   Search,
   Filter,
@@ -306,8 +307,15 @@ export const ImagenologiaView: React.FC = () => {
       </div>
 
       {/* Grid de Estudios Radiológicos con Tarjetas Visuales */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
-        {filteredEstudios.map((estudio) => {
+      {filteredEstudios.length === 0 ? (
+        <div className="card" style={{ padding: '3rem 1.5rem', textAlign: 'center', color: '#64748b' }}>
+          <HeartPulse size={40} style={{ margin: '0 auto 0.75rem', opacity: 0.4 }} />
+          <h3 style={{ fontSize: '1.05rem', color: '#0f172a', marginBottom: '0.25rem' }}>No se encontraron estudios de imagen</h3>
+          <p style={{ fontSize: '0.85rem', margin: 0 }}>No hay placas o ecografías registradas que coincidan con la búsqueda.</p>
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
+          {filteredEstudios.map((estudio) => {
           const mainImage = estudio.imagenesUrls && estudio.imagenesUrls.length > 0 ? estudio.imagenesUrls[0] : null;
 
           return (
@@ -428,7 +436,8 @@ export const ImagenologiaView: React.FC = () => {
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
 
       {/* Modal Visor PACS Clínico Interactivo */}
       {isViewerOpen && selectedEstudio && (

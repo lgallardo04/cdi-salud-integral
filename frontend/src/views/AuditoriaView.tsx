@@ -200,38 +200,46 @@ export const AuditoriaView: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredLogs.map((log) => (
-                <tr key={log.id}>
-                  <td className="table-mono font-mono text-muted" style={{ fontSize: '0.8rem', whiteSpace: 'nowrap' }}>{log.fechaHora}</td>
-                  <td>
-                    <strong>{log.usuarioNombre}</strong>
-                  </td>
-                  <td>
-                    <span className="badge badge-secondary" style={{ fontSize: '0.7rem' }}>
-                      {log.rol}
-                    </span>
-                  </td>
-                  <td>
-                    <span className="font-mono font-bold" style={{ color: log.accion === 'ELIMINAR' ? '#dc2626' : '#2563eb' }}>
-                      {log.accion}
-                    </span>
-                  </td>
-                  <td>
-                    <span className="badge badge-info" style={{ fontSize: '0.7rem' }}>
-                      {log.modulo}
-                    </span>
-                  </td>
-                  <td style={{ maxWidth: '300px', fontSize: '0.8rem', color: '#334155' }}>
-                    {log.detalles}
-                  </td>
-                  <td className="font-mono text-muted" style={{ fontSize: '0.75rem' }}>
-                    {log.ipAddress || '192.168.1.100'}
-                  </td>
-                  <td>
-                    <Badge type={getBadgeTypeSeveridad(log.severidad)}>{log.severidad}</Badge>
+              {filteredLogs.length === 0 ? (
+                <tr>
+                  <td colSpan={8} style={{ textAlign: 'center', padding: '2.5rem', color: '#64748b' }}>
+                    No se encontraron registros de auditoría con los filtros seleccionados.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filteredLogs.map((log) => (
+                  <tr key={log.id}>
+                    <td className="table-mono font-mono text-muted" style={{ fontSize: '0.8rem', whiteSpace: 'nowrap' }}>{log.fechaHora}</td>
+                    <td>
+                      <strong>{log.usuarioNombre}</strong>
+                    </td>
+                    <td>
+                      <span className="badge badge-secondary" style={{ fontSize: '0.7rem' }}>
+                        {log.rol}
+                      </span>
+                    </td>
+                    <td>
+                      <span className="font-mono font-bold" style={{ color: log.accion === 'ELIMINAR' ? '#dc2626' : '#2563eb' }}>
+                        {log.accion}
+                      </span>
+                    </td>
+                    <td>
+                      <span className="badge badge-info" style={{ fontSize: '0.7rem' }}>
+                        {log.modulo}
+                      </span>
+                    </td>
+                    <td style={{ maxWidth: '300px', fontSize: '0.8rem', color: '#334155' }}>
+                      {log.detalles}
+                    </td>
+                    <td className="font-mono text-muted" style={{ fontSize: '0.75rem' }}>
+                      {log.ipAddress || '192.168.1.100'}
+                    </td>
+                    <td>
+                      <Badge type={getBadgeTypeSeveridad(log.severidad)}>{log.severidad}</Badge>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

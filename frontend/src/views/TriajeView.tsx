@@ -326,8 +326,15 @@ export const TriajeView: React.FC = () => {
       </div>
 
       {/* Lista / Tablero de Triaje de Pacientes */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1rem' }}>
-        {filteredRegistros.map((reg) => {
+      {filteredRegistros.length === 0 ? (
+        <div className="card" style={{ padding: '3rem 1.5rem', textAlign: 'center', color: '#64748b' }}>
+          <Activity size={40} style={{ margin: '0 auto 0.75rem', opacity: 0.4 }} />
+          <h3 style={{ fontSize: '1.05rem', color: '#0f172a', marginBottom: '0.25rem' }}>No hay pacientes en espera de triaje</h3>
+          <p style={{ fontSize: '0.85rem', margin: 0 }}>No se encontraron registros de urgencias con los filtros seleccionados.</p>
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1rem' }}>
+          {filteredRegistros.map((reg) => {
           const colors = getNivelTriajeColor(reg.nivelTriaje);
           const isCriticoNEWS2 = reg.scoreNEWS2 >= 7;
 
@@ -452,7 +459,8 @@ export const TriajeView: React.FC = () => {
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
 
       {/* Modal de Creación / Edición con Calculadora NEWS2 */}
       {isModalOpen && (

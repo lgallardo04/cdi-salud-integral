@@ -113,10 +113,29 @@ const MainContent: React.FC = () => {
     }
   }, [activeModule]);
 
+  // Manejar clases de scroll globales para permitir desplazamiento vertical fluido en Landing y contención en Dashboard
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (activeModule === 'landing') {
+        document.documentElement.classList.add('landing-active');
+        document.body.classList.add('landing-active');
+      } else {
+        document.documentElement.classList.remove('landing-active');
+        document.body.classList.remove('landing-active');
+      }
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove('landing-active');
+        document.body.classList.remove('landing-active');
+      }
+    };
+  }, [activeModule]);
+
   // Scroll to top when active module changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const viewContainer = document.querySelector('.view-container') || document.querySelector('.landing-view-scroll');
+    const viewContainer = document.querySelector('.view-container') || document.querySelector('.landing-fullscreen-wrapper') || document.querySelector('.landing-view-scroll');
     if (viewContainer) {
       viewContainer.scrollTop = 0;
     }
@@ -125,7 +144,7 @@ const MainContent: React.FC = () => {
   // Si el módulo activo es la Landing Page, mostrarla a pantalla completa (full-bleed) estilo website de alta tecnología
   if (activeModule === 'landing') {
     return (
-      <div className="landing-fullscreen-wrapper min-h-screen w-full bg-[#050b14] text-white overflow-x-hidden">
+      <div className="landing-fullscreen-wrapper w-full bg-[#050b14] text-white">
         <Suspense fallback={<ModuleLoadingFallback />}>
           <LandingPageView
             setActiveModule={(mod) => setActiveModule(mod as ActiveView)}

@@ -23,7 +23,8 @@ import {
   CheckCircle2,
   ChevronRight,
   Eye,
-  Apple
+  Apple,
+  Sparkles
 } from 'lucide-react';
 import { ModuloNombre } from '../../types';
 import { useAuth } from '../../context/AuthContext';
@@ -39,7 +40,7 @@ interface MobileModulesSheetProps {
 type CategoryKey = 'todos' | 'urgencias' | 'diagnostico' | 'farmacia' | 'gestion' | 'seguridad';
 
 interface ModuleItem {
-  id: ModuloNombre;
+  id: ModuloNombre | 'landing';
   label: string;
   category: CategoryKey;
   icon: React.ElementType;
@@ -60,6 +61,15 @@ export const MobileModulesSheet: React.FC<MobileModulesSheetProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('todos');
 
   const allModules: ModuleItem[] = useMemo(() => [
+    {
+      id: 'landing' as any,
+      label: 'Presentación / Landing 3D',
+      category: 'urgencias',
+      icon: Sparkles,
+      description: 'Póster médico interactivo y telemetría ECG en vivo',
+      badge: '3D',
+      badgeVariant: 'info'
+    },
     {
       id: 'dashboard',
       label: 'Panel General',
@@ -273,7 +283,7 @@ export const MobileModulesSheet: React.FC<MobileModulesSheetProps> = ({
   if (!isOpen) return null;
 
   const categories: { id: CategoryKey; label: string }[] = [
-    { id: 'todos', label: 'Todos (23)' },
+    { id: 'todos', label: 'Todos (26)' },
     { id: 'urgencias', label: 'Clínica' },
     { id: 'diagnostico', label: 'Diagnóstico' },
     { id: 'farmacia', label: 'Farmacia' },
@@ -281,7 +291,7 @@ export const MobileModulesSheet: React.FC<MobileModulesSheetProps> = ({
     { id: 'seguridad', label: 'Seguridad' }
   ];
 
-  const handleSelect = (modId: ModuloNombre) => {
+  const handleSelect = (modId: ModuloNombre | 'landing') => {
     setActiveModule(modId);
     onClose();
   };
@@ -328,7 +338,7 @@ export const MobileModulesSheet: React.FC<MobileModulesSheetProps> = ({
               type="text"
               className="form-input"
               style={{ fontSize: '0.9rem', paddingLeft: '2.4rem' }}
-              placeholder="Buscar entre los 23 módulos..."
+              placeholder="Buscar módulos del sistema CDI..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               autoFocus={false}

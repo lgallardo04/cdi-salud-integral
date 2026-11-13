@@ -249,10 +249,17 @@ export const EpidemiologiaView: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredCasos.map((caso) => {
-                const zonaStyle = getZonaBadgeColor(caso.canalEndemicoZona);
-                return (
-                  <tr key={caso.id}>
+              {filteredCasos.length === 0 ? (
+                <tr>
+                  <td colSpan={7} style={{ textAlign: 'center', padding: '2.5rem', color: '#64748b' }}>
+                    No se encontraron casos epidemiológicos con los filtros aplicados.
+                  </td>
+                </tr>
+              ) : (
+                filteredCasos.map((caso) => {
+                  const zonaStyle = getZonaBadgeColor(caso.canalEndemicoZona);
+                  return (
+                    <tr key={caso.id}>
                     <td>
                       <span className="font-mono font-bold" style={{ color: '#2563eb' }}>
                         {caso.codigoCaso}
@@ -323,7 +330,8 @@ export const EpidemiologiaView: React.FC = () => {
                     </td>
                   </tr>
                 );
-              })}
+              })
+            )}
             </tbody>
           </table>
         </div>
