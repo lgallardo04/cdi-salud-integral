@@ -88,6 +88,20 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Reset crítico de botones para evitar que navegadores apliquen fondo blanco 'buttonface' */
+button {
+  background-color: transparent;
+  background-image: none;
+  border: 0 solid transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
 html, body {
   height: 100%;
   font-family: var(--font-sans);
@@ -130,6 +144,65 @@ body.landing-active {
   user-select: auto;
   position: relative;
   overscroll-behavior-y: auto;
+}
+
+.landing-fullscreen-wrapper button {
+  background-color: transparent;
+  color: inherit;
+  border: 0 solid transparent;
+}
+
+/* ==========================================================================
+   BOTONES Y ELEMENTOS DE NAVEGACIÓN CLÍNICA (ESTÉTICA DARK LUXURY & NEÓN)
+   Garantiza que nunca se aplique fondo blanco 'buttonface' y los gradientes
+   se vean siempre vibrantes, nítidos y legibles.
+   ========================================================================== */
+.btn-clinic-primary {
+  background: linear-gradient(135deg, #00f1fd 0%, #4edea3 50%, #10b981 100%) !important;
+  color: #030712 !important;
+  font-weight: 800 !important;
+  border: 1px solid rgba(0, 241, 253, 0.6) !important;
+  box-shadow: 0 0 20px rgba(0, 241, 253, 0.35) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.btn-clinic-primary:hover {
+  filter: brightness(1.12) !important;
+  box-shadow: 0 0 28px rgba(0, 241, 253, 0.55) !important;
+  transform: translateY(-1px);
+}
+
+.btn-clinic-primary:active {
+  transform: scale(0.97);
+}
+
+.nav-pill-clinic {
+  background-color: rgba(11, 21, 40, 0.85) !important;
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(0, 241, 253, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 6px 14px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease-in-out !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+}
+
+.nav-pill-clinic:hover {
+  background-color: rgba(15, 31, 56, 0.95) !important;
+  color: #00f1fd !important;
+  border-color: rgba(0, 241, 253, 0.5) !important;
+  box-shadow: 0 0 14px rgba(0, 241, 253, 0.25) !important;
+}
+
+.nav-pill-clinic.active {
+  background: rgba(0, 241, 253, 0.2) !important;
+  color: #00f1fd !important;
+  border-color: #00f1fd !important;
+  box-shadow: 0 0 16px rgba(0, 241, 253, 0.35) !important;
+  font-weight: 700 !important;
 }
 
 /* Compensación de scroll para anclas con barra sticky superior */

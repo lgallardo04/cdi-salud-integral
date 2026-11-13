@@ -580,7 +580,7 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
           <button
             type="button"
             onClick={() => scrollToSection('hero')}
-            className="flex items-center gap-2 group cursor-pointer text-left shrink-0"
+            className="flex items-center gap-2 group cursor-pointer text-left shrink-0 bg-transparent border-0 p-0"
             title="Ir al inicio"
           >
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00f1fd]/20 to-[#10b981]/20 border border-[#00f1fd]/40 flex items-center justify-center text-[#00f1fd] group-hover:border-[#00f1fd] group-hover:scale-105 transition-all shadow-[0_0_12px_rgba(0,241,253,0.2)]">
@@ -597,48 +597,32 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
           </button>
 
           {/* Persistent Quick Jump Links [#hero, #especialidades, #triaje, #portal] */}
-          <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+          <nav className="flex items-center gap-1 sm:gap-1.5 p-1 rounded-xl bg-[#0b1528]/90 border border-[#00f1fd]/25 backdrop-blur-md overflow-x-auto no-scrollbar">
             <button
               type="button"
               onClick={() => scrollToSection('hero')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
-                activeSection === 'hero'
-                  ? 'bg-[#00f1fd]/20 text-[#00f1fd] border border-[#00f1fd]/50 shadow-[0_0_12px_rgba(0,241,253,0.3)]'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent'
-              }`}
+              className={`nav-pill-clinic cursor-pointer ${activeSection === 'hero' ? 'active' : ''}`}
             >
               <span>Inicio</span>
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('especialidades')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
-                activeSection === 'especialidades'
-                  ? 'bg-[#00f1fd]/20 text-[#00f1fd] border border-[#00f1fd]/50 shadow-[0_0_12px_rgba(0,241,253,0.3)]'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent'
-              }`}
+              className={`nav-pill-clinic cursor-pointer ${activeSection === 'especialidades' ? 'active' : ''}`}
             >
               <span>Especialidades</span>
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('triaje')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
-                activeSection === 'triaje'
-                  ? 'bg-[#ffb4ab]/20 text-[#ffb4ab] border border-[#ffb4ab]/50 shadow-[0_0_12px_rgba(255,180,171,0.3)]'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent'
-              }`}
+              className={`nav-pill-clinic cursor-pointer ${activeSection === 'triaje' ? 'active' : ''}`}
             >
               <span>Triaje Manchester</span>
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('portal')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
-                activeSection === 'portal'
-                  ? 'bg-[#4edea3]/20 text-[#4edea3] border border-[#4edea3]/50 shadow-[0_0_12px_rgba(78,222,163,0.3)]'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent'
-              }`}
+              className={`nav-pill-clinic cursor-pointer ${activeSection === 'portal' ? 'active' : ''}`}
             >
               <span>Portal Paciente</span>
             </button>
@@ -649,7 +633,7 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
             <button
               type="button"
               onClick={() => navigateTo('dashboard')}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00f1fd] via-[#4edea3] to-[#10b981] hover:brightness-110 active:scale-95 text-slate-950 font-extrabold text-xs transition-all shadow-[0_0_20px_rgba(0,241,253,0.4)] cursor-pointer"
+              className="btn-clinic-primary inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5 shrink-0" />
               <span className="hidden sm:inline">Ingresar al Sistema Clínico</span>
@@ -757,8 +741,9 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
               {/* 4 Interactive CTAs */}
               <div className="mt-8 flex flex-wrap items-center gap-3.5">
                 <button
+                  type="button"
                   onClick={() => navigateTo('dashboard')}
-                  className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-extrabold text-sm sm:text-base text-slate-950 bg-gradient-to-r from-[#00f1fd] via-[#4edea3] to-[#10b981] hover:brightness-110 active:scale-95 transition-all laser-glow cursor-pointer"
+                  className="btn-clinic-primary group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-extrabold text-sm sm:text-base cursor-pointer"
                 >
                   <Cpu className="w-5 h-5 text-slate-950 group-hover:rotate-12 transition-transform" />
                   <span>Ingresar al Sistema Clínico</span>
@@ -1054,8 +1039,9 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
                     </div>
 
                     <button
+                      type="button"
                       onClick={() => navigateTo(card.module)}
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-white hover:bg-[#00f1fd] group-hover:shadow-[0_0_20px_rgba(0,241,253,0.5)] transition-all cursor-pointer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#00f1fd] bg-[#0b1528] hover:bg-[#00f1fd]/25 border border-[#00f1fd]/40 hover:border-[#00f1fd] group-hover:shadow-[0_0_20px_rgba(0,241,253,0.35)] transition-all cursor-pointer"
                     >
                       <span>Acceder al Módulo</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1338,12 +1324,12 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
         <button
           type="button"
           onClick={() => navigateTo('dashboard')}
-          className="pointer-events-auto inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#00f1fd] via-[#4edea3] to-[#10b981] text-slate-950 font-extrabold text-xs shadow-[0_6px_25px_rgba(0,241,253,0.45)] hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20 group"
+          className="btn-clinic-primary pointer-events-auto inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs transition-all hover:scale-105 active:scale-95 cursor-pointer group"
           title="Ingresar directamente al Sistema Clínico"
         >
           <Sparkles className="w-3.5 h-3.5 animate-spin-slow text-slate-950" />
-          <span className="font-sans font-bold">Ingresar al Sistema Clínico</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          <span className="font-sans font-extrabold text-slate-950">Ingresar al Sistema Clínico</span>
+          <ArrowRight className="w-3.5 h-3.5 text-slate-950 group-hover:translate-x-1 transition-transform" />
         </button>
 
         {/* Floating Quick Action: Volver Arriba */}
