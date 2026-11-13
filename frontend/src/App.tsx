@@ -90,21 +90,54 @@ const ModuleLoadingFallback: React.FC = () => (
 );
 
 const MainContent: React.FC = () => {
-  const [activeModule, setActiveModule] = useState<ActiveView>('dashboard');
+  const [activeModule, setActiveModule] = useState<ActiveView>(() => {
+    // Si el usuario especificó un módulo en el hash de la URL (#dashboard, etc.), respetarlo
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash.replace('#', '').trim();
+      if (hash && hash !== 'landing') {
+        return hash as ActiveView;
+      }
+    }
+    // Por defecto, mostrar la nueva Landing Page de alta tecnología
+    return 'landing';
+  });
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const { hasPermission, currentRole } = useAuth();
 
+  // Sincronizar hash con el módulo activo
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.location.hash = activeModule;
+    }
+  }, [activeModule]);
+
   // Scroll to top when active module changes
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const viewContainer = document.querySelector('.view-container') || document.querySelector('.landing-view-scroll');
     if (viewContainer) {
       viewContainer.scrollTop = 0;
     }
   }, [activeModule]);
 
-  const canViewCurrent = activeModule === 'landing' || hasPermission(activeModule, 'ver');
+  // Si el módulo activo es la Landing Page, mostrarla a pantalla completa (full-bleed) estilo website de alta tecnología
+  if (activeModule === 'landing') {
+    return (
+      <div className="landing-fullscreen-wrapper min-h-screen w-full bg-[#050b14] text-white overflow-x-hidden">
+        <Suspense fallback={<ModuleLoadingFallback />}>
+          <LandingPageView
+            setActiveModule={(mod) => setActiveModule(mod as ActiveView)}
+            onNavigate={(mod) => setActiveModule(mod as ActiveView)}
+          />
+        </Suspense>
+        <ToastContainer />
+      </div>
+    );
+  }
+
+  const canViewCurrent = hasPermission(activeModule, 'ver');
 
   const renderCurrentModule = () => {
     if (!canViewCurrent) {
@@ -131,15 +164,6 @@ const MainContent: React.FC = () => {
     }
 
     switch (activeModule) {
-      case 'landing':
-        return (
-          <div className="landing-view-scroll" style={{ flex: 1, overflowY: 'auto', width: '100%', height: '100%' }}>
-            <LandingPageView
-              setActiveModule={(mod) => setActiveModule(mod as ActiveView)}
-              onNavigate={(mod) => setActiveModule(mod as ActiveView)}
-            />
-          </div>
-        );
       case 'dashboard':
         return <DashboardView setActiveModule={setActiveModule} />;
       case 'pacientes':

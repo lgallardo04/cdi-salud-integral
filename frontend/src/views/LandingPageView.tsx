@@ -512,6 +512,13 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
               <Clock className="w-3.5 h-3.5" />
               <span>{currentTime || '12:00:00'} VET</span>
             </div>
+            <button
+              onClick={() => navigateTo('dashboard')}
+              className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-lg bg-gradient-to-r from-[#00f1fd]/25 to-[#10b981]/25 hover:from-[#00f1fd]/40 hover:to-[#10b981]/40 border border-[#00f1fd]/50 text-[#00f1fd] hover:text-white text-xs font-bold transition-all shadow-[0_0_15px_rgba(0,241,253,0.25)] cursor-pointer"
+            >
+              <span>Acceso Sistema</span>
+              <ArrowRight className="w-3 h-3" />
+            </button>
           </div>
         </div>
       </div>
