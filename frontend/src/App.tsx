@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { DataProvider } from './context/DataContext';
 import { ModuloNombre } from './types';
@@ -8,37 +8,83 @@ import { BottomNav } from './components/common/BottomNav';
 import { ToastContainer } from './components/common/ToastContainer';
 import { MobileModulesSheet } from './components/common/MobileModulesSheet';
 import { MobileQuickFab } from './components/common/MobileQuickFab';
+import { ShieldAlert, Activity } from 'lucide-react';
 
-// Vistas Principales y Asistenciales
-import { DashboardView } from './views/DashboardView';
-import { PacientesView } from './views/PacientesView';
-import { CitasView } from './views/CitasView';
-import { TratamientosView } from './views/TratamientosView';
-import { MedicamentosView } from './views/MedicamentosView';
-import { FarmaciaView } from './views/FarmaciaView';
-import { ProveedoresView } from './views/ProveedoresView';
-import { DepartamentosView } from './views/DepartamentosView';
-import { EmpleadosView } from './views/EmpleadosView';
-import { CargosView } from './views/CargosView';
-import { HorariosView } from './views/HorariosView';
-import { UsuariosView } from './views/UsuariosView';
-import { RolesView } from './views/RolesView';
+// Vistas Principales y Asistenciales (Lazy Loaded para Code Splitting y Bundle Optimization)
+const DashboardView = lazy(() => import('./views/DashboardView').then(m => ({ default: m.DashboardView })));
+const PacientesView = lazy(() => import('./views/PacientesView').then(m => ({ default: m.PacientesView })));
+const CitasView = lazy(() => import('./views/CitasView').then(m => ({ default: m.CitasView })));
+const TratamientosView = lazy(() => import('./views/TratamientosView').then(m => ({ default: m.TratamientosView })));
+const MedicamentosView = lazy(() => import('./views/MedicamentosView').then(m => ({ default: m.MedicamentosView })));
+const FarmaciaView = lazy(() => import('./views/FarmaciaView').then(m => ({ default: m.FarmaciaView })));
+const ProveedoresView = lazy(() => import('./views/ProveedoresView').then(m => ({ default: m.ProveedoresView })));
+const DepartamentosView = lazy(() => import('./views/DepartamentosView').then(m => ({ default: m.DepartamentosView })));
+const EmpleadosView = lazy(() => import('./views/EmpleadosView').then(m => ({ default: m.EmpleadosView })));
+const CargosView = lazy(() => import('./views/CargosView').then(m => ({ default: m.CargosView })));
+const HorariosView = lazy(() => import('./views/HorariosView').then(m => ({ default: m.HorariosView })));
+const UsuariosView = lazy(() => import('./views/UsuariosView').then(m => ({ default: m.UsuariosView })));
+const RolesView = lazy(() => import('./views/RolesView').then(m => ({ default: m.RolesView })));
 
-// Nuevas Vistas Clínicas Hospitalarias
-import { LaboratorioView } from './views/LaboratorioView';
-import { ImagenologiaView } from './views/ImagenologiaView';
-import { HospitalizacionView } from './views/HospitalizacionView';
-import { TriajeView } from './views/TriajeView';
-import { OdontologiaView } from './views/OdontologiaView';
-import { TelemedicinaView } from './views/TelemedicinaView';
-import { FacturacionView } from './views/FacturacionView';
-import { EpidemiologiaView } from './views/EpidemiologiaView';
-import { AuditoriaView } from './views/AuditoriaView';
-import { PortalPacienteView } from './views/PortalPacienteView';
-import { NutricionView } from './views/NutricionView';
-import { OftalmologiaView } from './views/OftalmologiaView';
+// Vistas Clínicas Hospitalarias Especializadas
+const LaboratorioView = lazy(() => import('./views/LaboratorioView').then(m => ({ default: m.LaboratorioView })));
+const ImagenologiaView = lazy(() => import('./views/ImagenologiaView').then(m => ({ default: m.ImagenologiaView })));
+const HospitalizacionView = lazy(() => import('./views/HospitalizacionView').then(m => ({ default: m.HospitalizacionView })));
+const TriajeView = lazy(() => import('./views/TriajeView').then(m => ({ default: m.TriajeView })));
+const OdontologiaView = lazy(() => import('./views/OdontologiaView').then(m => ({ default: m.OdontologiaView })));
+const TelemedicinaView = lazy(() => import('./views/TelemedicinaView').then(m => ({ default: m.TelemedicinaView })));
+const FacturacionView = lazy(() => import('./views/FacturacionView').then(m => ({ default: m.FacturacionView })));
+const EpidemiologiaView = lazy(() => import('./views/EpidemiologiaView').then(m => ({ default: m.EpidemiologiaView })));
+const AuditoriaView = lazy(() => import('./views/AuditoriaView').then(m => ({ default: m.AuditoriaView })));
+const PortalPacienteView = lazy(() => import('./views/PortalPacienteView').then(m => ({ default: m.PortalPacienteView })));
+const NutricionView = lazy(() => import('./views/NutricionView').then(m => ({ default: m.NutricionView })));
+const OftalmologiaView = lazy(() => import('./views/OftalmologiaView').then(m => ({ default: m.OftalmologiaView })));
 
-import { ShieldAlert } from 'lucide-react';
+// Fallback de carga con diseño asistencial profesional
+const ModuleLoadingFallback: React.FC = () => (
+  <div
+    className="view-container"
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '60vh',
+    }}
+  >
+    <div
+      style={{
+        textAlign: 'center',
+        maxWidth: '320px',
+        padding: '2rem',
+        backgroundColor: '#ffffff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        boxShadow: '0 4px 12px rgba(15, 23, 42, 0.05)',
+      }}
+    >
+      <div
+        style={{
+          width: '44px',
+          height: '44px',
+          borderRadius: '50%',
+          backgroundColor: '#eff6ff',
+          color: '#2563eb',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto 1rem',
+        }}
+      >
+        <Activity size={22} className="spin-slow" />
+      </div>
+      <h3 style={{ fontSize: '1rem', color: '#0f172a', marginBottom: '0.35rem', fontWeight: 600 }}>
+        Cargando módulo clínico
+      </h3>
+      <p style={{ fontSize: '0.8rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>
+        Cargando componentes asistenciales bajo demanda...
+      </p>
+    </div>
+  </div>
+);
 
 const MainContent: React.FC = () => {
   const [activeModule, setActiveModule] = useState<ModuloNombre>('dashboard');
@@ -158,8 +204,10 @@ const MainContent: React.FC = () => {
           setIsMobileOpen={setIsMobileOpen}
         />
 
-        {/* Current Active Clinical Module */}
-        {renderCurrentModule()}
+        {/* Current Active Clinical Module with Suspense Lazy Loading */}
+        <Suspense fallback={<ModuleLoadingFallback />}>
+          {renderCurrentModule()}
+        </Suspense>
 
         {/* Floating Action Button for Mobile Fast Operations */}
         <MobileQuickFab setActiveModule={setActiveModule} />

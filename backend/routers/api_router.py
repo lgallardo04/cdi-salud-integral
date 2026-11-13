@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any
-from database import get_db
+from database import get_db, check_db_connection
 import models
 import schemas
-from datetime import datetime
+from datetime import datetime, timezone
 
 router = APIRouter(prefix="/api")
 
@@ -25,7 +25,7 @@ def build_crud_routes(router: APIRouter, path: str, model_cls, schema_cls, id_pr
     def create(item_data: schema_cls, db: Session = Depends(get_db)):
         data_dict = item_data.model_dump(exclude_unset=True)
         if not data_dict.get("id"):
-            data_dict["id"] = f"{id_prefix}-{int(datetime.utcnow().timestamp() * 1000)}"
+            data_dict["id"] = f"{id_prefix}-{int(datetime.now(timezone.utc).timestamp() * 1000)}"
         
         db_item = model_cls(**data_dict)
         db.add(db_item)
@@ -93,12 +93,17 @@ build_crud_routes(router, "candidatosMisionMilagro", models.CandidatoMisionMilag
 # Endpoint Healthcheck
 @router.get("/health")
 def healthcheck():
+    db_status = check_db_connection()
     return {
         "status": "online",
         "system": "CDI Salud Integral REST API",
         "version": "2.6.0",
         "modules_active": 26,
-        "timestamp": datetime.utcnow().isoformat()
+        "database": db_status.get("status", "unknown"),
+        "database_dialect": db_status.get("dialect", "unknown"),
+        "supabase_integrated": db_status.get("is_supabase", False),
+        "supabase_project": db_status.get("supabase_project"),
+        "timestamp": datetime.now(timezone.utc).isoformat()
     }
 
 # Endpoint Estadísticas Clínicas

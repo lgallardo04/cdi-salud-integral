@@ -42,7 +42,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   setIsMobileOpen
 }) => {
   const { currentUser, currentRole, switchUser, availableUsers, hasPermission } = useAuth();
-  const { kpis } = useData();
+  const { kpis, cloudStatus } = useData();
 
   const handleNavClick = (mod: ModuloNombre) => {
     setActiveModule(mod);
@@ -174,8 +174,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Footer de Usuario y Selector de Rol Rápido */}
       <div className="sidebar-footer">
-        <div className="user-avatar" title={currentUser.nombreCompleto}>
+        <div
+          className="user-avatar"
+          title={`${currentUser.nombreCompleto} — ${cloudStatus.state === 'connected' ? 'Supabase Online' : 'Modo Offline'}`}
+          style={{ position: 'relative' }}
+        >
           {currentUser.nombreCompleto.charAt(0)}
+          <span
+            className={cloudStatus.state === 'connected' ? 'pulse-indicator-green' : 'pulse-indicator-amber'}
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              width: 8,
+              height: 8,
+              border: '1.5px solid #0f172a'
+            }}
+          />
         </div>
         {!isCollapsed && (
           <div style={{ flex: 1, minWidth: 0 }}>
@@ -185,6 +200,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
               <span style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 500 }}>
                 {currentRole?.nombre || 'Usuario'}
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginTop: '0.15rem' }}>
+              <span
+                className={cloudStatus.state === 'connected' ? 'pulse-indicator-green' : 'pulse-indicator-amber'}
+                style={{ width: 6, height: 6 }}
+              />
+              <span style={{ fontSize: '0.65rem', color: cloudStatus.state === 'connected' ? '#86efac' : '#cbd5e1' }}>
+                {cloudStatus.state === 'connected' ? 'Supabase Online' : 'Modo Offline'}
               </span>
             </div>
           </div>

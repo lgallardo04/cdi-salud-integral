@@ -12,11 +12,15 @@ import {
   Activity,
   ChevronDown,
   X,
-  Radio
+  Radio,
+  Cloud,
+  CloudOff,
+  RefreshCw
 } from 'lucide-react';
 import { ModuloNombre } from '../../types';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
+import { SupabaseService } from '../../services/supabase';
 
 interface HeaderProps {
   activeModule: ModuloNombre;
@@ -58,12 +62,19 @@ export const Header: React.FC<HeaderProps> = ({
   setIsMobileOpen
 }) => {
   const { currentUser, currentRole, switchUser, availableUsers } = useAuth();
-  const { resetAllData, exportDatabaseJSON, importDatabaseJSON } = useData();
+  const { resetAllData, exportDatabaseJSON, importDatabaseJSON, cloudStatus, syncWithCloud } = useData();
   const [isRoleSheetOpen, setIsRoleSheetOpen] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const currentInfo = moduleTitles[activeModule] || {
     title: 'CDI Salud Integral',
     subtitle: 'Centro de Diagnóstico Integral'
+  };
+
+  const handleSyncCloud = async () => {
+    setIsSyncing(true);
+    await syncWithCloud();
+    setIsSyncing(false);
   };
 
   const handleExportBackup = () => {
@@ -111,6 +122,11 @@ export const Header: React.FC<HeaderProps> = ({
               <Activity size={16} />
             </div>
             <span className="mobile-brand-title">CDI</span>
+            <span
+              className={cloudStatus.state === 'connected' ? 'pulse-indicator-green' : 'pulse-indicator-amber'}
+              style={{ width: 6, height: 6, marginLeft: 2 }}
+              title={cloudStatus.message}
+            />
           </div>
 
           <div className="header-title-container">
@@ -122,10 +138,40 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div className="header-actions">
-          {/* Status Badge */}
-          <div className="header-sync-badge desktop-only" title="Base de datos reactiva offline-first sincronizada con FastAPI">
-            <span className="pulse-indicator-green" />
-            <span>Offline Local Activo</span>
+          {/* Supabase Cloud Connection Status Badge */}
+          <div
+            className={`header-sync-badge desktop-only ${
+              cloudStatus.state === 'connected'
+                ? 'cloud-connected'
+                : cloudStatus.state === 'connecting'
+                ? 'cloud-connecting'
+                : 'cloud-offline'
+            }`}
+            title={`Supabase Cloud (${cloudStatus.projectRef}): ${cloudStatus.message}${
+              cloudStatus.latencyMs ? ` — Latencia: ${cloudStatus.latencyMs}ms` : ''
+            }. Clic para verificar conectividad.`}
+            onClick={() => SupabaseService.checkConnection()}
+            style={{ cursor: 'pointer' }}
+          >
+            {cloudStatus.state === 'connected' ? (
+              <>
+                <span className="pulse-indicator-green" />
+                <Cloud size={13} />
+                <span>Supabase Cloud</span>
+              </>
+            ) : cloudStatus.state === 'connecting' ? (
+              <>
+                <span className="pulse-indicator-blue" />
+                <RefreshCw size={13} className="spin-slow" />
+                <span>Conectando...</span>
+              </>
+            ) : (
+              <>
+                <span className="pulse-indicator-amber" />
+                <CloudOff size={13} />
+                <span>Modo Offline</span>
+              </>
+            )}
           </div>
 
           {/* Selector interactivo de Rol / Usuario */}
@@ -164,6 +210,17 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Acciones de Base de Datos */}
           <div className="header-db-actions">
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              onClick={handleSyncCloud}
+              disabled={isSyncing}
+              title={`Sincronizar base de datos con Supabase Cloud (${cloudStatus.projectRef})`}
+            >
+              <RefreshCw size={14} className={isSyncing ? 'spin-slow' : ''} />
+              <span className="desktop-text">{isSyncing ? 'Sincronizando...' : 'Sync Cloud'}</span>
+            </button>
+
             <button
               type="button"
               className="btn btn-secondary btn-sm"

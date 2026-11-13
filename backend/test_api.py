@@ -84,9 +84,56 @@ def test_kpis():
     assert "medicamentosCriticos" in kpis
     assert "ocupacionCamasPorcentaje" in kpis
 
+def test_root():
+    response = client.get("/", headers={"Accept": "application/json"})
+    assert response.status_code == 200
+    data = response.json()
+    assert "database" in data
+    assert data["database"]["project_ref"] == "oqlgfjtbjpmgpvqhvllz"
+    assert data["database"]["status"] == "connected"
+
+    # También verificar /api
+    res_api = client.get("/api")
+    assert res_api.status_code == 200
+    data_api = res_api.json()
+    assert data_api["database"]["status"] == "connected"
+
+def test_database_health_and_config():
+    from database import check_db_connection, resolve_database_url, SUPABASE_PROJECT_REF
+    health = check_db_connection()
+    assert health["status"] == "connected"
+    assert health["checked"] is True
+    assert SUPABASE_PROJECT_REF == "oqlgfjtbjpmgpvqhvllz"
+
+def test_supabase_url_resolution():
+    import os
+    from database import resolve_database_url
+    
+    # Test fallback a SQLite
+    orig_env = os.environ.get("DATABASE_URL")
+    try:
+        os.environ.pop("DATABASE_URL", None)
+        url, is_sqlite = resolve_database_url()
+        assert is_sqlite is True
+        assert "sqlite:///" in url
+
+        # Test normalización postgres://
+        os.environ["DATABASE_URL"] = "postgres://user:pass@db.oqlgfjtbjpmgpvqhvllz.supabase.co:5432/postgres"
+        url, is_sqlite = resolve_database_url()
+        assert is_sqlite is False
+        assert url.startswith("postgresql://")
+    finally:
+        if orig_env is not None:
+            os.environ["DATABASE_URL"] = orig_env
+        else:
+            os.environ.pop("DATABASE_URL", None)
+
 if __name__ == "__main__":
     print("Ejecutando suite de pruebas automatizadas del backend CDI...")
     test_healthcheck()
+    test_root()
+    test_database_health_and_config()
+    test_supabase_url_resolution()
     test_get_roles()
     test_get_pacientes()
     test_get_medicamentos()

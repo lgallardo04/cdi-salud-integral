@@ -16,6 +16,7 @@ import {
   Rol
 } from '../types';
 import { LocalDataService } from '../services/storage';
+import { SupabaseService, CloudStatusInfo } from '../services/supabase';
 
 interface ToastMessage {
   id: string;
@@ -35,6 +36,9 @@ interface DataContextType {
   resetAllData: () => void;
   exportDatabaseJSON: () => string;
   importDatabaseJSON: (jsonStr: string) => boolean;
+  // Cloud Sync
+  cloudStatus: CloudStatusInfo;
+  syncWithCloud: () => Promise<void>;
   // Toasts
   toasts: ToastMessage[];
   addToast: (message: string, type?: 'success' | 'error' | 'warning' | 'info') => void;
@@ -77,6 +81,14 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [kpis, setKpis] = useState<KPIStats>(() => LocalDataService.getKPIs());
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [cloudStatus, setCloudStatus] = useState<CloudStatusInfo>(() => SupabaseService.getStatus());
+
+  useEffect(() => {
+    const unsubscribe = SupabaseService.subscribe((status) => {
+      setCloudStatus(status);
+    });
+    return unsubscribe;
+  }, []);
 
   const refreshData = useCallback(() => {
     setData({
@@ -128,6 +140,8 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const createItem = <K extends keyof CDIDataState>(collection: K, item: any): any => {
     const created = LocalDataService.create(collection, item);
     refreshData();
+    // Replicación asíncrona hacia Supabase Cloud
+    SupabaseService.saveItem(collection, created, true).catch(() => {});
     addToast(`Elemento registrado exitosamente en ${String(collection)}`, 'success');
     return created;
   };
@@ -135,6 +149,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const updateItem = <K extends keyof CDIDataState>(collection: K, id: string, updatedData: any): any => {
     const updated = LocalDataService.update(collection, id, updatedData);
     refreshData();
+    // Replicación asíncrona hacia Supabase Cloud
+    if (updated) {
+      SupabaseService.saveItem(collection, updated, false).catch(() => {});
+    }
     addToast(`Registro actualizado correctamente`, 'info');
     return updated;
   };
@@ -143,9 +161,25 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const success = LocalDataService.delete(collection, id);
     if (success) {
       refreshData();
+      // Replicación asíncrona hacia Supabase Cloud
+      SupabaseService.deleteItem(collection, id).catch(() => {});
       addToast(`Registro eliminado satisfactoriamente`, 'warning');
     }
     return success;
+  };
+
+  const syncWithCloud = async () => {
+    addToast('Iniciando sincronización con Supabase Cloud...', 'info');
+    try {
+      const result = await SupabaseService.syncAll();
+      if (result.success) {
+        addToast(`Sincronización cloud completa (${result.syncedCollections} módulos)`, 'success');
+      } else {
+        addToast(`Sincronizado (${result.syncedCollections} módulos OK, alertas en ${result.errors.length})`, 'warning');
+      }
+    } catch (e: any) {
+      addToast(`Error al sincronizar: ${e?.message || 'Error de red'}`, 'error');
+    }
   };
 
   const resetAllData = () => {
@@ -181,6 +215,8 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         resetAllData,
         exportDatabaseJSON,
         importDatabaseJSON,
+        cloudStatus,
+        syncWithCloud,
         toasts,
         addToast,
         removeToast
