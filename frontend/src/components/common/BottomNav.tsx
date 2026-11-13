@@ -12,8 +12,8 @@ import { ModuloNombre } from '../../types';
 import { useData } from '../../context/DataContext';
 
 interface BottomNavProps {
-  activeModule: ModuloNombre;
-  setActiveModule: (mod: ModuloNombre) => void;
+  activeModule: ModuloNombre | 'landing';
+  setActiveModule: (mod: any) => void;
   setIsMobileOpen: (open: boolean) => void;
 }
 

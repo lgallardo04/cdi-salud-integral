@@ -18,19 +18,33 @@ import {
   Activity,
   HeartPulse,
   Eye,
-  Apple
+  Apple,
+  Sparkles,
+  LucideIcon
 } from 'lucide-react';
 import { ModuloNombre } from '../../types';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
 
 interface SidebarProps {
-  activeModule: ModuloNombre;
-  setActiveModule: (mod: ModuloNombre) => void;
+  activeModule: ModuloNombre | 'landing';
+  setActiveModule: (mod: ModuloNombre | 'landing') => void;
   isCollapsed: boolean;
   setIsCollapsed: (collapsed: boolean) => void;
   isMobileOpen: boolean;
   setIsMobileOpen: (open: boolean) => void;
+}
+
+interface NavItem {
+  id: ModuloNombre | 'landing';
+  label: string;
+  icon: LucideIcon;
+  badge?: string | number;
+}
+
+interface NavSection {
+  title: string;
+  items: NavItem[];
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -44,16 +58,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const { currentUser, currentRole, switchUser, availableUsers, hasPermission } = useAuth();
   const { kpis, cloudStatus } = useData();
 
-  const handleNavClick = (mod: ModuloNombre) => {
+  const handleNavClick = (mod: ModuloNombre | 'landing') => {
     setActiveModule(mod);
     setIsMobileOpen(false);
   };
 
-  const navSections = [
+  const navSections: NavSection[] = [
     {
-      title: 'Principal',
+      title: 'Principal & Presentación',
       items: [
         { id: 'dashboard' as ModuloNombre, label: 'Panel General', icon: LayoutDashboard },
+        { id: 'landing' as any, label: 'Landing / Presentación', icon: Sparkles },
         { id: 'portal_paciente' as ModuloNombre, label: 'Portal Paciente (Kiosko)', icon: UserCheck }
       ]
     },
@@ -109,16 +124,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
 
   return (
-    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
+    <aside className={`sidebar sidebar-glass-glow ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
       <div className="sidebar-header">
         <div className="sidebar-brand" onClick={() => handleNavClick('dashboard')} style={{ cursor: 'pointer' }}>
-          <div className="brand-icon-wrapper">
+          <div className="brand-icon-wrapper heartbeat-anim" style={{ boxShadow: '0 0 14px rgba(6, 182, 212, 0.45)' }}>
             <Activity size={22} />
           </div>
           {!isCollapsed && (
             <div className="brand-text">
-              <span className="brand-title">CDI SALUD</span>
-              <span className="brand-subtitle">Gestión Integral</span>
+              <span className="brand-title text-gradient-cyan-emerald">CDI SALUD</span>
+              <span className="brand-subtitle" style={{ letterSpacing: '0.08em', color: '#38bdf8' }}>Alta Tecnología</span>
             </div>
           )}
         </div>
@@ -132,6 +147,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
         >
           {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
         </button>
+      </div>
+
+      {/* Banner de Acceso Rápido y Alta Visibilidad a Landing / Presentación */}
+      <div
+        className={`landing-sidebar-banner ${activeModule === 'landing' ? 'active' : ''}`}
+        onClick={() => handleNavClick(activeModule === 'landing' ? 'dashboard' : 'landing')}
+        title={activeModule === 'landing' ? 'Volver al Sistema Clínico Interno' : 'Ver Presentación y Landing Page Oficial'}
+      >
+        <Sparkles size={18} className="particle-glow-anim" style={{ color: '#22d3ee', flexShrink: 0 }} />
+        {!isCollapsed && (
+          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.25rem' }}>
+              <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#e0f2fe' }}>
+                {activeModule === 'landing' ? 'Sistema Clínico' : 'Presentación / Landing'}
+              </span>
+              <span className="badge-prestigious" style={{ fontSize: '0.58rem', padding: '0.05rem 0.35rem' }}>
+                {activeModule === 'landing' ? 'ACTIVO' : 'SHOWCASE'}
+              </span>
+            </div>
+            <span style={{ fontSize: '0.66rem', color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {activeModule === 'landing' ? '← Volver al panel de control' : 'Póster médico dinámico 3D'}
+            </span>
+          </div>
+        )}
       </div>
 
       <nav className="sidebar-nav">

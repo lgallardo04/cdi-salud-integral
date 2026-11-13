@@ -32,8 +32,8 @@ import { useData } from '../../context/DataContext';
 interface MobileModulesSheetProps {
   isOpen: boolean;
   onClose: () => void;
-  activeModule: ModuloNombre;
-  setActiveModule: (mod: ModuloNombre) => void;
+  activeModule: ModuloNombre | 'landing';
+  setActiveModule: (mod: any) => void;
 }
 
 type CategoryKey = 'todos' | 'urgencias' | 'diagnostico' | 'farmacia' | 'gestion' | 'seguridad';

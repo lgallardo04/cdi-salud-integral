@@ -13,7 +13,7 @@ import { ModuloNombre } from '../../types';
 import { useAuth } from '../../context/AuthContext';
 
 interface MobileQuickFabProps {
-  setActiveModule: (mod: ModuloNombre) => void;
+  setActiveModule: (mod: any) => void;
 }
 
 export const MobileQuickFab: React.FC<MobileQuickFabProps> = ({ setActiveModule }) => {

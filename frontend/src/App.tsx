@@ -38,6 +38,9 @@ const AuditoriaView = lazy(() => import('./views/AuditoriaView').then(m => ({ de
 const PortalPacienteView = lazy(() => import('./views/PortalPacienteView').then(m => ({ default: m.PortalPacienteView })));
 const NutricionView = lazy(() => import('./views/NutricionView').then(m => ({ default: m.NutricionView })));
 const OftalmologiaView = lazy(() => import('./views/OftalmologiaView').then(m => ({ default: m.OftalmologiaView })));
+const LandingPageView = lazy(() => import('./views/LandingPageView').then(m => ({ default: m.LandingPageView || m.default })));
+
+export type ActiveView = ModuloNombre | 'landing';
 
 // Fallback de carga con diseño asistencial profesional
 const ModuleLoadingFallback: React.FC = () => (
@@ -87,7 +90,7 @@ const ModuleLoadingFallback: React.FC = () => (
 );
 
 const MainContent: React.FC = () => {
-  const [activeModule, setActiveModule] = useState<ModuloNombre>('dashboard');
+  const [activeModule, setActiveModule] = useState<ActiveView>('dashboard');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -95,13 +98,13 @@ const MainContent: React.FC = () => {
 
   // Scroll to top when active module changes
   useEffect(() => {
-    const viewContainer = document.querySelector('.view-container');
+    const viewContainer = document.querySelector('.view-container') || document.querySelector('.landing-view-scroll');
     if (viewContainer) {
       viewContainer.scrollTop = 0;
     }
   }, [activeModule]);
 
-  const canViewCurrent = hasPermission(activeModule, 'ver');
+  const canViewCurrent = activeModule === 'landing' || hasPermission(activeModule, 'ver');
 
   const renderCurrentModule = () => {
     if (!canViewCurrent) {
@@ -128,6 +131,15 @@ const MainContent: React.FC = () => {
     }
 
     switch (activeModule) {
+      case 'landing':
+        return (
+          <div className="landing-view-scroll" style={{ flex: 1, overflowY: 'auto', width: '100%', height: '100%' }}>
+            <LandingPageView
+              setActiveModule={(mod) => setActiveModule(mod as ActiveView)}
+              onNavigate={(mod) => setActiveModule(mod as ActiveView)}
+            />
+          </div>
+        );
       case 'dashboard':
         return <DashboardView setActiveModule={setActiveModule} />;
       case 'pacientes':
@@ -200,6 +212,7 @@ const MainContent: React.FC = () => {
         {/* Responsive Header */}
         <Header
           activeModule={activeModule}
+          setActiveModule={setActiveModule}
           isMobileOpen={isMobileOpen}
           setIsMobileOpen={setIsMobileOpen}
         />

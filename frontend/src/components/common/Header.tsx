@@ -15,7 +15,8 @@ import {
   Radio,
   Cloud,
   CloudOff,
-  RefreshCw
+  RefreshCw,
+  Sparkles
 } from 'lucide-react';
 import { ModuloNombre } from '../../types';
 import { useAuth } from '../../context/AuthContext';
@@ -23,12 +24,14 @@ import { useData } from '../../context/DataContext';
 import { SupabaseService } from '../../services/supabase';
 
 interface HeaderProps {
-  activeModule: ModuloNombre;
+  activeModule: ModuloNombre | 'landing';
+  setActiveModule?: (mod: any) => void;
   isMobileOpen: boolean;
   setIsMobileOpen: (open: boolean) => void;
 }
 
-const moduleTitles: Record<ModuloNombre, { title: string; subtitle: string; icon?: string }> = {
+const moduleTitles: Record<ModuloNombre | 'landing', { title: string; subtitle: string; icon?: string }> = {
+  landing: { title: 'CDI Salud Integral', subtitle: 'Centro Médico de Alta Tecnología · Presentación Oficial e Institucional' },
   dashboard: { title: 'Panel de Control', subtitle: 'Métricas asistenciales y operativas en tiempo real' },
   farmacia: { title: 'Gestión de Farmacia', subtitle: 'Control de movimientos, lotes, vencimientos y despachos' },
   proveedores: { title: 'Directorio de Proveedores', subtitle: 'Laboratorios y distribuidores farmacéuticos' },
@@ -58,6 +61,7 @@ const moduleTitles: Record<ModuloNombre, { title: string; subtitle: string; icon
 
 export const Header: React.FC<HeaderProps> = ({
   activeModule,
+  setActiveModule,
   isMobileOpen,
   setIsMobileOpen
 }) => {
@@ -104,7 +108,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="top-header">
+      <header className="top-header header-glass-glow">
         <div className="header-left">
           {/* Mobile Menu Trigger Button */}
           <button
@@ -118,19 +122,26 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* CDI Mobile Mini Brand for small screens */}
           <div className="mobile-brand-tag" onClick={() => setIsMobileOpen(true)}>
-            <div className="mobile-brand-icon">
+            <div className="mobile-brand-icon heartbeat-anim">
               <Activity size={16} />
             </div>
-            <span className="mobile-brand-title">CDI</span>
+            <span className="mobile-brand-title text-gradient-cyan-emerald">CDI</span>
             <span
               className={cloudStatus.state === 'connected' ? 'pulse-indicator-green' : 'pulse-indicator-amber'}
-              style={{ width: 6, height: 6, marginLeft: 2 }}
+              style={{ width: 7, height: 7, marginLeft: 2 }}
               title={cloudStatus.message}
             />
           </div>
 
           <div className="header-title-container">
-            <h1 className="header-page-title">{currentInfo.title}</h1>
+            <h1 className="header-page-title">
+              {currentInfo.title}
+              {activeModule === 'landing' && (
+                <span className="badge-prestigious" style={{ fontSize: '0.65rem', padding: '0.15rem 0.5rem' }}>
+                  SHOWCASE
+                </span>
+              )}
+            </h1>
             <p className="header-page-subtitle">
               {currentInfo.subtitle}
             </p>
@@ -138,6 +149,22 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div className="header-actions">
+          {/* Botón de Alta Visibilidad para alternar a Landing / Presentación */}
+          {setActiveModule && (
+            <button
+              type="button"
+              className={`landing-switch-pill ${activeModule === 'landing' ? 'active' : ''}`}
+              onClick={() => setActiveModule(activeModule === 'landing' ? 'dashboard' : 'landing')}
+              title={activeModule === 'landing' ? 'Ir al Sistema Clínico Interno' : 'Ver Presentación y Landing Page Oficial'}
+            >
+              <Sparkles size={14} className={activeModule === 'landing' ? '' : 'particle-glow-anim'} />
+              <span>{activeModule === 'landing' ? 'Panel Clínico' : 'Landing / Presentación'}</span>
+              <span className="badge-prestigious" style={{ padding: '0.08rem 0.4rem', fontSize: '0.62rem' }}>
+                {activeModule === 'landing' ? 'ACTIVO' : 'CDI 3D'}
+              </span>
+            </button>
+          )}
+
           {/* Supabase Cloud Connection Status Badge */}
           <div
             className={`header-sync-badge desktop-only ${
